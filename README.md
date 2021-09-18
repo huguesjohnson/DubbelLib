@@ -15,6 +15,7 @@ This also includes small single-use applications that aren't significant enough 
 	* converters - utilities to convert one file type to another
 	* file - things to make some file and path resolution tasks easier
 	* file.filter - file filters used for open/save dialogs or listing files by type
+	* fx - JavaFX helpers
 	* util - general utility classes that don't fit anywhere else
 
 **Stuff I still want to add**
