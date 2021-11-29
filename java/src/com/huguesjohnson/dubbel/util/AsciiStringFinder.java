@@ -91,7 +91,6 @@ public abstract class AsciiStringFinder{
 					if(b==ac){return(true);}
 				}
 			}
-			//if((b<32)||(b>126)){return(false);}
 			return(false);
 		}
 	}
