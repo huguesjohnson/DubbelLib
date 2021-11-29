@@ -141,7 +141,9 @@ class TestBuildStuff extends TestCase{
 		* Memory map parameters
 		*********************************************************** */
 		instructions.memoryMap=new MemoryMapParameters();
-		instructions.memoryMap.sourceFile="src/MemoryMap.csv";
+		instructions.memoryMap.sourceFiles=new String [2];
+		instructions.memoryMap.sourceFiles[0]="src/MemoryMapRCBase.csv";
+		instructions.memoryMap.sourceFiles[1]="src/MemoryMapRC90.csv";
 		instructions.memoryMap.destinationFile="src/const_MemoryMap.X68";
 		instructions.memoryMap.baseAddress="FFFF0000";
 
