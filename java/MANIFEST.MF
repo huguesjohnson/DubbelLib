@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: 11.0.11 (Ubuntu)
+Main-Class: com/huguesjohnson/dubbel/retailclerk/build/MainBuild
+Class-Path: gson-2.8.5.jar
