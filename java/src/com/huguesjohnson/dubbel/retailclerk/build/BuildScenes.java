@@ -16,6 +16,7 @@ import com.huguesjohnson.dubbel.retailclerk.build.objects.SceneScenery;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.SceneText;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.Tileset;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.SceneParameters;
+import com.huguesjohnson.dubbel.util.NumberFormatters;
 
 public class BuildScenes extends BaseBuilder{
 	
@@ -80,7 +81,7 @@ public class BuildScenes extends BaseBuilder{
 				sceneWriter.write(newLine);
 				//tileset count
 				String[] tilesetNames=scenes[sceneIndex].tilesetNames;
-				sceneWriter.write("\tdc.w\t"+toHexWord(tilesetNames.length-1)+" ; tileset count - 1");
+				sceneWriter.write("\tdc.w\t"+NumberFormatters.toHexWord(tilesetNames.length-1)+" ; tileset count - 1");
 				sceneWriter.write(newLine);
 				sceneWriter.write(newLine);
 				//track the offset of each tileset for building scenery later
@@ -138,7 +139,7 @@ public class BuildScenes extends BaseBuilder{
 					sceneWriter.write(newLine);
 					sceneWriter.write(newLine);
 				}else{
-					sceneWriter.write("\tdc.w\t"+toHexWord(scenery.length-1)+" ; scenery count - 1");
+					sceneWriter.write("\tdc.w\t"+NumberFormatters.toHexWord(scenery.length-1)+" ; scenery count - 1");
 					sceneWriter.write(newLine);
 					sceneWriter.write(newLine);
 					for(int sceneryIndex=0;sceneryIndex<scenery.length;sceneryIndex++){
@@ -158,7 +159,7 @@ public class BuildScenes extends BaseBuilder{
 						String patternString=buildPatternString(offset,scenery[sceneryIndex].paletteNumber,scenery[sceneryIndex].highPriority);
 						sceneWriter.write("\tdc.w\t%"+patternString+" ; vdp pattern");
 						sceneWriter.write(newLine);
-						sceneWriter.write("\tdc.w\t"+toHexWord(scenery[sceneryIndex].repeat)+" ; repeat="+scenery[sceneryIndex].repeat);
+						sceneWriter.write("\tdc.w\t"+NumberFormatters.toHexWord(scenery[sceneryIndex].repeat)+" ; repeat="+scenery[sceneryIndex].repeat);
 						sceneWriter.write(newLine);
 						String row=buildRowColumnString(scenery[sceneryIndex].row);
 						String column=buildRowColumnString(scenery[sceneryIndex].column);
@@ -180,7 +181,7 @@ public class BuildScenes extends BaseBuilder{
 					sceneWriter.write(newLine);
 					sceneWriter.write(newLine);
 				}else{
-					sceneWriter.write("\tdc.w\t"+toHexWord(text.length-1)+" ; text count");
+					sceneWriter.write("\tdc.w\t"+NumberFormatters.toHexWord(text.length-1)+" ; text count");
 					sceneWriter.write(newLine);
 					sceneWriter.write(newLine);
 					for(int textIndex=0;textIndex<text.length;textIndex++){
@@ -193,9 +194,9 @@ public class BuildScenes extends BaseBuilder{
 						sceneWriter.write(newLine);
 						String patternString=buildPatternString(0,text[textIndex].paletteNumber,false);
 						if(text[textIndex].highPriority){
-							sceneWriter.write("\tdc.w\tDIALOG_BASE_TILE+%"+patternString+" ; vdp pattern");
+							sceneWriter.write("\tdc.w\tFONT_BASE_TILE+%"+patternString+" ; vdp pattern");
 						}else{
-							sceneWriter.write("\tdc.w\tDIALOG_BASE_TILE_LOW+%"+patternString+" ; vdp pattern");
+							sceneWriter.write("\tdc.w\tFONT_BASE_TILE_LOW+%"+patternString+" ; vdp pattern");
 						}
 						sceneWriter.write(newLine);
 						String row=buildRowColumnString(text[textIndex].row);
@@ -322,7 +323,7 @@ public class BuildScenes extends BaseBuilder{
 					sceneWriter.write(newLine);
 					sceneWriter.write(newLine);
 				}else{
-					sceneWriter.write("\tdc.w\t"+toHexWord(npcs.length-1)+" ; npc count - 1");
+					sceneWriter.write("\tdc.w\t"+NumberFormatters.toHexWord(npcs.length-1)+" ; npc count - 1");
 					sceneWriter.write(newLine);
 					sceneWriter.write(newLine);
 					for(int npcIndex=0;npcIndex<npcs.length;npcIndex++){
@@ -341,13 +342,13 @@ public class BuildScenes extends BaseBuilder{
 							sceneWriter.write(newLine);
 							sceneWriter.write(newLine);
 						}else{
-							sceneWriter.write("\tdc.w\t"+toHexWord(npcs[npcIndex].x)+" ; starting x location of npc"+npcIndex);
+							sceneWriter.write("\tdc.w\t"+NumberFormatters.toHexWord(npcs[npcIndex].x)+" ; starting x location of npc"+npcIndex);
 							sceneWriter.write(newLine);
-							sceneWriter.write("\tdc.w\t"+toHexWord(npcs[npcIndex].y)+" ; starting y location of npc"+npcIndex);
+							sceneWriter.write("\tdc.w\t"+NumberFormatters.toHexWord(npcs[npcIndex].y)+" ; starting y location of npc"+npcIndex);
 							sceneWriter.write(newLine);
 							sceneWriter.write("\tdc.w\t"+npcs[npcIndex].direction+" ; starting direction of npc"+npcIndex);
 							sceneWriter.write(newLine);
-							sceneWriter.write("\tdc.w\t"+toHexWord(npcs[npcIndex].movementFrequency)+" ; movement frequency of npc"+npcIndex);
+							sceneWriter.write("\tdc.w\t"+NumberFormatters.toHexWord(npcs[npcIndex].movementFrequency)+" ; movement frequency of npc"+npcIndex);
 							sceneWriter.write(newLine);
 							String movementPattern=npcs[npcIndex].movementPatternName;
 							sceneWriter.write("\tdc.l\t"+movementPattern+"Start ; location of movement pattern for npc"+npcIndex);
@@ -408,17 +409,6 @@ public class BuildScenes extends BaseBuilder{
 			try{if(sceneWriter!=null){sceneWriter.flush(); sceneWriter.close();}}catch(Exception x){ }
 			try{if(tableWriter!=null){tableWriter.flush(); tableWriter.close();}}catch(Exception x){ }
 		}
-	}
-	
-	//I heard a rumor jdk17 might have a built-in feature like this
-	//also this is public for unit testing
-	public final static String toHexWord(int i){
-		StringBuilder hexWord=new StringBuilder(Integer.toHexString(i));
-		while(hexWord.length()<4){
-			hexWord.insert(0,"0");
-		}
-		hexWord.insert(0,"$");
-		return(hexWord.toString().toUpperCase());
 	}
 	
 	//this is also public for unit testing

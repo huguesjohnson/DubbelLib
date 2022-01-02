@@ -157,6 +157,15 @@ public class MainBuild{
 			}else{
 				System.out.println("tiles not defined, skipping task.");
 			}
+			
+			/* ***********************************************************
+			* Build patterns from tilesets
+			*********************************************************** */
+			if(instructions.patterns!=null){
+				BuildPatternsFromTilesets.build(basePath,instructions.patterns,tileMap,paletteMap);
+			}else{
+				System.out.println("patterns not defined, skipping task.");
+			}
 
 			/* ***********************************************************
 			* Build movement patterns
@@ -192,6 +201,15 @@ public class MainBuild{
 				BuildText.build(basePath,instructions.text);
 			}else{
 				System.out.println("text not defined, skipping task.");
+			}
+			
+			/* ***********************************************************
+			* Build action table
+			*********************************************************** */
+			if(instructions.actionTable!=null){
+				BuildActionTable.build(basePath,instructions.actionTable);
+			}else{
+				System.out.println("actionTable not defined, skipping task.");
 			}
 			
 			/* ***********************************************************

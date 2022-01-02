@@ -85,7 +85,7 @@ public class BuildScriptedEvents extends BaseBuilder{
 				}
 			}			
 		}finally{
-			try{if(writer!=null){writer.flush(); writer.close();}}catch(Exception x){ }
+			try{if(writer!=null){writer.flush();writer.close();}}catch(Exception x){ }
 		}
 	}
 }

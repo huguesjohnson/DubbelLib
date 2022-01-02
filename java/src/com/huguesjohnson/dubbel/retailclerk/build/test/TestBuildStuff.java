@@ -9,10 +9,13 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.Gson;
 import com.huguesjohnson.dubbel.retailclerk.build.BuildScenes;
+import com.huguesjohnson.dubbel.retailclerk.build.objects.ActionTableEntry;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.BuildInstructions;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.PaletteMap;
+import com.huguesjohnson.dubbel.retailclerk.build.objects.PatternFromTileset;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.Sprite;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.Tileset;
+import com.huguesjohnson.dubbel.retailclerk.build.parameters.ActionTableParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.AssemblyParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.CollisionDataParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.ConstantFileParameters;
@@ -20,12 +23,14 @@ import com.huguesjohnson.dubbel.retailclerk.build.parameters.HeaderParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.MemoryMapParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.PackageParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.PaletteParameters;
+import com.huguesjohnson.dubbel.retailclerk.build.parameters.PatternFromTilesetParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.SceneParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.SimpleSourceDestinationParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.SpriteParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.TextParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.TilesetParameters;
 import com.huguesjohnson.dubbel.util.GenesisColorUtils;
+import com.huguesjohnson.dubbel.util.NumberFormatters;
 
 import junit.framework.TestCase;
 
@@ -94,10 +99,10 @@ class TestBuildStuff extends TestCase{
 	
 	@Test
 	void testToHexWord(){
-		assertEquals("$0000",BuildScenes.toHexWord(0));
-		assertEquals("$000D",BuildScenes.toHexWord(13));
-		assertEquals("$029A",BuildScenes.toHexWord(666));
-		assertEquals("$FFFF",BuildScenes.toHexWord(65535));
+		assertEquals("$0000",NumberFormatters.toHexWord(0));
+		assertEquals("$000D",NumberFormatters.toHexWord(13));
+		assertEquals("$029A",NumberFormatters.toHexWord(666));
+		assertEquals("$FFFF",NumberFormatters.toHexWord(65535));
 	}
 	
 	@Test
@@ -118,11 +123,35 @@ class TestBuildStuff extends TestCase{
 	}
 	
 	@Test
-	void textBuildWHXYString(){
+	void testBuildWHXYString(){
 		assertEquals("1000111010001000",BuildScenes.buildWHXYString(71,136));
 		assertEquals("0101000100001000",BuildScenes.buildWHXYString(40,264));
 	}
 	
+	@Test
+	void testActionTableEntry(){
+		ActionTableEntry e1=new ActionTableEntry();
+		e1.action=1;
+		e1.day=2;
+		e1.scene=3;
+		ActionTableEntry e2=new ActionTableEntry();
+		e2.action=1;
+		e2.day=2;
+		e2.scene=3;
+		ActionTableEntry e3=new ActionTableEntry();
+		e3.action=666;
+		e3.day=13;
+		e3.scene=8964;
+		assertTrue(e1.equals(e2));
+		assertTrue(e2.equals(e1));
+		assertTrue(e1.hashCode()==e2.hashCode());
+		assertFalse(e1.equals(e3));
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e1));
+		assertFalse(e3.equals(e2));
+		assertFalse(e1.hashCode()==e3.hashCode());
+		assertFalse(e2.hashCode()==e3.hashCode());
+	}
 	
 /*
  * This is the worst-named thing I've created in a while because it's not really testing anything.
@@ -198,6 +227,19 @@ class TestBuildStuff extends TestCase{
 		instructions.tiles.tilesets[1].palette="src/palettes/People.X68";
 		instructions.tiles.tilesets[1].sourceFilePath="design/img/font-dialog-tiles/font.png";
 		instructions.tiles.tilesets[1].destinationFilePath="src/tiles/font-tiles/dwf.X68";
+
+		/* ***********************************************************
+		* PatternFromTilesetParameters parameters
+		*********************************************************** */
+		instructions.patterns=new PatternFromTilesetParameters();
+		instructions.patterns.patternIncludeFilePath="src/inc_PatternsGenerated.X68";
+		instructions.patterns.patterns=new PatternFromTileset[1];
+		instructions.patterns.patterns[0]=new PatternFromTileset();
+		instructions.patterns.patterns[0].name="FrameNWOpen";
+		instructions.patterns.patterns[0].destinationFilePath="src/patterns/frame-nw-open.X68";
+		instructions.patterns.patterns[0].paletteName="PaletteFrameRect";
+		instructions.patterns.patterns[0].sourceFilePath="design/img/scene-tiles/frame-nw-open.png";
+		instructions.patterns.patterns[0].tilesetName="FrameRect";
 		
 		/* ***********************************************************
 		* Sprite definition parameters
@@ -253,6 +295,26 @@ class TestBuildStuff extends TestCase{
 		se.sourceFile="design/data/scriptedevents.json";
 		se.destinationFile="src/data_ScriptedEvents.X68";
 		instructions.scriptedEvents=se;
+
+		/* ***********************************************************
+		* Action table parameters
+		*********************************************************** */
+		ActionTableParameters actionTable=new ActionTableParameters();
+		actionTable.dayCount=1;
+		actionTable.sceneCount=4;
+		actionTable.actionCount=4;
+		actionTable.defaultLabels=new String[4];
+		actionTable.defaultLabels[0]="ActionScriptDefaultInteract";
+		actionTable.defaultLabels[1]="ActionScriptNullEvent";
+		actionTable.defaultLabels[2]="DefaultExitScene";
+		actionTable.defaultLabels[3]="DefaultEnterScene";
+		actionTable.entries=new ActionTableEntry[1];
+		actionTable.entries[0]=new ActionTableEntry();
+		actionTable.entries[0].action=3;
+		actionTable.entries[0].day=0;
+		actionTable.entries[0].scene=0;
+		actionTable.filePath="src/table_Actions.X68";
+		instructions.actionTable=actionTable;
 		
 		/* ***********************************************************
 		* Header parameters
