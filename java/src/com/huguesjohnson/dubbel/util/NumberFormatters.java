@@ -16,6 +16,12 @@ public abstract class NumberFormatters{
 		return(hexWord.toString().toUpperCase());
 	}
 	
+	/*
+	 * Everything below here was created for some iteration of Hapsby
+	 * (https://huguesjohnson.com/hapsby.html)
+	 * I started that project as an attempt to learn Java and therefore this code is likely ugly & inefficient
+	 * */
+	
     public static String decimalStringToAsciiString(String decimalString){
          String asciiString=new String("");
          StringTokenizer tokenizer=new StringTokenizer(decimalString);

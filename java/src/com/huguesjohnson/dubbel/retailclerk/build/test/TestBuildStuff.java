@@ -131,17 +131,17 @@ class TestBuildStuff extends TestCase{
 	@Test
 	void testActionTableEntry(){
 		ActionTableEntry e1=new ActionTableEntry();
-		e1.action=1;
+		e1.action="action1";
 		e1.day=2;
-		e1.scene=3;
+		e1.scene="scene3";
 		ActionTableEntry e2=new ActionTableEntry();
-		e2.action=1;
+		e2.action="action1";
 		e2.day=2;
-		e2.scene=3;
+		e2.scene="scene3";
 		ActionTableEntry e3=new ActionTableEntry();
-		e3.action=666;
+		e3.action="scene666";
 		e3.day=13;
-		e3.scene=8964;
+		e3.scene="scene8964";
 		assertTrue(e1.equals(e2));
 		assertTrue(e2.equals(e1));
 		assertTrue(e1.hashCode()==e2.hashCode());
@@ -302,7 +302,6 @@ class TestBuildStuff extends TestCase{
 		ActionTableParameters actionTable=new ActionTableParameters();
 		actionTable.dayCount=1;
 		actionTable.sceneCount=4;
-		actionTable.actionCount=4;
 		actionTable.defaultLabels=new String[4];
 		actionTable.defaultLabels[0]="ActionScriptDefaultInteract";
 		actionTable.defaultLabels[1]="ActionScriptNullEvent";
@@ -310,9 +309,9 @@ class TestBuildStuff extends TestCase{
 		actionTable.defaultLabels[3]="DefaultEnterScene";
 		actionTable.entries=new ActionTableEntry[1];
 		actionTable.entries[0]=new ActionTableEntry();
-		actionTable.entries[0].action=3;
+		actionTable.entries[0].action="TestAction";
 		actionTable.entries[0].day=0;
-		actionTable.entries[0].scene=0;
+		actionTable.entries[0].scene="TestScene";
 		actionTable.filePath="src/table_Actions.X68";
 		instructions.actionTable=actionTable;
 		

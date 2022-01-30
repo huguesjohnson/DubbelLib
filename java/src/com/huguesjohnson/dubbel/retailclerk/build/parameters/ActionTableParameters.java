@@ -11,8 +11,8 @@ public class ActionTableParameters implements Serializable{
 	
 	public int dayCount;
 	public int sceneCount;
-	public int actionCount;
 	public ActionTableEntry[] entries;
+	public String[] actions;
 	public String[] defaultLabels;
 	public String filePath;
 }

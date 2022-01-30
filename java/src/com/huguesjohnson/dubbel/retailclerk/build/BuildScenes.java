@@ -21,7 +21,8 @@ import com.huguesjohnson.dubbel.util.NumberFormatters;
 public class BuildScenes extends BaseBuilder{
 	
 	@SuppressWarnings("resource") //everything is closed in finally block, Eclipse doesn't seem to understand that
-	public static void build(String basePath,SceneParameters parameters,HashMap<String,Tileset> tileMap){
+	public static HashMap<Integer,String> build(String basePath,SceneParameters parameters,HashMap<String,Tileset> tileMap){
+		HashMap<Integer,String> sceneIDMap=new HashMap<Integer,String>();
 		String includeFilePath=basePath+parameters.includeFilePath;
 		String lookupTablePath=basePath+parameters.lookupTablePath;
 		FileWriter includeWriter=null;
@@ -56,6 +57,7 @@ public class BuildScenes extends BaseBuilder{
 			tableWriter.write(newLine);
 			//loop through all the scenes
 			for(int sceneIndex=0;sceneIndex<scenes.length;sceneIndex++){
+				sceneIDMap.put(sceneIndex,scenes[sceneIndex].id);
 				currentSceneName=scenes[sceneIndex].name;
 				String outputFilePath=basePath+scenes[sceneIndex].destinationFilePath;
 				sceneWriter=new FileWriter(outputFilePath);
@@ -390,13 +392,35 @@ public class BuildScenes extends BaseBuilder{
 				includeString.append(newLine);
 				includeString.append(newLine);
 				includeWriter.write(includeString.toString());
-				//update the lookup table file
-				StringBuffer lookupTableString=new StringBuffer();
+				StringBuilder lookupTableString=new StringBuilder();
 				lookupTableString.append("\tdc.l\t");
 				lookupTableString.append(scenes[sceneIndex].name);
 				lookupTableString.append(newLine);
 				tableWriter.write(lookupTableString.toString());
 			}
+			//write end of scene definition table
+			tableWriter.write(newLine);
+			tableWriter.write("SceneDefinitionTableEnd:");
+			tableWriter.write(newLine);
+			tableWriter.write(newLine);
+			//write scene id constants
+			tableWriter.write(";-------------------------------------------------------------------------------");
+			tableWriter.write(newLine);
+			tableWriter.write("; scene id constants");
+			tableWriter.write(newLine);
+			tableWriter.write(";-------------------------------------------------------------------------------");
+			tableWriter.write(newLine);
+			//update the lookup table file
+			for(HashMap.Entry<Integer,String> entry:sceneIDMap.entrySet()){
+				StringBuffer constantString=new StringBuffer();
+				constantString.append(entry.getValue());
+				constantString.append("=");
+				constantString.append(NumberFormatters.toHexWord(entry.getKey().intValue()));
+				constantString.append(newLine);
+				tableWriter.write(constantString.toString());
+			}
+			tableWriter.write("MAX_SCENE_ID="+NumberFormatters.toHexWord(sceneIDMap.size()-1));
+			return(sceneIDMap);
 		}catch(Exception x){
 			x.printStackTrace();
 			if(currentSceneName==null){
@@ -404,6 +428,7 @@ public class BuildScenes extends BaseBuilder{
 			}else{
 				System.err.println("currentSceneName="+currentSceneName);
 			}
+			return(sceneIDMap);
 		}finally{
 			try{if(includeWriter!=null){includeWriter.flush(); includeWriter.close();}}catch(Exception x){ }
 			try{if(sceneWriter!=null){sceneWriter.flush(); sceneWriter.close();}}catch(Exception x){ }

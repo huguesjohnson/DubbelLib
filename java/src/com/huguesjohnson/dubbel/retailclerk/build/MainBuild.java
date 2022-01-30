@@ -188,8 +188,9 @@ public class MainBuild{
 			/* ***********************************************************
 			* Build scenes
 			*********************************************************** */
+			HashMap<Integer,String> sceneIDMap=new HashMap<Integer,String>();
 			if(instructions.scenes!=null){
-				BuildScenes.build(basePath,instructions.scenes,tileMap);
+				sceneIDMap=BuildScenes.build(basePath,instructions.scenes,tileMap);
 			}else{
 				System.out.println("scenes not defined, skipping task.");
 			}
@@ -207,7 +208,7 @@ public class MainBuild{
 			* Build action table
 			*********************************************************** */
 			if(instructions.actionTable!=null){
-				BuildActionTable.build(basePath,instructions.actionTable);
+				BuildActionTable.build(basePath,instructions.actionTable,sceneIDMap);
 			}else{
 				System.out.println("actionTable not defined, skipping task.");
 			}
