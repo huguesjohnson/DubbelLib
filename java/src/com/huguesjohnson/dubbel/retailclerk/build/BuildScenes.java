@@ -29,12 +29,14 @@ public class BuildScenes extends BaseBuilder{
 		FileWriter tableWriter=null;
 		FileWriter sceneWriter=null;
 		String currentSceneName=null;
+		String scenePath=null;
 		try{
 			//read scene files
 			int length=parameters.scenePaths.length;
 			Scene[] scenes=new Scene[length];
 			for(int i=0;i<length;i++){
-				String sceneJson=Files.readString(Paths.get(basePath+parameters.scenePaths[i]));
+				scenePath=basePath+parameters.scenePaths[i];
+				String sceneJson=Files.readString(Paths.get(scenePath));
 				scenes[i]=(new Gson()).fromJson(sceneJson,Scene.class);
 			}
 			//setup include writer
@@ -427,6 +429,11 @@ public class BuildScenes extends BaseBuilder{
 				System.err.println("currentSceneName==null");
 			}else{
 				System.err.println("currentSceneName="+currentSceneName);
+			}
+			if(scenePath==null){
+				System.err.println("scenePath==null");
+			}else{
+				System.err.println("scenePath="+scenePath);
 			}
 			return(sceneIDMap);
 		}finally{

@@ -50,7 +50,10 @@ public abstract class BuildPalette extends BaseBuilder{
 					for(int col=0;col<width;col++){
 						int color=image.getRGB(col,row); 
 						String hexString=Integer.toHexString(color);
-						int index=entry.colorsHex.indexOf(hexString);
+						int index=-1;
+						if((entry.allowDuplicateColors==null)||(!entry.allowDuplicateColors.equalsIgnoreCase("true"))){
+							index=entry.colorsHex.indexOf(hexString);
+						}
 						if(index<0){
 							entry.colorsHex.add(hexString);
 							String genesisRGBStr=GenesisColorUtils.rgbStringToGenesisRgbString(hexString);
@@ -103,11 +106,29 @@ public abstract class BuildPalette extends BaseBuilder{
 			return(returnMap);
 		}catch(IIOException iiox){
 			iiox.printStackTrace();
-			System.err.println("sourceFilePath="+sourceFilePath);
-			System.err.println("outputFilePath="+outputFilePath);
+			if(sourceFilePath==null){
+				System.err.println("sourceFilePath==null");
+			}else{
+				System.err.println("sourceFilePath="+sourceFilePath);
+			}
+			if(outputFilePath==null){
+				System.err.println("outputFilePath==null");
+			}else{
+				System.err.println("outputFilePath="+outputFilePath);
+			}
 			return(returnMap);
 		}catch(Exception x){
 			x.printStackTrace();			
+			if(sourceFilePath==null){
+				System.err.println("sourceFilePath==null");
+			}else{
+				System.err.println("sourceFilePath="+sourceFilePath);
+			}
+			if(outputFilePath==null){
+				System.err.println("outputFilePath==null");
+			}else{
+				System.err.println("outputFilePath="+outputFilePath);
+			}
 			return(returnMap);
 		}finally{
 			try{if(paletteWriter!=null){paletteWriter.flush(); paletteWriter.close();}}catch(Exception x){ }

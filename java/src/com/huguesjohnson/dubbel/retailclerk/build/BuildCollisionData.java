@@ -103,9 +103,18 @@ public abstract class BuildCollisionData extends BaseBuilder{
 			includeDataWriter.close();
 		}catch(IIOException iiox){
 			iiox.printStackTrace();
-			System.err.println("sourceFilePath="+sourceFilePath);
+			if(sourceFilePath==null){
+				System.err.println("sourceFilePath==null");
+			}else{
+				System.err.println("sourceFilePath="+sourceFilePath);
+			}
 		}catch(Exception x){
-			x.printStackTrace();			
+			x.printStackTrace();
+			if(sourceFilePath==null){
+				System.err.println("sourceFilePath==null");
+			}else{
+				System.err.println("sourceFilePath="+sourceFilePath);
+			}			
 		}finally{
 			try{if(collisionDataWriter!=null){collisionDataWriter.flush(); collisionDataWriter.close();}}catch(Exception x){ }
 			try{if(includeDataWriter!=null){includeDataWriter.flush(); includeDataWriter.close();}}catch(Exception x){ }

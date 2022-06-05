@@ -66,6 +66,8 @@ public class BuildScriptedEvents extends BaseBuilder{
 			}
 		}catch(Exception x){
 			x.printStackTrace();
+			System.err.println("parameters.sourceFile="+parameters.sourceFile);
+			System.err.println("parameters.destinationFile="+parameters.destinationFile);
 			if(events==null){
 				System.err.println("events==null");
 			}else{

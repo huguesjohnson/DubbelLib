@@ -87,10 +87,18 @@ public class BuildConstants extends BaseBuilder{
 			includeDataWriter.close();
 		}catch(IIOException iiox){
 			iiox.printStackTrace();
-			System.err.println("sourceFilePath="+sourceFilePath);
+			if(sourceFilePath==null){
+				System.err.println("sourceFilePath==null");
+			}else{
+				System.err.println("sourceFilePath="+sourceFilePath);
+			}
 		}catch(Exception x){
 			x.printStackTrace();			
-			System.err.println("currentLine="+currentLine);
+			if(currentLine==null){
+				System.err.println("currentLine==null");
+			}else{
+				System.err.println("currentLine="+currentLine);
+			}
 		}finally{
 			try{if(constantFileWriter!=null){constantFileWriter.flush(); constantFileWriter.close();}}catch(Exception x){ }
 			try{if(includeDataWriter!=null){includeDataWriter.flush(); includeDataWriter.close();}}catch(Exception x){ }

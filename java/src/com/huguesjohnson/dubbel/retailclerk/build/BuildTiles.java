@@ -26,6 +26,9 @@ public class BuildTiles extends BaseBuilder{
 		FileWriter tileWriter=null;
 		FileWriter patternWriter=null;
 		FileWriter patternIncludeWriter=null;
+		Tileset currentEntry=null; //used for error messages if needed
+		int row=-1;
+		int col=-1;
 		try{
 			//setup include writers
 			String tileIncludeFilePath=basePath+tiles.tileIncludeFilePath;
@@ -40,6 +43,7 @@ public class BuildTiles extends BaseBuilder{
 			patternIncludeWriter.write(newLine);
 			//loop through all tilesets
 			for(Tileset entry:tiles.tilesets){
+				currentEntry=entry;
 				//if the palette is missing then bail
 				PaletteMap palette=paletteMap.get(entry.palette);
 				if(palette==null){throw(new Exception("Palette ["+entry.palette+"] not found."));}
@@ -91,9 +95,9 @@ public class BuildTiles extends BaseBuilder{
 				}
 				ArrayList<Tile8x8> uniqueTiles=new ArrayList<Tile8x8>();
 				//loop through all the pixels and filter out duplicate tiles
-				int row=0;
+				row=0;
 				while(row<height){
-					int col=0;
+					col=0;
 					while(col<width){
 						Tile8x8 tile8x8=new Tile8x8();
 						//loop through each pixel of the next 8x8 cell
@@ -173,6 +177,13 @@ public class BuildTiles extends BaseBuilder{
 			return(returnMap);
 		}catch(Exception x){
 			x.printStackTrace();
+			if(currentEntry==null){
+				System.err.println("currentEntry==null");
+			}else{
+				System.err.println("currentEntry.name="+currentEntry.name);
+			}
+			System.err.println("row="+row);
+			System.err.println("col="+col);
 			return(returnMap);
 		}finally{
 			try{if(tileIncludeWriter!=null){tileIncludeWriter.flush();tileIncludeWriter.close();}}catch(Exception x){ }

@@ -12,6 +12,7 @@ public class PaletteMap implements Serializable{
 	public String sourceFilePath;
 	public String destinationFilePath;
 	public String exclude;
+	public String allowDuplicateColors;
 	public ArrayList<String> colorsHex;
 	public ArrayList<String> colorsGenesisRGB;
 }

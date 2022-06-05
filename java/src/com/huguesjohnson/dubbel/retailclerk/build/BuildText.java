@@ -149,7 +149,9 @@ public class BuildText extends BaseBuilder{
 			textFileWriter.write("\talign 2");
 		}catch(Exception x){
 			x.printStackTrace();
-			if(stringCollection!=null){
+			if(stringCollection==null){
+				System.err.println("stringCollection==null");
+			}else{
 				System.err.println("stringCollection.name="+stringCollection.name);
 				if(textLine!=null){
 					System.err.println("textLine.text="+textLine.text);
