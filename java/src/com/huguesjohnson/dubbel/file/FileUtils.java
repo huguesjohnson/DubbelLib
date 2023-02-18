@@ -4,6 +4,7 @@ package com.huguesjohnson.dubbel.file;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,4 +44,35 @@ public abstract class FileUtils{
 		Collections.sort(files,(new FilePathComparator()));
 		return(files);
 	}
+	
+    public static boolean compareFiles(File originalFile,File compareFile){
+        /* compare file lengths first */
+        long fileLength=originalFile.length();
+        if(fileLength!=compareFile.length()){
+            return(false);
+        }else{
+            boolean verified=true;
+            FileInputStream fInOriginal=null;
+            FileInputStream fInCompare=null;
+            try{
+                fInOriginal=new FileInputStream(originalFile);
+                fInCompare=new FileInputStream(compareFile);
+                int originalByte=fInOriginal.read();
+                int compareByte=fInCompare.read();
+                while((originalByte==compareByte)&&(originalByte!=-1)&&verified){
+                    originalByte=fInOriginal.read();
+                    compareByte=fInCompare.read();
+                    verified=originalByte==compareByte;
+                }
+            }catch(Exception x){
+            	x.printStackTrace();
+            	verified=false;
+            }finally{
+                try{if(fInOriginal!=null){fInOriginal.close();}}catch(Exception x){x.printStackTrace();}
+                try{if(fInCompare!=null){fInCompare.close();}}catch(Exception x){x.printStackTrace();}
+            }
+            return(verified);
+        }
+    }	
+	
 }
