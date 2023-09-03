@@ -91,6 +91,7 @@ public abstract class BuildSprites extends BaseBuilder{
 									int pixelX=(col*8)+x;
 									int pixelY=(row*8)+(currentFrame*32)+y;
 									int color=image.getRGB(pixelX,pixelY); 
+									color=color|0xff000000;//transparency isn't supported, this makes everything opaque 
 									String hexString=Integer.toHexString(color);
 									int index=GenesisColorUtils.findNearestColor(palette.colorsHex,hexString);
 									line.append(Integer.toHexString(index).toUpperCase());
