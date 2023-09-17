@@ -1,10 +1,11 @@
 /* https://github.com/huguesjohnson/DubbelLib/blob/main/LICENSE */
 
-package com.huguesjohnson.dubbel.util;
+package com.huguesjohnson.dubbel.example;
 
 /* 
- * Example token bucket
- * Created mostly for practice
+ * Example token bucket.
+ * This came up on an actual interview once.
+ * It wasn't even for a coding position.
  */
 public class TokenBucket{
 	//the last time the bucket was re-filled (ms)

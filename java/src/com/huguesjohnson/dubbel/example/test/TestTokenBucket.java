@@ -1,12 +1,12 @@
 /* https://github.com/huguesjohnson/DubbelLib/blob/main/LICENSE */
 
-package com.huguesjohnson.dubbel.util.test;
+package com.huguesjohnson.dubbel.example.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.huguesjohnson.dubbel.util.TokenBucket;
+import com.huguesjohnson.dubbel.example.TokenBucket;
 
 class TestTokenBucket{
 

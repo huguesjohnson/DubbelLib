@@ -21,6 +21,7 @@ This also includes small single-use applications that aren't significant enough 
 
 * Java
 	* converters: Various utilities to convert one file type to another.
+	* example: Reference implementations of data structures and algorithms, the kind of stuff that shows up in development interviews that we all forgot after graduating college.
 	* file: Things to make some file and path resolution tasks easier.
 	* file.filter: File filters used for open/save dialogs or listing files by type.
 	* fx: JavaFX helper classes.
