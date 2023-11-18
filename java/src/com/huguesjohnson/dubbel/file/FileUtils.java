@@ -5,6 +5,7 @@ package com.huguesjohnson.dubbel.file;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -73,6 +74,16 @@ public abstract class FileUtils{
             }
             return(verified);
         }
-    }	
-	
+    }
+    
+	public static byte[] readBytes(String path,int startByte,int length) throws IOException{
+		File f=new File(path);
+		FileInputStream fis=new FileInputStream(f);
+		byte[] b=new byte[length];
+		fis.skip(startByte);
+		fis.read(b,0,length);
+		fis.close();
+		return(b);
+	}
+
 }
