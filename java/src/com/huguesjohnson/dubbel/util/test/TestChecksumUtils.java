@@ -15,7 +15,18 @@ class TestChecksumUtils{
 		byte[] b=new byte[]{(byte)66,(byte)13,(byte)6,(byte)4,(byte)89};
 		assertEquals(178,ChecksumUtils.sumBytes(b));
 		assertEquals(179,ChecksumUtils.sumBytes(b,1));
+		b=new byte[]{(byte)66,(byte)-13,(byte)6,(byte)4,(byte)89};
+		assertEquals(152,ChecksumUtils.sumBytes(b));
 	}
+	
+	@Test
+	void testSubBytes(){
+		byte[] b=new byte[]{(byte)66,(byte)13,(byte)6,(byte)4,(byte)89};
+		assertEquals(-178,ChecksumUtils.subBytes(b));
+		assertEquals(-177,ChecksumUtils.subBytes(b,1));
+		b=new byte[]{(byte)66,(byte)-13,(byte)6,(byte)4,(byte)89};
+		assertEquals(-152,ChecksumUtils.subBytes(b));
+	}	
 
 	@Test
 	void testXorBytes(){

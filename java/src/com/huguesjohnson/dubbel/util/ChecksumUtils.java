@@ -7,7 +7,7 @@ public abstract class ChecksumUtils{
 
 	//0 start value
 	public static int sumBytes(byte[] b){
-			return(sumBytes(b,0));
+		return(sumBytes(b,0));
 	}
 	
 	public static int sumBytes(byte[] b,int startValue){
@@ -15,6 +15,17 @@ public abstract class ChecksumUtils{
 		for(byte y:b){sum+=y;}
 		return(sum);
 	}
+	
+	//0 start value
+	public static int subBytes(byte[] b){
+		return(subBytes(b,0));
+	}
+	
+	public static int subBytes(byte[] b,int startValue){
+		int sub=startValue;
+		for(byte y:b){sub-=y;}
+		return(sub);
+	}	
 
 	public static byte xorBytes(byte[] b){
 		byte y=b[0];
