@@ -7,14 +7,12 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
+
 import com.huguesjohnson.dubbel.file.PathResolver;
+import com.huguesjohnson.dubbel.util.DateUtil;
 import com.huguesjohnson.dubbel.util.ZipUtil;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.BuildInstructions;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.PaletteMap;
@@ -77,10 +75,8 @@ public class MainBuild{
 				if(backupPathExists){
 					int index=basePath.lastIndexOf(File.separator,basePath.length()-2)+1;
 					String name=basePath.substring(index,basePath.length()-1);
-					Calendar calendar=Calendar.getInstance();
-					Date now=calendar.getTime();
-					DateFormat format=new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
-					name=name+"_"+format.format(now)+".tar.gz";
+					String now=DateUtil.now(DateUtil.DF_YearMonthDayHourMinuteSecondMillisecond);
+					name=name+"_"+now+".tar.gz";
 					String command="tar --exclude='"+name+"' "+" --exclude='*.git' -zcvf "+name+" "+".";
 					ProcessBuilder pb=new ProcessBuilder(new String[]{"sh","-c",command});
 					pb.directory(new File(basePath));
