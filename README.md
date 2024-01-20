@@ -5,7 +5,8 @@ Most of this code is used to support projects like:
 
 * ROM editors
 * Password generators
-* File type conversion 
+* File type conversion
+* Managing my little insignificant web site
 * Sega Genesis (Mega Drive) development
 
 There tends to be a lot of overlap between these three things. Yes, even the last bullet. 
@@ -28,6 +29,7 @@ This also includes small single-use applications that aren't significant enough 
 	* fx: JavaFX helper classes.
 	* retailclerk: Tools to build games in the Retail Clerk series or other games using the same engine/
 	* util: General utility classes that don't fit anywhere else.
+	* webpublisher: Things to manage the aforementioned little insignificant web site.
 * x68
 	* retailclerk - A library of code used to build Retail Clerk like games. Calling it an 'engine' is giving it too much credit. I can't stand when projects call themselves 'frameworks' because they rarely are so I'm not doing that either. It's really just a bunch of code - that's as fancy a name as I'm willing to give it.
 

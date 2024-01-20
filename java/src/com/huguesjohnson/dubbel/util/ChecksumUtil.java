@@ -3,7 +3,7 @@
 package com.huguesjohnson.dubbel.util;
 
 //mostly, maybe exclusively, used for retro save RAM and ROM editing
-public abstract class ChecksumUtils{
+public abstract class ChecksumUtil{
 
 	//0 start value
 	public static int sumBytes(byte[] b){

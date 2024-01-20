@@ -5,7 +5,7 @@ package com.huguesjohnson.dubbel.util;
 import java.awt.Color;
 import java.util.ArrayList;
 
-public abstract class GenesisColorUtils{
+public abstract class GenesisColorUtil{
 	
 	public static String hexStringToGenesisRgb(String hexString){
 		int i=Integer.parseInt(hexString,16);

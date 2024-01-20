@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.PaletteMap;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.PaletteParameters;
-import com.huguesjohnson.dubbel.util.GenesisColorUtils;
+import com.huguesjohnson.dubbel.util.GenesisColorUtil;
 
 public abstract class BuildPalette extends BaseBuilder{
 
@@ -56,7 +56,7 @@ public abstract class BuildPalette extends BaseBuilder{
 						}
 						if(index<0){
 							entry.colorsHex.add(hexString);
-							String genesisRGBStr=GenesisColorUtils.rgbStringToGenesisRgbString(hexString);
+							String genesisRGBStr=GenesisColorUtil.rgbStringToGenesisRgbString(hexString);
 							entry.colorsGenesisRGB.add(genesisRGBStr);
 							if(entry.colorsGenesisRGB.size()>16){
 								throw(new Exception("More than 16 colors found in: "+entry.sourceFilePath));

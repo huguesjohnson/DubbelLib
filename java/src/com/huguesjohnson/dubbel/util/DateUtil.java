@@ -5,6 +5,7 @@ package com.huguesjohnson.dubbel.util;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public abstract class DateUtil{
 	//this is not all possible formats - only ones I use
@@ -15,7 +16,11 @@ public abstract class DateUtil{
 	public final static DateFormat DF_YearMonthDayHourMinuteSecondMillisecond=new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
 
 	public static String now(final DateFormat df){
-		Calendar calendar=Calendar.getInstance();
-		return(df.format(calendar.getTime()));
+		return(df.format(now()));
 	}	
+	
+	public static Date now(){
+		Calendar calendar=Calendar.getInstance();
+		return(calendar.getTime());
+	}
 }

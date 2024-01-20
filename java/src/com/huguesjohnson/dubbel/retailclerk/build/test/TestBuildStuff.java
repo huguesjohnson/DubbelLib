@@ -29,7 +29,7 @@ import com.huguesjohnson.dubbel.retailclerk.build.parameters.SimpleSourceDestina
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.SpriteParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.TextParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.TilesetParameters;
-import com.huguesjohnson.dubbel.util.GenesisColorUtils;
+import com.huguesjohnson.dubbel.util.GenesisColorUtil;
 import com.huguesjohnson.dubbel.util.NumberFormatters;
 
 import junit.framework.TestCase;
@@ -38,13 +38,13 @@ class TestBuildStuff extends TestCase{
 
 	@Test
 	void testColorUtils(){
-		String s=GenesisColorUtils.hexStringToGenesisRgb("ff");
+		String s=GenesisColorUtil.hexStringToGenesisRgb("ff");
 		assertEquals("111",s);
-		s=GenesisColorUtils.rgbStringToGenesisRgbString("ffe0a040");
+		s=GenesisColorUtil.rgbStringToGenesisRgbString("ffe0a040");
 		assertEquals("0000010010101110",s);
-		s=GenesisColorUtils.genesisRgbStringToHexString("%"+s);
+		s=GenesisColorUtil.genesisRgbStringToHexString("%"+s);
 		assertEquals("ffe0a040",s);
-		s=GenesisColorUtils.genesisRgbStringToHexString("dc.w\t%0000010010101110 ; blah"+0000010010101110);
+		s=GenesisColorUtil.genesisRgbStringToHexString("dc.w\t%0000010010101110 ; blah"+0000010010101110);
 		assertEquals("ffe0a040",s);
 		ArrayList<String> colors=new ArrayList<String>();
 		colors.add("ffe000e0");//00
@@ -63,38 +63,38 @@ class TestBuildStuff extends TestCase{
 		colors.add("ffe0e8e0");//0D
 		colors.add("ffe0c820");//0E
 		colors.add("ff6084a0");//0F
-		assertEquals(0,GenesisColorUtils.findNearestColor(colors,"ffe000e0"));
-		assertEquals(1,GenesisColorUtils.findNearestColor(colors,"ff000000"));
-		assertEquals(2,GenesisColorUtils.findNearestColor(colors,"ff806440"));
-		assertEquals(3,GenesisColorUtils.findNearestColor(colors,"ffe0c8a0"));
-		assertEquals(4,GenesisColorUtils.findNearestColor(colors,"ff80a8c0"));
-		assertEquals(5,GenesisColorUtils.findNearestColor(colors,"ff604020"));
-		assertEquals(6,GenesisColorUtils.findNearestColor(colors,"ffc0a880"));
-		assertEquals(7,GenesisColorUtils.findNearestColor(colors,"ffa06420"));
-		assertEquals(8,GenesisColorUtils.findNearestColor(colors,"ff608440"));
-		assertEquals(9,GenesisColorUtils.findNearestColor(colors,"ff802080"));
-		assertEquals(10,GenesisColorUtils.findNearestColor(colors,"ffc0c8c0"));
-		assertEquals(11,GenesisColorUtils.findNearestColor(colors,"ffc06420"));
-		assertEquals(12,GenesisColorUtils.findNearestColor(colors,"ffc00000"));
-		assertEquals(13,GenesisColorUtils.findNearestColor(colors,"ffe0e8e0"));
-		assertEquals(14,GenesisColorUtils.findNearestColor(colors,"ffe0c820"));
-		assertEquals(15,GenesisColorUtils.findNearestColor(colors,"ff6084a0"));
-		assertEquals(0,GenesisColorUtils.findNearestColor(colors,"ffe000e8"));
-		assertEquals(1,GenesisColorUtils.findNearestColor(colors,"ff200000"));
-		assertEquals(2,GenesisColorUtils.findNearestColor(colors,"ff806040"));
-		assertEquals(3,GenesisColorUtils.findNearestColor(colors,"ffe0c0a0"));
-		assertEquals(4,GenesisColorUtils.findNearestColor(colors,"ff80a0c0"));
-		assertEquals(5,GenesisColorUtils.findNearestColor(colors,"ff602020"));
-		assertEquals(6,GenesisColorUtils.findNearestColor(colors,"ffa0a880"));
-		assertEquals(7,GenesisColorUtils.findNearestColor(colors,"ffa06400"));
-		assertEquals(8,GenesisColorUtils.findNearestColor(colors,"ff608420"));
-		assertEquals(9,GenesisColorUtils.findNearestColor(colors,"ff800080"));
-		assertEquals(10,GenesisColorUtils.findNearestColor(colors,"ffc0c0c0"));
-		assertEquals(11,GenesisColorUtils.findNearestColor(colors,"ffc06820"));
-		assertEquals(12,GenesisColorUtils.findNearestColor(colors,"ffc00020"));
-		assertEquals(13,GenesisColorUtils.findNearestColor(colors,"ffe0e8c0"));
-		assertEquals(14,GenesisColorUtils.findNearestColor(colors,"ffe0c800"));
-		assertEquals(15,GenesisColorUtils.findNearestColor(colors,"ff6080a0"));
+		assertEquals(0,GenesisColorUtil.findNearestColor(colors,"ffe000e0"));
+		assertEquals(1,GenesisColorUtil.findNearestColor(colors,"ff000000"));
+		assertEquals(2,GenesisColorUtil.findNearestColor(colors,"ff806440"));
+		assertEquals(3,GenesisColorUtil.findNearestColor(colors,"ffe0c8a0"));
+		assertEquals(4,GenesisColorUtil.findNearestColor(colors,"ff80a8c0"));
+		assertEquals(5,GenesisColorUtil.findNearestColor(colors,"ff604020"));
+		assertEquals(6,GenesisColorUtil.findNearestColor(colors,"ffc0a880"));
+		assertEquals(7,GenesisColorUtil.findNearestColor(colors,"ffa06420"));
+		assertEquals(8,GenesisColorUtil.findNearestColor(colors,"ff608440"));
+		assertEquals(9,GenesisColorUtil.findNearestColor(colors,"ff802080"));
+		assertEquals(10,GenesisColorUtil.findNearestColor(colors,"ffc0c8c0"));
+		assertEquals(11,GenesisColorUtil.findNearestColor(colors,"ffc06420"));
+		assertEquals(12,GenesisColorUtil.findNearestColor(colors,"ffc00000"));
+		assertEquals(13,GenesisColorUtil.findNearestColor(colors,"ffe0e8e0"));
+		assertEquals(14,GenesisColorUtil.findNearestColor(colors,"ffe0c820"));
+		assertEquals(15,GenesisColorUtil.findNearestColor(colors,"ff6084a0"));
+		assertEquals(0,GenesisColorUtil.findNearestColor(colors,"ffe000e8"));
+		assertEquals(1,GenesisColorUtil.findNearestColor(colors,"ff200000"));
+		assertEquals(2,GenesisColorUtil.findNearestColor(colors,"ff806040"));
+		assertEquals(3,GenesisColorUtil.findNearestColor(colors,"ffe0c0a0"));
+		assertEquals(4,GenesisColorUtil.findNearestColor(colors,"ff80a0c0"));
+		assertEquals(5,GenesisColorUtil.findNearestColor(colors,"ff602020"));
+		assertEquals(6,GenesisColorUtil.findNearestColor(colors,"ffa0a880"));
+		assertEquals(7,GenesisColorUtil.findNearestColor(colors,"ffa06400"));
+		assertEquals(8,GenesisColorUtil.findNearestColor(colors,"ff608420"));
+		assertEquals(9,GenesisColorUtil.findNearestColor(colors,"ff800080"));
+		assertEquals(10,GenesisColorUtil.findNearestColor(colors,"ffc0c0c0"));
+		assertEquals(11,GenesisColorUtil.findNearestColor(colors,"ffc06820"));
+		assertEquals(12,GenesisColorUtil.findNearestColor(colors,"ffc00020"));
+		assertEquals(13,GenesisColorUtil.findNearestColor(colors,"ffe0e8c0"));
+		assertEquals(14,GenesisColorUtil.findNearestColor(colors,"ffe0c800"));
+		assertEquals(15,GenesisColorUtil.findNearestColor(colors,"ff6080a0"));
 	}
 	
 	@Test

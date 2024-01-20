@@ -15,7 +15,7 @@ import com.huguesjohnson.dubbel.retailclerk.build.objects.PaletteMap;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.Tile8x8;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.Tileset;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.TilesetParameters;
-import com.huguesjohnson.dubbel.util.GenesisColorUtils;
+import com.huguesjohnson.dubbel.util.GenesisColorUtil;
 
 public class BuildTiles extends BaseBuilder{
 
@@ -105,7 +105,7 @@ public class BuildTiles extends BaseBuilder{
 							for(int y=row;y<(row+8);y++){
 								int color=image.getRGB(x,y);
 								String hexString=Integer.toHexString(color);
-								int index=GenesisColorUtils.findNearestColor(palette.colorsHex,hexString);
+								int index=GenesisColorUtil.findNearestColor(palette.colorsHex,hexString);
 								//yes, these are getting transposed on purpose
 								tile8x8.pixels[y-row][x-col]=index;
 							}

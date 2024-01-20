@@ -13,7 +13,7 @@ import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.PaletteMap;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.Sprite;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.SpriteParameters;
-import com.huguesjohnson.dubbel.util.GenesisColorUtils;
+import com.huguesjohnson.dubbel.util.GenesisColorUtil;
 
 public abstract class BuildSprites extends BaseBuilder{
 	
@@ -93,7 +93,7 @@ public abstract class BuildSprites extends BaseBuilder{
 									int color=image.getRGB(pixelX,pixelY); 
 									color=color|0xff000000;//transparency isn't supported, this makes everything opaque 
 									String hexString=Integer.toHexString(color);
-									int index=GenesisColorUtils.findNearestColor(palette.colorsHex,hexString);
+									int index=GenesisColorUtil.findNearestColor(palette.colorsHex,hexString);
 									line.append(Integer.toHexString(index).toUpperCase());
 								}
 								line.append(newLine);
