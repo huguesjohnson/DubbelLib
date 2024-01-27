@@ -3,18 +3,22 @@
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
 public enum ScriptedEventCommand{
-	END(0xFFFF),
-	DIALOG(0xEEEE),
-	CHANGE_SPRITE(0xDDDD),
-	CHANGE_SCENE(0xCCCC),
-	CHANGE_PLAYER_SPRITE(0xBBBB),
-	SET_PLAYER_SPRITE_X(0xAAAA),
-	SET_PLAYER_SPRITE_Y(0x9999),
-	SET_PLAYER_SPRITE_DIRECTION(0x8888),
-	FADE_BLACK(0x7777),
-	DRAW_SCENE(0x6666),
-	TIMER(0x5555),
-	ENDGAME(0x4444);
+	//TODO - need a better way to keep these in sync between this class and the asm code
+	END(0xF000),
+	DIALOG(0xF001),
+	CHANGE_SPRITE(0xF002),
+	CHANGE_SCENE(0xF003),
+	CHANGE_PLAYER_SPRITE(0xF004),
+	SET_PLAYER_SPRITE_X(0xF005),
+	SET_PLAYER_SPRITE_Y(0xF006),
+	SET_PLAYER_SPRITE_DIRECTION(0xF007),
+	FADE_BLACK(0xF008),
+	DRAW_SCENE(0xF009),
+	TIMER(0xF00A),
+	ENDGAME(0xF00B),
+	LOADFONT(0xF00C),
+	ADDITEM(0xF00D),
+	REMOVEITEM(0xF00E);
 	
 	private final int value;
 	ScriptedEventCommand(final int value){this.value=value;}
@@ -22,6 +26,8 @@ public enum ScriptedEventCommand{
 
     @Override
 	public String toString(){
+    	//yes, I am aware of switch statements
+    	//really this should be a map I think
     	if(this.value==DIALOG.value){return("SCRIPTED_EVENT_DIALOG");}
     	if(this.value==CHANGE_SPRITE.value){return("SCRIPTED_EVENT_CHANGE_SPRITE");}
     	if(this.value==CHANGE_SCENE.value){return("SCRIPTED_EVENT_CHANGE_SCENE");}
@@ -33,6 +39,9 @@ public enum ScriptedEventCommand{
     	if(this.value==DRAW_SCENE.value){return("SCRIPTED_EVENT_DRAW_SCENE");}
     	if(this.value==TIMER.value){return("SCRIPTED_EVENT_TIMER");}
     	if(this.value==ENDGAME.value){return("SCRIPTED_EVENT_ENDGAME");}
+    	if(this.value==LOADFONT.value){return("SCRIPTED_EVENT_LOADFONT");}
+    	if(this.value==ADDITEM.value){return("SCRIPTED_EVENT_ADDITEM");}
+    	if(this.value==REMOVEITEM.value){return("SCRIPTED_EVENT_REMOVEITEM");}
 		return("SCRIPTED_EVENT_END");//safest default return value
 	}
 

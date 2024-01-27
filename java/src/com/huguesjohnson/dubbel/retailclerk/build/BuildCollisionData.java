@@ -17,7 +17,7 @@ import com.huguesjohnson.dubbel.retailclerk.build.parameters.CollisionDataParame
 public abstract class BuildCollisionData extends BaseBuilder{
 
 	@SuppressWarnings("resource") //resources are closed in finally block but Eclipse still warns
-	public static void build(String basePath,CollisionDataParameters parameters){
+	public static void build(String basePath,CollisionDataParameters parameters) throws Exception{
 		Map<String,String> sourceDestinationMap=parameters.collisionMap;
 		String includeFilePath=basePath+parameters.includeFilePath;
 		FileWriter collisionDataWriter=null;
@@ -102,19 +102,19 @@ public abstract class BuildCollisionData extends BaseBuilder{
 			includeDataWriter.flush();
 			includeDataWriter.close();
 		}catch(IIOException iiox){
-			iiox.printStackTrace();
 			if(sourceFilePath==null){
-				System.err.println("sourceFilePath==null");
+				System.err.println("BuildCollisionData error - sourceFilePath==null");
 			}else{
-				System.err.println("sourceFilePath="+sourceFilePath);
+				System.err.println("BuildCollisionData error - sourceFilePath="+sourceFilePath);
 			}
+			throw(iiox);
 		}catch(Exception x){
-			x.printStackTrace();
 			if(sourceFilePath==null){
-				System.err.println("sourceFilePath==null");
+				System.err.println("BuildCollisionData error - sourceFilePath==null");
 			}else{
-				System.err.println("sourceFilePath="+sourceFilePath);
-			}			
+				System.err.println("BuildCollisionData error - sourceFilePath="+sourceFilePath);
+			}
+			throw(x);
 		}finally{
 			try{if(collisionDataWriter!=null){collisionDataWriter.flush(); collisionDataWriter.close();}}catch(Exception x){ }
 			try{if(includeDataWriter!=null){includeDataWriter.flush(); includeDataWriter.close();}}catch(Exception x){ }

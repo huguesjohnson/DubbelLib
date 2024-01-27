@@ -12,7 +12,7 @@ import com.huguesjohnson.dubbel.retailclerk.build.objects.ScriptedEventAction;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.SimpleSourceDestinationParameters;
 
 public class BuildScriptedEvents extends BaseBuilder{
-	public static void build(String basePath,SimpleSourceDestinationParameters parameters){
+	public static void build(String basePath,SimpleSourceDestinationParameters parameters) throws Exception{
 		FileWriter writer=null;
 		ScriptedEvent[] events=null;
 		int scriptedEventIndex=-1;
@@ -65,7 +65,7 @@ public class BuildScriptedEvents extends BaseBuilder{
 				writer.write(newLine);
 			}
 		}catch(Exception x){
-			x.printStackTrace();
+			System.err.println("Error in BuildScripted Events");
 			System.err.println("parameters.sourceFile="+parameters.sourceFile);
 			System.err.println("parameters.destinationFile="+parameters.destinationFile);
 			if(events==null){
@@ -85,7 +85,8 @@ public class BuildScriptedEvents extends BaseBuilder{
 						System.err.println("events[scriptedEventIndex].name="+events[scriptedEventIndex].name);
 					}
 				}
-			}			
+			}		
+			throw(x);
 		}finally{
 			try{if(writer!=null){writer.flush();writer.close();}}catch(Exception x){ }
 		}

@@ -18,7 +18,7 @@ I'm sort of generally unhappy with how I implemented strings and this class expo
 
 public class BuildText extends BaseBuilder{
 	
-	public static void build(String basePath,TextParameters parameters){
+	public static void build(String basePath,TextParameters parameters) throws Exception{
 		FileWriter tableFileWriter=null;
 		FileWriter textFileWriter=null;
 		StringCollection stringCollection=null;
@@ -148,7 +148,7 @@ public class BuildText extends BaseBuilder{
 			textFileWriter.write(newLine);
 			textFileWriter.write("\talign 2");
 		}catch(Exception x){
-			x.printStackTrace();
+			System.err.println("Error in BuildText");
 			if(stringCollection==null){
 				System.err.println("stringCollection==null");
 			}else{
@@ -157,6 +157,7 @@ public class BuildText extends BaseBuilder{
 					System.err.println("textLine.text="+textLine.text);
 				}
 			}
+			throw(x);
 		}finally{
 			try{if(tableFileWriter!=null){tableFileWriter.flush(); tableFileWriter.close();}}catch(Exception x){ }
 			try{if(textFileWriter!=null){textFileWriter.flush(); textFileWriter.close();}}catch(Exception x){ }

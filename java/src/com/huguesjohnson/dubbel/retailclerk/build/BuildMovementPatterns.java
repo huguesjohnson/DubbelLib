@@ -13,7 +13,7 @@ import com.huguesjohnson.dubbel.retailclerk.build.parameters.SimpleSourceDestina
 
 public class BuildMovementPatterns extends BaseBuilder{
 
-	public static void build(String basePath,SimpleSourceDestinationParameters parameters){
+	public static void build(String basePath,SimpleSourceDestinationParameters parameters) throws Exception{
 		FileWriter writer=null;
 		MovementPattern[] patterns=null;
 		int patternIndex=-1;
@@ -41,7 +41,7 @@ public class BuildMovementPatterns extends BaseBuilder{
 				writer.write(newLine);
 			}
 		}catch(Exception x){
-			x.printStackTrace();
+			System.err.println("Error in BuildMovementPatterns");
 			if(patterns==null){
 				System.err.println("patterns==null");
 			}else{
@@ -59,6 +59,7 @@ public class BuildMovementPatterns extends BaseBuilder{
 					}
 				}
 			}
+			throw(x);
 		}finally{
 			try{if(writer!=null){writer.flush(); writer.close();}}catch(Exception x){ }
 		}

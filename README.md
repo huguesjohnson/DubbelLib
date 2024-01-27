@@ -22,7 +22,7 @@ This also includes small single-use applications that aren't significant enough 
 **Everything here so far**
 
 * Java
-	* converters: Various utilities to convert one file type to another.
+    * converters: Various utilities to convert one file type to another.
 	* example: Reference implementations of data structures and algorithms, the kind of stuff that shows up in development interviews that we all forgot after graduating college.
 	* file: Things to make some file and path resolution tasks easier.
 	* file.filter: File filters used for open/save dialogs or listing files by type.
@@ -32,6 +32,14 @@ This also includes small single-use applications that aren't significant enough 
 	* webpublisher: Things to manage the aforementioned little insignificant web site.
 * x68
 	* retailclerk - A library of code used to build Retail Clerk like games. Calling it an 'engine' is giving it too much credit. I can't stand when projects call themselves 'frameworks' because they rarely are so I'm not doing that either. It's really just a bunch of code - that's as fancy a name as I'm willing to give it.
+
+There are three build scripts:
+* build-java-lib.sh: Builds a non-executable .jar with the library Java classes
+	* converters, example, file, file.filter, util
+* build-java-lib+fx.sh: Same as previous, but with JavaFX helper classes. 
+* build-rctools.sh: Build an executable .jar for the Retail Clerk build tools and dependencies.
+
+Yes, I'm aware of Ant and Gradle and Maven and so. I've even administered build servers at various points in my career using all of them (and the .NET equivalents). This is how I roll when I work solo.
 
 **Stuff I still want to add**
 

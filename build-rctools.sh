@@ -12,7 +12,9 @@ mkdir -p ./build/java/bin/com/huguesjohnson/dubbel/retailclerk/build/parameters/
 
 echo 'compiling..'
 javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/file/PathResolver.java
-javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/util/GenesisColorUtils.java
+javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/util/DateUtil.java
+javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/util/GenesisColorUtil.java
+javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/util/ZipUtil.java
 javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/retailclerk/build/objects/*.java
 javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/retailclerk/build/parameters/*.java
 javac -cp ./java/src/:./java/lib/gson-2.8.5.jar ./java/src/com/huguesjohnson/dubbel/retailclerk/build/*.java

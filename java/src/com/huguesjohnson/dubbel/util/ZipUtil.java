@@ -44,8 +44,6 @@ public abstract class ZipUtil{
 				}
 			}
 			success=true;
-		}catch(Exception x){
-			throw(x);
 		}finally{
 			try{if(zout!=null){zout.closeEntry();zout.close();}}catch(Exception x){}
 			try{if(fin!=null){fin.close();}}catch(Exception x){}

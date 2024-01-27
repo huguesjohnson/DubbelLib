@@ -21,7 +21,7 @@ import com.huguesjohnson.dubbel.util.GenesisColorUtil;
 public class BuildPatternsFromTilesets extends BaseBuilder{
 
 	@SuppressWarnings("resource") //everything is closed in finally block, Eclipse doesn't seem to understand that
-	public static void build(String basePath,PatternFromTilesetParameters parameters,HashMap<String,Tileset> tileMap,HashMap<String,PaletteMap> paletteMap){
+	public static void build(String basePath,PatternFromTilesetParameters parameters,HashMap<String,Tileset> tileMap,HashMap<String,PaletteMap> paletteMap) throws Exception{
 		String includeFilePath=basePath+parameters.patternIncludeFilePath;
 		FileWriter patternWriter=null;
 		FileWriter includeWriter=null;
@@ -107,12 +107,12 @@ public class BuildPatternsFromTilesets extends BaseBuilder{
 				includeWriter.write(includeString.toString());
 			}
 		}catch(Exception x){
-			x.printStackTrace();
 			if(currentPatternName==null){
-				System.err.println("currentPatternName==null");
+				System.err.println("Error in BuildPatternsFromTilesets - currentPatternName==null");
 			}else{
-				System.err.println("currentPatternName="+currentPatternName);
+				System.err.println("Error in BuildPatternsFromTilesets - currentPatternName="+currentPatternName);
 			}
+			throw(x);
 		}finally{
 			try{if(patternWriter!=null){patternWriter.flush(); patternWriter.close();}}catch(Exception x){ }
 			try{if(includeWriter!=null){includeWriter.flush(); includeWriter.close();}}catch(Exception x){ }

@@ -14,7 +14,7 @@ import com.huguesjohnson.dubbel.retailclerk.build.parameters.MemoryMapParameters
 public abstract class BuildMemoryMap extends BaseBuilder{
 
 	@SuppressWarnings("resource") //resources are closed in finally block but Eclipse still warns
-	public static void build(String basePath,MemoryMapParameters parameters){
+	public static void build(String basePath,MemoryMapParameters parameters) throws Exception{
 		String destinationFile=basePath+parameters.destinationFile;
 		String baseAddress=parameters.baseAddress;
 		BufferedReader bufferedReader=null;
@@ -60,7 +60,7 @@ public abstract class BuildMemoryMap extends BaseBuilder{
 			outputStreamWriter.write("MEM_END=$"+(Long.toHexString(currentAddressInt).toUpperCase())+newLine);
 		}catch(Exception x){
 			if(lineNumber>0){
-				System.err.println("Error in line: "+lineNumber);
+				System.err.println("BuildMemoryMap error in line: "+lineNumber);
 			}
 			if(currentLine==null){
 				System.err.println("currentLine==null");
@@ -72,17 +72,10 @@ public abstract class BuildMemoryMap extends BaseBuilder{
 			}else{
 				System.err.println("sourceFile="+sourceFile);
 			}
-			x.printStackTrace();
+			throw(x);
 		}finally{
-			try{
-				if(bufferedReader!=null){bufferedReader.close();}
-			}catch (Exception x){ }
-			try{
-				if(outputStreamWriter!=null){
-					outputStreamWriter.flush();
-					outputStreamWriter.close();
-				}
-			}catch (Exception x){ }
+			try{if(bufferedReader!=null){bufferedReader.close();}}catch(Exception x){ }
+			try{if(outputStreamWriter!=null){outputStreamWriter.flush();outputStreamWriter.close();}}catch(Exception x){ }
 		}
 	}
 }

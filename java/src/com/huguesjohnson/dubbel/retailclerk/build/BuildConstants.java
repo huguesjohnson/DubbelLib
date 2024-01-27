@@ -16,7 +16,7 @@ import com.huguesjohnson.dubbel.retailclerk.build.parameters.ConstantFileParamet
 
 public class BuildConstants extends BaseBuilder{
 
-	public static void build(String basePath,ConstantFileParameters parameters){
+	public static void build(String basePath,ConstantFileParameters parameters) throws Exception{
 		//bail if there's nothing to do
 		if((parameters.fileMap==null)||(parameters.fileMap.size()<1)){return;}
 		FileWriter constantFileWriter=null;
@@ -86,19 +86,24 @@ public class BuildConstants extends BaseBuilder{
 			//close include writer
 			includeDataWriter.close();
 		}catch(IIOException iiox){
-			iiox.printStackTrace();
 			if(sourceFilePath==null){
-				System.err.println("sourceFilePath==null");
+				System.err.println("BuildConstants error - sourceFilePath==null");
 			}else{
-				System.err.println("sourceFilePath="+sourceFilePath);
+				System.err.println("BuildConstants error in sourceFilePath="+sourceFilePath);
 			}
+			throw(iiox);
 		}catch(Exception x){
-			x.printStackTrace();			
+			if(sourceFilePath==null){
+				System.err.println("BuildConstants error - sourceFilePath==null");
+			}else{
+				System.err.println("BuildConstants error in sourceFilePath="+sourceFilePath);
+			}			
 			if(currentLine==null){
 				System.err.println("currentLine==null");
 			}else{
 				System.err.println("currentLine="+currentLine);
 			}
+			throw(x);
 		}finally{
 			try{if(constantFileWriter!=null){constantFileWriter.flush(); constantFileWriter.close();}}catch(Exception x){ }
 			try{if(includeDataWriter!=null){includeDataWriter.flush(); includeDataWriter.close();}}catch(Exception x){ }

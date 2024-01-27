@@ -21,7 +21,7 @@ import com.huguesjohnson.dubbel.util.NumberFormatters;
 public class BuildScenes extends BaseBuilder{
 	
 	@SuppressWarnings("resource") //everything is closed in finally block, Eclipse doesn't seem to understand that
-	public static HashMap<Integer,String> build(String basePath,SceneParameters parameters,HashMap<String,Tileset> tileMap){
+	public static HashMap<Integer,String> build(String basePath,SceneParameters parameters,HashMap<String,Tileset> tileMap) throws Exception{
 		HashMap<Integer,String> sceneIDMap=new HashMap<Integer,String>();
 		String includeFilePath=basePath+parameters.includeFilePath;
 		String lookupTablePath=basePath+parameters.lookupTablePath;
@@ -424,7 +424,7 @@ public class BuildScenes extends BaseBuilder{
 			tableWriter.write("MAX_SCENE_ID="+NumberFormatters.toHexWord(sceneIDMap.size()-1));
 			return(sceneIDMap);
 		}catch(Exception x){
-			x.printStackTrace();
+			System.err.println("Error in BuildScenes");
 			if(currentSceneName==null){
 				System.err.println("currentSceneName==null");
 			}else{
@@ -435,7 +435,7 @@ public class BuildScenes extends BaseBuilder{
 			}else{
 				System.err.println("scenePath="+scenePath);
 			}
-			return(sceneIDMap);
+			throw(x);
 		}finally{
 			try{if(includeWriter!=null){includeWriter.flush(); includeWriter.close();}}catch(Exception x){ }
 			try{if(sceneWriter!=null){sceneWriter.flush(); sceneWriter.close();}}catch(Exception x){ }

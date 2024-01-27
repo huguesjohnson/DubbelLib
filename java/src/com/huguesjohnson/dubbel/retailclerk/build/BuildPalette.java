@@ -19,7 +19,7 @@ import com.huguesjohnson.dubbel.util.GenesisColorUtil;
 public abstract class BuildPalette extends BaseBuilder{
 
 	@SuppressWarnings("resource") //resources are closed in finally block but Eclipse still warns
-	public static HashMap<String,PaletteMap> build(String basePath,PaletteParameters parameters){
+	public static HashMap<String,PaletteMap> build(String basePath,PaletteParameters parameters) throws Exception{
 		PaletteMap[] paletteMap=parameters.paletteMap;
 		String includeFilePath=basePath+parameters.includeFilePath;
 		HashMap<String,PaletteMap> returnMap=new HashMap<String,PaletteMap>();
@@ -105,7 +105,7 @@ public abstract class BuildPalette extends BaseBuilder{
 			includeWriter.close();
 			return(returnMap);
 		}catch(IIOException iiox){
-			iiox.printStackTrace();
+			System.err.println("Error in BuildPalette");
 			if(sourceFilePath==null){
 				System.err.println("sourceFilePath==null");
 			}else{
@@ -116,9 +116,9 @@ public abstract class BuildPalette extends BaseBuilder{
 			}else{
 				System.err.println("outputFilePath="+outputFilePath);
 			}
-			return(returnMap);
+			throw(iiox);
 		}catch(Exception x){
-			x.printStackTrace();			
+			System.err.println("Error in BuildPalette");
 			if(sourceFilePath==null){
 				System.err.println("sourceFilePath==null");
 			}else{
@@ -129,7 +129,7 @@ public abstract class BuildPalette extends BaseBuilder{
 			}else{
 				System.err.println("outputFilePath="+outputFilePath);
 			}
-			return(returnMap);
+			throw(x);
 		}finally{
 			try{if(paletteWriter!=null){paletteWriter.flush(); paletteWriter.close();}}catch(Exception x){ }
 			try{if(includeWriter!=null){includeWriter.flush(); includeWriter.close();}}catch(Exception x){ }

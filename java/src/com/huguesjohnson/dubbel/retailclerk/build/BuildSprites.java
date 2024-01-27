@@ -18,7 +18,7 @@ import com.huguesjohnson.dubbel.util.GenesisColorUtil;
 public abstract class BuildSprites extends BaseBuilder{
 	
 	@SuppressWarnings("resource") //everything is closed in finally block, Eclipse doesn't seem to understand that
-	public static void build(String basePath,SpriteParameters sprites,HashMap<String,PaletteMap> paletteMap){
+	public static void build(String basePath,SpriteParameters sprites,HashMap<String,PaletteMap> paletteMap) throws Exception{
 		//if the palette is missing then bail
 		PaletteMap palette=paletteMap.get(sprites.palette);
 		//setup sprite id
@@ -176,12 +176,12 @@ public abstract class BuildSprites extends BaseBuilder{
 			definitionWriter.write("CharacterDefinitionEnd:");
 			definitionWriter.write(newLine);
 		}catch(Exception x){
-			x.printStackTrace();
 			if(currentSprite==null){
-				System.err.println("currentSprite==null");
+				System.err.println("Error in BuildSprites - currentSprite==null");
 			}else{
-				System.err.println("currentSprite.name="+currentSprite.name);
+				System.err.println("Error in BuildSprites - currentSprite.name="+currentSprite.name);
 			}
+			throw(x);
 		}finally{
 			try{if(includeWriter!=null){includeWriter.flush(); includeWriter.close();}}catch(Exception x){ }
 			try{if(definitionWriter!=null){definitionWriter.flush(); definitionWriter.close();}}catch(Exception x){ }

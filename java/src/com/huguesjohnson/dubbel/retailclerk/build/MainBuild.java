@@ -251,7 +251,7 @@ public class MainBuild{
 			
 			System.out.println("Build finished, have a nice day or whatever.");
 		}catch(Exception x){
-			System.out.println("Build error: "+x.getMessage());
+			System.err.println("\nFatal build error: "+x.getMessage()+"\n");
 			x.printStackTrace();
 		}
 	}

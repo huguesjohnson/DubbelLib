@@ -20,7 +20,7 @@ import com.huguesjohnson.dubbel.util.GenesisColorUtil;
 public class BuildTiles extends BaseBuilder{
 
 	@SuppressWarnings("resource") //everything is closed in finally block, Eclipse doesn't seem to understand that
-	public static HashMap<String,Tileset> build(String basePath,TilesetParameters tiles,HashMap<String,PaletteMap> paletteMap){
+	public static HashMap<String,Tileset> build(String basePath,TilesetParameters tiles,HashMap<String,PaletteMap> paletteMap) throws Exception{
 		HashMap<String,Tileset> returnMap=new HashMap<String,Tileset>();
 		FileWriter tileIncludeWriter=null;
 		FileWriter tileWriter=null;
@@ -176,15 +176,14 @@ public class BuildTiles extends BaseBuilder{
 			}
 			return(returnMap);
 		}catch(Exception x){
-			x.printStackTrace();
 			if(currentEntry==null){
-				System.err.println("currentEntry==null");
+				System.err.println("Error in BuildTiles - currentEntry==null");
 			}else{
-				System.err.println("currentEntry.name="+currentEntry.name);
+				System.err.println("Error in BuildTiles - currentEntry.name="+currentEntry.name);
 			}
 			System.err.println("row="+row);
 			System.err.println("col="+col);
-			return(returnMap);
+			throw(x);
 		}finally{
 			try{if(tileIncludeWriter!=null){tileIncludeWriter.flush();tileIncludeWriter.close();}}catch(Exception x){ }
 			try{if(patternIncludeWriter!=null){patternIncludeWriter.flush();patternIncludeWriter.close();}}catch(Exception x){ }
