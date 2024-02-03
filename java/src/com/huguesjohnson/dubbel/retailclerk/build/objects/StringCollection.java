@@ -17,5 +17,6 @@ public class StringCollection implements Serializable{
 	public String defaultLineFeed="LF"; //default line feed character
 	public String defaultFormFeed="FF"; //default form feed character
 	public char defaultNextPageChar='^'; //default character to indicate there is another page of text
+	public char defaultLineBreakChar='|'; //default character to indicate there is a line break
 	public Map<String,TextLine> lines; //the actual lines of text
 }

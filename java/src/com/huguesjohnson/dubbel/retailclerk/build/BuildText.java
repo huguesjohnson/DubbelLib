@@ -102,7 +102,7 @@ public class BuildText extends BaseBuilder{
 						int lineCount=0;
 						while(sb.length()>stringCollection.lineLength){
 							//check for line break
-							int lastIndex=sb.substring(0,stringCollection.lineLength).indexOf('|');
+							int lastIndex=sb.substring(0,stringCollection.lineLength).indexOf(stringCollection.defaultLineBreakChar);
 							//try to break at the last space
 							if(lastIndex<1){lastIndex=sb.substring(0,stringCollection.lineLength).lastIndexOf(' ');}
 							if(lastIndex<1){lastIndex=stringCollection.lineLength;}
@@ -111,12 +111,10 @@ public class BuildText extends BaseBuilder{
 								textFileWriter.write(lineFeed);
 								lineCount++;
 							}else{
-								StringBuffer paddedSb=new StringBuffer(sb.substring(0,lastIndex));
-								while(paddedSb.length()<stringCollection.lineLength){
-									paddedSb.append(" ");
-								}
-								paddedSb.setCharAt(stringCollection.lineLength-1,nextPageChar);
-								textFileWriter.write("\tdc.b\t\""+paddedSb.toString()+"\",");
+								StringBuffer subSb=new StringBuffer(sb.substring(0,lastIndex));
+								subSb.append(nextPageChar);
+								textFileWriter.write("\tdc.b\t\""+subSb.toString()+"\",");
+
 								textFileWriter.write(formFeed);
 								lineCount=0;
 							}
@@ -124,7 +122,7 @@ public class BuildText extends BaseBuilder{
 							//remove the text that was written
 							sb.delete(0,lastIndex);
 							//trim leading spaces or breaks that remain
-							while((sb.length()>0)&&((sb.charAt(0)==' ')||(sb.charAt(0)=='|'))){
+							while((sb.length()>0)&&((sb.charAt(0)==' ')||(sb.charAt(0)==stringCollection.defaultLineBreakChar))){
 								sb.deleteCharAt(0);
 							}
 						}
