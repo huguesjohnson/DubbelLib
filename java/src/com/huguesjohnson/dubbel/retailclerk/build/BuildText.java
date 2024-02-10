@@ -88,6 +88,11 @@ public class BuildText extends BaseBuilder{
 						textFileWriter.write(newLine);
 						realign=false;
 					}
+					//comment
+					if((textLine.comment!=null)&&(textLine.comment.length()>0)){
+						textFileWriter.write("; "+textLine.comment);
+						textFileWriter.write(newLine);
+					}
 					//string label
 					textFileWriter.write(key+":");
 					textFileWriter.write(newLine);

@@ -8,6 +8,7 @@ public class TextLine implements Serializable{
 	private static final long serialVersionUID=20000808064432L;
 	
 	public String text=""; //the actual text
+	public String comment=null; //optional comment
 	public String dialogTitle=null; //if the dialog has a title this is where it goes
 	public String terminator=null; //override of default terminator
 	public String lineFeed=null; //override of default line feed
