@@ -18,5 +18,4 @@ public class SiteMapEntryComparator implements Comparator<SiteMapEntry>{
 		String s1=arg1.breadcrumb+arg1.title;
 		return(s0.compareToIgnoreCase(s1));
 	}
-
 }
