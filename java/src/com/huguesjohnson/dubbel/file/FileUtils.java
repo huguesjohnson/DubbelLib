@@ -2,9 +2,11 @@
 
 package com.huguesjohnson.dubbel.file;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,5 +87,16 @@ public abstract class FileUtils{
 		fis.close();
 		return(b);
 	}
-
+	
+	public static ArrayList<String> readLines(String path) throws IOException{
+		File f=new File(path);
+		BufferedReader br=new BufferedReader(new FileReader(f));
+		ArrayList<String> lines=new ArrayList<String>();
+		String line;
+		while((line=br.readLine())!=null){
+			lines.add(line);
+		}
+		br.close();		
+		return(lines);
+	}
 }
