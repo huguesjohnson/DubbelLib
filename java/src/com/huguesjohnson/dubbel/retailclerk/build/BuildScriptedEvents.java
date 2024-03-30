@@ -31,10 +31,17 @@ public class BuildScriptedEvents extends BaseBuilder{
 				ScriptedEventAction[] actions=events[scriptedEventIndex].actions;
 				for(actionIndex=0;actionIndex<actions.length;actionIndex++){
 					ScriptedEventAction action=actions[actionIndex];
+					/*
+					 * the order of these matters
+					 * comments are written first
+					 */
 					if((action.comment!=null)&&(action.comment.length()>0)){
 						writer.write("\t; "+action.comment);
 						writer.write(newLine);
 					}
+					/*
+					 * then the command, directions are effectively commands
+					 */
 					if(action.command!=null){
 						writer.write("\tdc.w\t"+action.command.toString());
 						writer.write(newLine);
@@ -43,14 +50,33 @@ public class BuildScriptedEvents extends BaseBuilder{
 						writer.write("\tdc.w\t"+action.direction.toString());
 						writer.write(newLine);
 					}
+					/* 
+					 * if a command has a scene id it needs to be next
+					 */
+					if((action.sceneId!=null)&&(action.sceneId.length()>0)){
+						//works the same as intConst - just nice to have a different label
+						writer.write("\tdc.w\t"+action.sceneId);
+						writer.write(newLine);
+					}
+					/* 
+					 * last are values & constants
+					 */					
 					if(action.intValue!=null){
 						//this is such a weird way to convert an Integer to a hexstring
-						StringBuilder sb=new StringBuilder(Integer.toHexString(action.intValue.intValue()));
+						StringBuilder sb=new StringBuilder(Integer.toHexString(action.intValue.intValue()).toUpperCase());
 						while(sb.length()<4){sb.insert(0,'0');}
 						sb.insert(0,"\tdc.w\t$");
 						writer.write(sb.toString());
 						writer.write(newLine);
 					}
+					if(action.longValue!=null){
+						//this is such a weird way to convert an Integer to a hexstring
+						StringBuilder sb=new StringBuilder(Integer.toHexString(action.longValue.intValue()).toUpperCase());
+						while(sb.length()<8){sb.insert(0,'0');}
+						sb.insert(0,"\tdc.l\t$");
+						writer.write(sb.toString());
+						writer.write(newLine);
+					}					
 					if((action.intConst!=null)&&(action.intConst.length()>0)){
 						writer.write("\tdc.w\t"+action.intConst);
 						writer.write(newLine);

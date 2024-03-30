@@ -18,7 +18,8 @@ public enum ScriptedEventCommand{
 	ENDGAME(0xF00B),
 	LOADFONT(0xF00C),
 	ADDITEM(0xF00D),
-	REMOVEITEM(0xF00E);
+	REMOVEITEM(0xF00E),
+	UPDATE_SCENE_NPCS(0xF00F);
 	
 	private final int value;
 	ScriptedEventCommand(final int value){this.value=value;}
@@ -28,6 +29,7 @@ public enum ScriptedEventCommand{
 	public String toString(){
     	//yes, I am aware of switch statements
     	//really this should be a map I think
+    	//the map could even be defined in the build file
     	if(this.value==DIALOG.value){return("SCRIPTED_EVENT_DIALOG");}
     	if(this.value==CHANGE_SPRITE.value){return("SCRIPTED_EVENT_CHANGE_SPRITE");}
     	if(this.value==CHANGE_SCENE.value){return("SCRIPTED_EVENT_CHANGE_SCENE");}
@@ -42,6 +44,7 @@ public enum ScriptedEventCommand{
     	if(this.value==LOADFONT.value){return("SCRIPTED_EVENT_LOADFONT");}
     	if(this.value==ADDITEM.value){return("SCRIPTED_EVENT_ADDITEM");}
     	if(this.value==REMOVEITEM.value){return("SCRIPTED_EVENT_REMOVEITEM");}
+    	if(this.value==UPDATE_SCENE_NPCS.value){return("SCRIPTED_EVENT_UPDATE_SCENE_NPCS");}
 		return("SCRIPTED_EVENT_END");//safest default return value
 	}
 

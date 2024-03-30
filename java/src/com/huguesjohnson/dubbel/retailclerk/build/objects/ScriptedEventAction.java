@@ -11,6 +11,8 @@ public class ScriptedEventAction implements Serializable{
 	public ScriptedEventCommand command;
 	public Direction direction;
 	public Integer intValue;
+	public Integer longValue; //longs are 32-bits hence Java Integer
 	public String intConst;
 	public String label;
+	public String sceneId;
 }
