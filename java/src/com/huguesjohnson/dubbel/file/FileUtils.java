@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.UUID;
 
 public abstract class FileUtils{
 
@@ -98,5 +99,41 @@ public abstract class FileUtils{
 		}
 		br.close();		
 		return(lines);
+	}
+	
+	public static String getExtension(String path){
+		int lastIndexOf=path.lastIndexOf('.');
+		if(lastIndexOf>0){
+			//yes, this returns the .
+			return(path.substring(lastIndexOf));
+		}
+		//the way this method is used, the right default is an empty string
+		return("");
+	}
+	
+	/* this is one of the most dangerous pieces of code I've written
+	 * it overwrites all file names in a directory as a UUID
+	 * 
+	 * I mostly use this for mp3 player SD cards because:
+	 * -mp3 speaker devices don't shuffle well if at all
+	 * -sometimes long file names trip up mp3 speaker devices
+	 * -and the same but for digital photo frames or the like
+	 * 
+	 * this is not recursive as a way to prevent myself from doing something really catastrophic	 
+	 */
+	public static void uuidRenamer(String path,FileFilter filter,boolean preserveExtension) throws Exception{
+		File dir=new File(path);
+		File[] files=dir.listFiles(filter);
+		for(File file:files){
+			String currentFileName=file.getName();
+			String newFileName=UUID.randomUUID().toString().replace("-","");
+			if(preserveExtension){
+				newFileName=newFileName+getExtension(currentFileName);
+			}
+			File newFile=new File(path+newFileName);
+			if(!file.renameTo(newFile)){
+				throw(new Exception("Exception trying to rename ["+currentFileName+"] to ["+newFileName+"]"));
+			}
+		}
 	}
 }
