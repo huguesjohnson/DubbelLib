@@ -19,7 +19,8 @@ public enum ScriptedEventCommand{
 	LOADFONT(0xF00C),
 	ADDITEM(0xF00D),
 	REMOVEITEM(0xF00E),
-	UPDATE_SCENE_NPCS(0xF00F);
+	UPDATE_SCENE_NPCS(0xF00F),
+	LOADPALETTE(0xF010);
 	
 	private final int value;
 	ScriptedEventCommand(final int value){this.value=value;}
@@ -45,7 +46,8 @@ public enum ScriptedEventCommand{
     	if(this.value==ADDITEM.value){return("SCRIPTED_EVENT_ADDITEM");}
     	if(this.value==REMOVEITEM.value){return("SCRIPTED_EVENT_REMOVEITEM");}
     	if(this.value==UPDATE_SCENE_NPCS.value){return("SCRIPTED_EVENT_UPDATE_SCENE_NPCS");}
-		return("SCRIPTED_EVENT_END");//safest default return value
+    	if(this.value==LOADPALETTE.value){return("SCRIPTED_EVENT_LOADPALETTE");}
+		return("SCRIPTED_EVENT_END");//safest default return value, although maybe throwing an error would prevent a debugging headache later
 	}
 
 }
