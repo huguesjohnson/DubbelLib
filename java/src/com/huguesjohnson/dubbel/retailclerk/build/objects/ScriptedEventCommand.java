@@ -13,14 +13,17 @@ public enum ScriptedEventCommand{
 	SET_PLAYER_SPRITE_Y(0xF006),
 	SET_PLAYER_SPRITE_DIRECTION(0xF007),
 	FADE_BLACK(0xF008),
-	DRAW_SCENE(0xF009),
-	TIMER(0xF00A),
-	ENDGAME(0xF00B),
-	LOADFONT(0xF00C),
-	ADDITEM(0xF00D),
-	REMOVEITEM(0xF00E),
-	UPDATE_SCENE_NPCS(0xF00F),
-	LOADPALETTE(0xF010);
+	FADE_IN(0xF009),
+	DRAW_SCENE(0xF00A),
+	TIMER(0xF00B),
+	ENDGAME(0xF00C),
+	LOADFONT(0xF00D),
+	ADDITEM(0xF00E),
+	REMOVEITEM(0xF00F),
+	UPDATE_SCENE_NPCS(0xF010),
+	LOADPALETTE(0xF011),
+	SET_STATE_FLAG(0xF012),
+	CLEAR_STATE_FLAG(0xF013);
 	
 	private final int value;
 	ScriptedEventCommand(final int value){this.value=value;}
@@ -39,6 +42,7 @@ public enum ScriptedEventCommand{
     	if(this.value==SET_PLAYER_SPRITE_Y.value){return("SCRIPTED_EVENT_SET_PLAYER_SPRITE_Y");}
     	if(this.value==SET_PLAYER_SPRITE_DIRECTION.value){return("SCRIPTED_EVENT_SET_PLAYER_SPRITE_DIRECTION");}
     	if(this.value==FADE_BLACK.value){return("SCRIPTED_EVENT_FADE_BLACK");}
+    	if(this.value==FADE_IN.value){return("SCRIPTED_EVENT_FADE_IN");}
     	if(this.value==DRAW_SCENE.value){return("SCRIPTED_EVENT_DRAW_SCENE");}
     	if(this.value==TIMER.value){return("SCRIPTED_EVENT_TIMER");}
     	if(this.value==ENDGAME.value){return("SCRIPTED_EVENT_ENDGAME");}
@@ -47,6 +51,8 @@ public enum ScriptedEventCommand{
     	if(this.value==REMOVEITEM.value){return("SCRIPTED_EVENT_REMOVEITEM");}
     	if(this.value==UPDATE_SCENE_NPCS.value){return("SCRIPTED_EVENT_UPDATE_SCENE_NPCS");}
     	if(this.value==LOADPALETTE.value){return("SCRIPTED_EVENT_LOADPALETTE");}
+    	if(this.value==SET_STATE_FLAG.value){return("SCRIPTED_EVENT_SET_STATE_FLAG");}
+    	if(this.value==CLEAR_STATE_FLAG.value){return("SCRIPTED_EVENT_CLEAR_STATE_FLAG");}
 		return("SCRIPTED_EVENT_END");//safest default return value, although maybe throwing an error would prevent a debugging headache later
 	}
 
