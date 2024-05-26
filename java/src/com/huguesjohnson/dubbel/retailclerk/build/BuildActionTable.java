@@ -12,6 +12,7 @@ import com.huguesjohnson.dubbel.util.NumberFormatters;
 
 public class BuildActionTable extends BaseBuilder{
 
+	@SuppressWarnings("resource") //resources are closed in finally block but Eclipse still warns
 	public static void build(String basePath,ActionTableParameters actionTable,HashMap<Integer,String> sceneIDMap) throws Exception{
 		FileWriter writer=null;
 		try{

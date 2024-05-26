@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.imageio.IIOException;
@@ -16,6 +17,7 @@ import com.huguesjohnson.dubbel.retailclerk.build.parameters.ConstantFileParamet
 
 public class BuildConstants extends BaseBuilder{
 
+	@SuppressWarnings("resource") //resources are closed in finally block but Eclipse still warns
 	public static void build(String basePath,ConstantFileParameters parameters) throws Exception{
 		//bail if there's nothing to do
 		if((parameters.fileMap==null)||(parameters.fileMap.size()<1)){return;}
@@ -24,6 +26,7 @@ public class BuildConstants extends BaseBuilder{
 		BufferedReader bufferedReader=null;
 		String sourceFilePath=null;
 		String currentLine=null;
+		ArrayList<String> names=new ArrayList<String>();
 		try{
 			String includeFilePath=basePath+parameters.includeFilePath;
 			includeDataWriter=new FileWriter(includeFilePath);
@@ -54,6 +57,12 @@ public class BuildConstants extends BaseBuilder{
 					}else{
 						String[] split=currentLine.split(",");
 						if((split!=null)&&(split.length>1)){
+							String name=split[0];
+							if(names.contains(name)){
+								throw(new Exception("BuildConstants - Duplicate constant name: "+name));
+							}else{
+								names.add(name);
+							}
 							stringBuffer.append(split[0]);
 							stringBuffer.append("=");
 							stringBuffer.append(split[1]);
@@ -66,10 +75,6 @@ public class BuildConstants extends BaseBuilder{
 					stringBuffer.append(newLine);
 					constantFileWriter.write(stringBuffer.toString());
 				}				
-				//close files
-				bufferedReader.close();
-				constantFileWriter.flush();
-				constantFileWriter.close();
 				//update the include file
 				String includePathRel=PathResolver.getRelativePath(includeFilePath,outputFilePath);
 				if(includePathRel.startsWith("..")){
@@ -83,8 +88,6 @@ public class BuildConstants extends BaseBuilder{
 				includeString.append(newLine);
 				includeDataWriter.write(includeString.toString());
 			}
-			//close include writer
-			includeDataWriter.close();
 		}catch(IIOException iiox){
 			if(sourceFilePath==null){
 				System.err.println("BuildConstants error - sourceFilePath==null");
@@ -105,9 +108,9 @@ public class BuildConstants extends BaseBuilder{
 			}
 			throw(x);
 		}finally{
+			try{if(bufferedReader!=null){bufferedReader.close();}}catch(Exception x){ }
 			try{if(constantFileWriter!=null){constantFileWriter.flush(); constantFileWriter.close();}}catch(Exception x){ }
 			try{if(includeDataWriter!=null){includeDataWriter.flush(); includeDataWriter.close();}}catch(Exception x){ }
-			try{if(bufferedReader!=null){bufferedReader.close();}}catch(Exception x){ }
 		}
 	}
 }

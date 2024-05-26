@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.huguesjohnson.dubbel.util.ChecksumUtil;
 
-class TestChecksumUtils{
+class TestChecksumUtil{
 
 	@Test
 	void testSumBytes(){

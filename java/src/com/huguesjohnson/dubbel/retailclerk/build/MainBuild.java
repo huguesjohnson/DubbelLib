@@ -64,13 +64,7 @@ public class MainBuild{
 				File f=(new File(fullBackupPath));
 				boolean backupPathExists=f.exists();
 				if(!backupPathExists){
-					try{
-						backupPathExists=f.mkdirs();
-						System.out.println(fullBackupPath+" didn't exist but now does.");
-					}catch(Exception x){
-						System.out.println(fullBackupPath+" doesn't exist and can't be created");
-						x.printStackTrace();
-					}
+					backupPathExists=f.mkdirs(); //will throw exception if mkdirs() fails
 				}
 				if(backupPathExists){
 					int index=basePath.lastIndexOf(File.separator,basePath.length()-2)+1;

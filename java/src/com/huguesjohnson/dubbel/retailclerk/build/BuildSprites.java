@@ -5,6 +5,7 @@ package com.huguesjohnson.dubbel.retailclerk.build;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -28,6 +29,7 @@ public abstract class BuildSprites extends BaseBuilder{
 		FileWriter constantWriter=null;
 		FileWriter tileWriter=null;
 		Sprite currentSprite=null;
+		ArrayList<String> spriteNames=new ArrayList<String>();
 		try{
 			//setup writers
 			String includeFilePath=basePath+sprites.includeFilePath;
@@ -52,9 +54,14 @@ public abstract class BuildSprites extends BaseBuilder{
 			constantWriter.write(newLine);
 			//loop through all the sprites
 			for(int i=0;i<sprites.sprites.length;i++){
-				id++;	//increment id first
+				id++; //increment id first
 				currentSprite=sprites.sprites[i];
 				String spriteName=currentSprite.name.replace(" ","");
+				if(spriteNames.contains(spriteName)){
+					throw(new Exception("BuildSprites - Duplicate sprite name: "+spriteName));
+				}else{
+					spriteNames.add(spriteName);
+				}				
 				String hexId=Integer.toHexString(id);
 				String sourceFilePath=basePath+currentSprite.sourceFilePath;
 				String outputFilePath=basePath+currentSprite.destinationFilePath;

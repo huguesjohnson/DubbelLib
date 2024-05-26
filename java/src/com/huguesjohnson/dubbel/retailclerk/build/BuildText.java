@@ -5,6 +5,7 @@ package com.huguesjohnson.dubbel.retailclerk.build;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
@@ -18,11 +19,14 @@ I'm sort of generally unhappy with how I implemented strings and this class expo
 
 public class BuildText extends BaseBuilder{
 	
+	@SuppressWarnings("resource") //resources are closed in finally block but Eclipse still warns
 	public static void build(String basePath,TextParameters parameters) throws Exception{
 		FileWriter tableFileWriter=null;
 		FileWriter textFileWriter=null;
 		StringCollection stringCollection=null;
 		TextLine textLine=null;
+		ArrayList<String> tableNames=new ArrayList<String>();
+		ArrayList<String> keys=new ArrayList<String>();
 		try{
 			//setup table writer
 			tableFileWriter=new FileWriter(basePath+parameters.tableFilePath);
@@ -52,7 +56,13 @@ public class BuildText extends BaseBuilder{
 					}
 					tableFileWriter.write(";-------------------------------------------------------------------------------");
 					tableFileWriter.write(newLine);
-					tableFileWriter.write(stringCollection.name+"TableStart:");
+					String tableName=stringCollection.name;
+					if(tableNames.contains(tableName)){
+						throw(new Exception("BuildText - Duplicate table name: "+tableName));
+					}else{
+						tableNames.add(tableName);
+					}
+					tableFileWriter.write(tableName+"TableStart:");
 					tableFileWriter.write(newLine);
 				}
 				textFileWriter.write(newLine);
@@ -94,6 +104,11 @@ public class BuildText extends BaseBuilder{
 						textFileWriter.write(newLine);
 					}
 					//string label
+					if(keys.contains(key)){
+						throw(new Exception("BuildText - Duplicate key (label really): "+key));
+					}else{
+						keys.add(key);
+					}
 					textFileWriter.write(key+":");
 					textFileWriter.write(newLine);
 					if((textLine.dialogTitle!=null)&&(textLine.dialogTitle.length()>0)){

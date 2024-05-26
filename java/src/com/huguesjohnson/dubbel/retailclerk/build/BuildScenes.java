@@ -5,6 +5,7 @@ package com.huguesjohnson.dubbel.retailclerk.build;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
@@ -30,6 +31,7 @@ public class BuildScenes extends BaseBuilder{
 		FileWriter sceneWriter=null;
 		String currentSceneName=null;
 		String scenePath=null;
+		ArrayList<String> labels=new ArrayList<String>();
 		try{
 			//read scene files
 			int length=parameters.scenePaths.length;
@@ -385,6 +387,11 @@ public class BuildScenes extends BaseBuilder{
 				sceneWriter.close();
 				StringBuffer includeString=new StringBuffer();
 				String label=scenes[sceneIndex].name;
+				if(labels.contains(label)){
+					throw(new Exception("BuildScenes - Duplicate label: "+label));
+				}else{
+					labels.add(label);
+				}				
 				includeString.append(label);
 				includeString.append(":");
 				includeString.append(newLine);

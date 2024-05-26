@@ -26,6 +26,7 @@ public class BuildPatternsFromTilesets extends BaseBuilder{
 		FileWriter patternWriter=null;
 		FileWriter includeWriter=null;
 		String currentPatternName=null;
+		ArrayList<String> patternNames=new ArrayList<String>();
 		try{
 			//setup include writers
 			includeWriter=new FileWriter(includeFilePath,true);
@@ -39,6 +40,11 @@ public class BuildPatternsFromTilesets extends BaseBuilder{
 			//loop through patterns
 			for(PatternFromTileset pattern:parameters.patterns){
 				currentPatternName=pattern.name;
+				if(patternNames.contains(currentPatternName)){
+					throw(new Exception("BuildPatternsFromTilesets - Duplicate pattern name: "+currentPatternName));
+				}else{
+					patternNames.add(currentPatternName);
+				}					
 				//setup the pattern writer
 				String patternPath=basePath+pattern.destinationFilePath;
 				patternWriter=new FileWriter(patternPath);

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import com.huguesjohnson.dubbel.util.GenesisColorUtil;
 
-class TestGenesisColorUtils{
+class TestGenesisColorUtil{
 
 	@Test
 	void testHexStringToGenesisRgb(){

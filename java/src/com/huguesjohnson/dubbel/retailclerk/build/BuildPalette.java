@@ -79,8 +79,6 @@ public abstract class BuildPalette extends BaseBuilder{
 						paletteWriter.write(newLine);
 					}
 				}
-				paletteWriter.flush();
-				paletteWriter.close();
 				//update the include file
 				if((entry.exclude==null)||(!entry.exclude.equalsIgnoreCase("true"))){
 					String includePathRel=PathResolver.getRelativePath(includeFilePath,outputFilePath);
@@ -101,8 +99,6 @@ public abstract class BuildPalette extends BaseBuilder{
 				//add the entry to the return map
 				returnMap.put(entry.name,entry);
 		    }
-			includeWriter.flush();
-			includeWriter.close();
 			return(returnMap);
 		}catch(IIOException iiox){
 			System.err.println("Error in BuildPalette");
