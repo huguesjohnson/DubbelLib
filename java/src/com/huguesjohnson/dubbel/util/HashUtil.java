@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class HashUtil{
+public abstract class HashUtil{
 	public final static String MDNAME_SHA3512="SHA3-512";
 	public final static String MDNAME_MD5="MD5";
 
