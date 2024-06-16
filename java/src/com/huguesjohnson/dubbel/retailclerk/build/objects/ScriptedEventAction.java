@@ -2,11 +2,7 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
-
-public class ScriptedEventAction implements Serializable{
-	private static final long serialVersionUID=81971L;
-
+public class ScriptedEventAction{
 	public String comment;
 	public ScriptedEventCommand command;
 	public Direction direction;

@@ -2,8 +2,6 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
-
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.ActionTableParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.AssemblyParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.CollisionDataParameters;
@@ -20,9 +18,7 @@ import com.huguesjohnson.dubbel.retailclerk.build.parameters.TextParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.TilesetParameters;
 
 
-public class BuildInstructions implements Serializable{
-	private static final long serialVersionUID=666L;
-
+public class BuildInstructions{
 	/* ***********************************************************
 	* Base path
 	*********************************************************** */

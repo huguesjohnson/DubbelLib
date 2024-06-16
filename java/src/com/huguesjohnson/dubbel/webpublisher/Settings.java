@@ -2,12 +2,9 @@
 
 package com.huguesjohnson.dubbel.webpublisher;
 
-import java.io.Serializable;
 import java.util.Map;
 
-public class Settings implements Serializable{
-	private static final long serialVersionUID=648913666L;
-
+public class Settings{
 	private boolean dryRun=false;
 	private boolean rebuildSitemap=true;
 	private boolean rebuildRssLinks=true;  

@@ -2,11 +2,7 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
-
-public class SceneObject implements Serializable{
-	private static final long serialVersionUID=8964L;
-
+public class SceneObject{
 	public String id;
 	public int x;
 	public int y;

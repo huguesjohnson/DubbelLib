@@ -2,12 +2,9 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
 import java.util.Map;
 
-public class StringCollection implements Serializable{
-	private static final long serialVersionUID=113969L;
-
+public class StringCollection{
 	public String name; //name of the text set
 	public String description=null; //longer description of the text set
 	public String skipTable=null; //'true' = do not create a lookup table

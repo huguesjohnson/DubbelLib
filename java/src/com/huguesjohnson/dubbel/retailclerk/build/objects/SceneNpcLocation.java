@@ -2,11 +2,7 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
-
-public class SceneNpcLocation implements Serializable{
-	private static final long serialVersionUID=60489L;
-
+public class SceneNpcLocation{
 	public int x;
 	public int y;
 	public String direction;

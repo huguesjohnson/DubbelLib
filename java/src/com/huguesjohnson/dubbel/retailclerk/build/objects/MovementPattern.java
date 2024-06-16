@@ -2,11 +2,7 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
-
-public class MovementPattern implements Serializable{
-	private static final long serialVersionUID=10101911L;
-
+public class MovementPattern{
 	public String name;
 	public Direction[] steps;
 }

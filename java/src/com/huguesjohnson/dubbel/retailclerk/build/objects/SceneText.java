@@ -2,11 +2,7 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
-
-public class SceneText implements Serializable{
-	private static final long serialVersionUID=9710L;
-
+public class SceneText{
 	public String stringLabel;
 	public String comment;
 	public boolean highPriority;

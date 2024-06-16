@@ -2,11 +2,7 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
-
-public class ActionTableEntry implements Serializable{
-	private static final long serialVersionUID=641989L;
-
+public class ActionTableEntry{
 	public int day;
 	public String scene;
 	public String action;

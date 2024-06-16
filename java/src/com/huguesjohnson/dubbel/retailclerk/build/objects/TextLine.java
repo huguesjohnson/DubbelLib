@@ -2,11 +2,7 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
-
-public class TextLine implements Serializable{
-	private static final long serialVersionUID=20000808064432L;
-	
+public class TextLine{
 	public String text=""; //the actual text
 	public String comment=null; //optional comment
 	public String dialogTitle=null; //if the dialog has a title this is where it goes

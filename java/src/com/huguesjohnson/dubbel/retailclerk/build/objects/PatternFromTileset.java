@@ -2,11 +2,7 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
-
-public class PatternFromTileset implements Serializable{
-	private static final long serialVersionUID=1117L;
-	
+public class PatternFromTileset{
 	public String name;
 	public String tilesetName;
 	public String paletteName;

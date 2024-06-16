@@ -2,11 +2,7 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
-
-public class Tile8x8 implements Serializable{
-	private static final long serialVersionUID=113970L;
-
+public class Tile8x8{
 	private final static String newLine=System.lineSeparator();
 
 	public int[][] pixels;

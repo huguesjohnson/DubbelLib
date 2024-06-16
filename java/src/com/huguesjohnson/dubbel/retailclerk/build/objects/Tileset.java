@@ -2,12 +2,9 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Tileset implements Serializable{
-	private static final long serialVersionUID=10131L;
-	
+public class Tileset{
 	public String name;
 	public String palette;
 	public String sourceFilePath;
