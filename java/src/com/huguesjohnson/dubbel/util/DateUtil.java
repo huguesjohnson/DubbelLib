@@ -20,6 +20,13 @@ public abstract class DateUtil{
 		return(df.format(now()));
 	}	
 
+	public static String toString(long ms,final DateFormat df){
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTimeInMillis(ms);
+		Date date=calendar.getTime();
+		return(df.format(date));
+	}		
+	
 	public static String toString(Date date,final DateFormat df){
 		return(df.format(date));
 	}		
