@@ -4,6 +4,7 @@ package com.huguesjohnson.dubbel.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.huguesjohnson.dubbel.file.FileUtils;
 
@@ -21,7 +22,7 @@ public abstract class ByteComparer{
 	 * -either of the startByte values are bad (i.e. past end of file or negative)
 	 * -length+either startByte is past EOF for the respective file
 	 */
-	public final static ArrayList<ByteComparerResult> compare(String path1,int startByte1,String path2,int startByte2,int length) throws IOException{
+	public final static List<ByteComparerResult> compare(String path1,int startByte1,String path2,int startByte2,int length) throws IOException{
 		ArrayList<ByteComparerResult> result=new ArrayList<ByteComparerResult>();
 		/*
 		 * there are two ways to tackle this, each with trade-offs
@@ -45,4 +46,38 @@ public abstract class ByteComparer{
 		return(result);
 	} 
 
+	//same comments as previous method apply
+	public final static List<ByteRangeComparerResult> compareRange(String path1,int startByte1,String path2,int startByte2,int length) throws IOException{
+		ArrayList<ByteRangeComparerResult> result=new ArrayList<ByteRangeComparerResult>();
+		//read bytes
+		byte[] b1=FileUtils.readBytes(path1,startByte1,length);
+		byte[] b2=FileUtils.readBytes(path2,startByte2,length);
+		//compare
+		int i=0;
+		while(i<length){
+			if(b1[i]!=b2[i]){//found a difference
+				ByteRangeComparerResult brcr=new ByteRangeComparerResult();
+				brcr.setFile1Line(startByte1+i);
+				brcr.setFile2Line(startByte2+i);
+				int deltaSize=0;
+				int j=i;
+				while((j<length)&&(b1[j]!=b2[j])){
+					deltaSize++;
+					j++;
+				}
+				byte[] file1Value=new byte[deltaSize];
+				byte[] file2Value=new byte[deltaSize];
+				for(int k=0;k<deltaSize;k++){
+					file1Value[k]=b1[i+k];
+					file2Value[k]=b2[i+k];
+				}
+				brcr.setFile1Value(file1Value);
+				brcr.setFile2Value(file2Value);
+				result.add(brcr);
+				i=j;//where to resume searching
+			}
+			i++;
+		}
+		return(result);
+	} 	
 }

@@ -4,6 +4,7 @@ package com.huguesjohnson.dubbel.util;
 
 import java.util.StringTokenizer;
 
+//TODO - these all need unit tests
 public abstract class NumberFormatters{
 	
 	//I heard a rumor jdk17 might have a built-in feature like this
@@ -152,4 +153,21 @@ public abstract class NumberFormatters{
          }
          return(decimalString);
     }
+    
+    public static String byteArrayToString(byte[] b){
+    	if((b==null)||(b.length)<1){return("");}
+    	StringBuilder sb=new StringBuilder();
+		int length=b.length;
+		for(int i=0;i<length;i++){
+			sb.append("[0x");
+			sb.append(Integer.toHexString(b[i]&0xFF).toUpperCase());
+			sb.append("] ");
+		}
+    	return(sb.toString());
+    }
+    
+    public static String intToHex(int i){
+    	return("0x"+Integer.toHexString(i).toUpperCase());
+    }
+    
 }
