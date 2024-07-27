@@ -81,12 +81,21 @@ public abstract class FileUtils{
     
 	public static byte[] readBytes(String path,int startByte,int length) throws IOException{
 		File f=new File(path);
+		return(readBytes(f,startByte,length));
+	}
+
+	public static byte[] readBytes(String path) throws IOException{
+		File f=new File(path);
+		return(readBytes(f,0,(int)f.length()));
+	}
+	
+	private static byte[] readBytes(File f,int startByte,int length) throws IOException{
 		FileInputStream fis=new FileInputStream(f);
 		byte[] b=new byte[length];
 		fis.skip(startByte);
 		fis.read(b,0,length);
 		fis.close();
-		return(b);
+		return(b);		
 	}
 	
 	public static ArrayList<String> readLines(String path) throws IOException{

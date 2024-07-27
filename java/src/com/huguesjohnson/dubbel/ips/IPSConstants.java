@@ -7,4 +7,5 @@ public abstract class IPSConstants{
 	public final static byte[] EOF={'E','O','F'};
 	public final static String ERROR_INVALID_HEADER="Missing required header value";
 	public final static String ERROR_INVALID_EOF="Missing required end of file terminator";
+	public final static String ERROR_INVALID_FILE="Not a valid IPS file";
 }

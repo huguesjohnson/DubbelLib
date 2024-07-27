@@ -5,7 +5,7 @@ package com.huguesjohnson.dubbel.ips;
 import java.io.FileOutputStream;
 import java.util.List;
 
-public class IPSWriter{
+public abstract class IPSWriter{
 	public final static void writeIPSFile(String filePath,List<IPSRecord> records) throws Exception{
 		FileOutputStream fout=null;
 		try{
