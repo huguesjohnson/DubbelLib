@@ -39,4 +39,12 @@ public abstract class DateUtil{
 	public static int getCurrentMonth(){
 		return(Calendar.getInstance().get(Calendar.MONTH));
 	}
+	
+	public static long toEpochTime(String dateString,DateFormat df){
+		try{
+			return(df.parse(dateString).getTime());
+		}catch(Exception x){
+			return(0L);
+		}
+	}
 }

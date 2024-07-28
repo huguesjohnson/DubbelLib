@@ -16,7 +16,7 @@ class TestDateUtil{
 	@Test
 	void test(){
 		Calendar calendar=Calendar.getInstance();
-		Long ms=612986766006L;
+		long ms=612986766006L;
 		calendar.setTimeInMillis(ms);
 		Date date=calendar.getTime();
 		assertEquals("1989-06-04",DateUtil.toString(date,DateUtil.DF_YearMonthDay));
@@ -31,5 +31,8 @@ class TestDateUtil{
 		assertEquals("1989-06-04 13:06:06",DateUtil.toString(ms,DateUtil.DF_YearMonthDayHourMinuteSecond));
 		assertEquals("1989-06-04-13-06-06-006",DateUtil.toString(ms,DateUtil.DF_YearMonthDayHourMinuteSecondMillisecond));
 		assertEquals("19890604-13",DateUtil.toString(ms,DateUtil.DF_MDVersion));
+		assertEquals(0L,DateUtil.toEpochTime("",DateUtil.DF_YearMonthDay));
+		assertEquals(ms,DateUtil.toEpochTime("1989-06-04-13-06-06-006",DateUtil.DF_YearMonthDayHourMinuteSecondMillisecond));
+		assertEquals(ms-6L,DateUtil.toEpochTime("1989-06-04 13:06:06",DateUtil.DF_YearMonthDayHourMinuteSecond));
 	}
 }
