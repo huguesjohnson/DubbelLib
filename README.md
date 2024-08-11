@@ -29,7 +29,7 @@ This also includes small single-use applications that aren't significant enough 
 	* file: Things to make some file and path resolution tasks easier.
 	* file.filter: File filters used for open/save dialogs or listing files by type.
 	* fx: JavaFX helper classes.
-	* retailclerk: Tools to build games in the Retail Clerk series or other games using the same engine/
+	* retailclerk: Tools to build games in the Retail Clerk series or other games using the same engine.
 	* util: General utility classes that don't fit anywhere else.
 	* webpublisher: Things to manage the aforementioned little insignificant web site.
 * x68
@@ -45,7 +45,7 @@ Yes, I'm aware of Ant and Gradle and Maven and so. I've even administered build 
 
 **Stuff I still want to add**
 
-* Some .NET code - possibly moving my MDLib project into this repository.
+* Some .NET code - possibly moving some of my archived MDLib project into this repository.
 * Possibly VB6 code because why not?
 
 **Links**
