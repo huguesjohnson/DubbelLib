@@ -8,7 +8,6 @@
 ; assume that d0-d7 are used either by this subroutine or others it calls
 ;-------------------------------------------------------------------------------
 LoadScene:
-
 ;---------------------------------------------------------------------------
 ; scene ID
 ;---------------------------------------------------------------------------
@@ -41,7 +40,7 @@ LoadSceneLoadMapCollision:
 	movea.l	d7,a0	; point a0 to start address of collision data
 	lea	MEM_COLLISION_DATA,a1	; point a1 to destination memory location
 	;---------------------------------------------------------------------------
-	; I'd like this next part to be temporary but knowing me it won't be..
+	; I'd like this next part to be temporary but knowing me it won't..
 	; The way I originally implemented collision data left the first & last
 	; 16 rows as always open - this causes the collision data to use up more
 	; rom space than it should.
@@ -65,7 +64,7 @@ LoadSceneLoadMapCollisionLoopC:
 	move.l  #$00000000,(a1)+
 	move.l  (a0)+,(a1)+
 	dbra    d7,LoadSceneLoadMapCollisionLoopC
-	
+
 ;-------------------------------------------------------------------------------
 ; load scene exits
 ;-------------------------------------------------------------------------------
@@ -160,9 +159,8 @@ LoadSceneLoadNPCSprites:
 	lea	MEM_NPC_LOCATIONS,a1	; point a1 to the start of the list
 	clr	d5	; out of paranoia
 	move.w	(MEM_ACTIVE_SCENE_ID),d5	; copy active scene ID to d5
-	; this is not a great way to determine if a scene has NPCs really
-	;cmpi.w	#MAX_SCENE_ID,d5	; test is this is a scene with NPCs
-	;bgt.w	ExitLoadSceneLoadNPCSprites	; branch if not
+	cmpi.w	#MAX_STORE_ID,d5	; test is this is a store
+	bgt.w	ExitLoadSceneLoadNPCSprites	; branch if not
 	mulu.w	#NPC_LIST_LENGTH,d5	; multiply by list length
 	adda.w	d5,a1	; add result to a1 to move to npc list for active scene
 	;---------------------------------------------------------------------------
@@ -191,13 +189,8 @@ ExitLoadSceneLoadNPCSprites:
 	rts
 
 LoadNPC:
-	; sanity check against my own stupidity
-	tst.w	d5
-	bgt.s	.1
-	rts
-.1	
 	lea	CharacterDefinitionStart,a2	; point a2 to the character definition
-	;subq	#$1,d5	; to account for there not being a character 0
+	subq	#$1,d5	; to account for there not being a character 0
 	; d5 contains NPC ID
 	mulu.w	#CHARACTER_DEFINITION_SIZE,d5	; multiply to get NPC def location
 	adda.w	d5,a2	; increment a2 to the NPC definition
