@@ -17,7 +17,7 @@ javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/util/GenesisColorUtil.
 javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/util/ZipUtil.java
 javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/retailclerk/build/objects/*.java
 javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/retailclerk/build/parameters/*.java
-javac -cp ./java/src/:./java/lib/gson-2.8.5.jar ./java/src/com/huguesjohnson/dubbel/retailclerk/build/*.java
+javac -cp ./java/src/:./java/lib/gson-2.10.1.jar ./java/src/com/huguesjohnson/dubbel/retailclerk/build/*.java
 
 echo 'moving compiled classes..'
 mv ./java/src/com/huguesjohnson/dubbel/file/*.class ./build/java/bin/com/huguesjohnson/dubbel/file/

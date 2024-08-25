@@ -12,14 +12,18 @@ LoadSpriteZeroTiles:
 LoadPlayerSpriteTiles:
 	bsr.w	WaitVBlank	; added to resolve issue running in Genecyst
 	move.w	#$2700,sr		; disable interrupts
-	cmpi.w	#PLAYER_SPRITE_CARL,(MEM_PLAYER_SPRITE)	; which sprite tiles to use?
-	beq.s	.1	; branch to use tiles for Dani
-	; else use default tiles
-	lea	ErynSpriteTilesStart,a0	; set address of first tile to load
-	bra.s	.2	; branch to write tiles to VPD
-.1	; using the Carl tiles for the player sprite
-	lea	CarlSpriteTilesStart,a0	; set address of first tile to load
-.2	; write tiles to VDP
+	lea	PlayerSpriteTilesStart,a0	; set address of first tile to load
+; -----------------------------------------------------
+; example code for supporting multiple player sprites
+; -----------------------------------------------------
+;	cmpi.w	#PLAYER_SPRITE_CARL,(MEM_PLAYER_SPRITE)	; which sprite tiles to use?
+;	beq.s	.1	; branch to use tiles for Dani
+;	; else use default tiles
+;	lea	ErynSpriteTilesStart,a0	; set address of first tile to load
+;	bra.s	.2	; branch to write tiles to VPD
+;.1	; using the Carl tiles for the player sprite
+;	lea	CarlSpriteTilesStart,a0	; set address of first tile to load
+;.2	; write tiles to VDP
 	move.w	#PLAYER_SPRITE_VDP,d1	; setup call to BuildVRAMWriteAddress
 	bsr.w	BuildVRAMWriteAddress	; build the VRAM write address
 	move.w	#SPRITE_TILESET_LWORDS,d0	; number of tiles in a sprite tileset
