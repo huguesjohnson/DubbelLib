@@ -8,7 +8,8 @@ import com.huguesjohnson.dubbel.retailclerk.build.parameters.HeaderParameters;
 import com.huguesjohnson.dubbel.util.DateUtil;
 
 public abstract class BuildHeader extends BaseBuilder{
-
+	//TODO - a lot of this should be in constants
+	
 	public static void build(String basePath,HeaderParameters header) throws Exception{
 		FileWriter headerWriter=null;
 		try{
@@ -101,7 +102,7 @@ public abstract class BuildHeader extends BaseBuilder{
 		}
 	} 
 	
-	private final static String getMonthString(int month){
+	public final static String getMonthString(int month){
 		//yes, I'm aware switch statements exist
 		if(month==0){return(".JAN");}
 		if(month==1){return(".FEB");}

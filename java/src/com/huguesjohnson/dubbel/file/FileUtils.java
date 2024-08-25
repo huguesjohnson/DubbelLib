@@ -120,6 +120,25 @@ public abstract class FileUtils{
 		return("");
 	}
 	
+	//these are more like "mkdirs if needed"
+	public static void mkdirs(File f) throws Exception{
+		if(!f.exists()){
+			if(f.isDirectory()){
+				f.mkdirs();
+			}else{
+				File p=f.getParentFile();
+				if(!p.exists()){
+					p.mkdirs();
+				}
+			}
+		}
+	}	
+	
+	public static void mkdirs(String path) throws Exception{
+		File f=new File(path);
+		mkdirs(f);
+	}
+	
 	/* this is one of the most dangerous pieces of code I've written
 	 * it overwrites all file names in a directory as a UUID
 	 * 

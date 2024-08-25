@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
-
+import com.huguesjohnson.dubbel.file.FileUtils;
 import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.util.DateUtil;
 import com.huguesjohnson.dubbel.util.ZipUtil;
@@ -62,32 +62,27 @@ public class MainBuild{
 					fullBackupPath=fullBackupPath+File.separator;
 				}
 				File f=(new File(fullBackupPath));
-				boolean backupPathExists=f.exists();
-				if(!backupPathExists){
-					backupPathExists=f.mkdirs(); //will throw exception if mkdirs() fails
-				}
-				if(backupPathExists){
-					int index=basePath.lastIndexOf(File.separator,basePath.length()-2)+1;
-					String name=basePath.substring(index,basePath.length()-1);
-					String now=DateUtil.now(DateUtil.DF_YearMonthDayHourMinuteSecondMillisecond);
-					name=name+"_"+now+".tar.gz";
-					String command="tar --exclude='"+name+"' "+" --exclude='*.git' -zcvf "+name+" "+".";
-					ProcessBuilder pb=new ProcessBuilder(new String[]{"sh","-c",command});
-					pb.directory(new File(basePath));
-					Process p=pb.start();
-					p.waitFor();
-					BufferedReader sErr=new BufferedReader(new InputStreamReader(p.getErrorStream()));
-					String line=null;
-					while((line=sErr.readLine())!=null){System.out.println(line);}
-					command="mv -v '"+name+"' '"+fullBackupPath+"'";
-					pb=new ProcessBuilder(new String[]{"sh","-c",command});
-					pb.directory(new File(basePath));
-					p=pb.start();
-					p.waitFor();
-					sErr=new BufferedReader(new InputStreamReader(p.getErrorStream()));
-					line=null;
-					while((line=sErr.readLine())!=null){System.out.println(line);}
-				}
+				FileUtils.mkdirs(f);
+				int index=basePath.lastIndexOf(File.separator,basePath.length()-2)+1;
+				String name=basePath.substring(index,basePath.length()-1);
+				String now=DateUtil.now(DateUtil.DF_YearMonthDayHourMinuteSecondMillisecond);
+				name=name+"_"+now+".tar.gz";
+				String command="tar --exclude='"+name+"' "+" --exclude='*.git' -zcvf "+name+" "+".";
+				ProcessBuilder pb=new ProcessBuilder(new String[]{"sh","-c",command});
+				pb.directory(new File(basePath));
+				Process p=pb.start();
+				p.waitFor();
+				BufferedReader sErr=new BufferedReader(new InputStreamReader(p.getErrorStream()));
+				String line=null;
+				while((line=sErr.readLine())!=null){System.out.println(line);}
+				command="mv -v '"+name+"' '"+fullBackupPath+"'";
+				pb=new ProcessBuilder(new String[]{"sh","-c",command});
+				pb.directory(new File(basePath));
+				p=pb.start();
+				p.waitFor();
+				sErr=new BufferedReader(new InputStreamReader(p.getErrorStream()));
+				line=null;
+				while((line=sErr.readLine())!=null){System.out.println(line);}
 			}else{
 				System.out.println("backupPath not defined, skipping task.");
 			}

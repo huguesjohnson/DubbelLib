@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import com.huguesjohnson.dubbel.file.FileUtils;
 import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.PaletteMap;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.PatternFromTileset;
@@ -29,6 +30,7 @@ public class BuildPatternsFromTilesets extends BaseBuilder{
 		ArrayList<String> patternNames=new ArrayList<String>();
 		try{
 			//setup include writers
+			FileUtils.mkdirs(includeFilePath);
 			includeWriter=new FileWriter(includeFilePath,true);
 			includeWriter.write(newLine);
 			includeWriter.write("\t;---------------------------------------------------------------------------");
@@ -47,6 +49,7 @@ public class BuildPatternsFromTilesets extends BaseBuilder{
 				}					
 				//setup the pattern writer
 				String patternPath=basePath+pattern.destinationFilePath;
+				FileUtils.mkdirs(patternPath);
 				patternWriter=new FileWriter(patternPath);
 				//write pattern name
 				patternWriter.write("Pattern"+pattern.name+":");
@@ -54,6 +57,8 @@ public class BuildPatternsFromTilesets extends BaseBuilder{
 				//read the source file
 				String sourceFilePath=basePath+pattern.sourceFilePath;
 				File sourceFile=new File(sourceFilePath);
+				includeWriter.write("\t; source file: "+pattern.sourceFilePath);
+				includeWriter.write(newLine);
 				BufferedImage image=ImageIO.read(sourceFile);
 				//get & test image width
 				int width=image.getWidth();

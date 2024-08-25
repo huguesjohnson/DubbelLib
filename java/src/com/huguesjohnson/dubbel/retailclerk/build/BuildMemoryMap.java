@@ -34,6 +34,8 @@ public abstract class BuildMemoryMap extends BaseBuilder{
 			long currentAddressInt=Long.valueOf(currentAddressHex,16);
 			for(int fileIndex=0;fileIndex<parameters.sourceFiles.length;fileIndex++){
 				sourceFile=basePath+parameters.sourceFiles[fileIndex];
+				outputStreamWriter.write("; source file: "+parameters.sourceFiles[fileIndex]);
+				outputStreamWriter.write(newLine);
 				bufferedReader=new BufferedReader(new InputStreamReader(new FileInputStream(new File(sourceFile))));
 				String address=baseAddress;
 				while((currentLine=bufferedReader.readLine())!=null){
