@@ -16,6 +16,6 @@ public class Settings{
 	public String siteMapBasePath;
 	public Map<String,String> opmlPages;
 	public Map<String,String> csvPages;
-	public Map<String,String> staticTemplates;//TODO - not sure about this name
+	public Map<String,String> staticTemplates;
 	public ReplacementBlockList replacements;
 }

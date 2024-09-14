@@ -78,7 +78,7 @@ public abstract class FileUtils{
             return(verified);
         }
     }
-    
+
 	public static byte[] readBytes(String path,int startByte,int length) throws IOException{
 		File f=new File(path);
 		return(readBytes(f,startByte,length));
