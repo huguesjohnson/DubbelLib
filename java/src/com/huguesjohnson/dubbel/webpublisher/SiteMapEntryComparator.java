@@ -8,14 +8,16 @@ public class SiteMapEntryComparator implements Comparator<SiteMapEntry>{
 
 	@Override
 	public int compare(SiteMapEntry arg0,SiteMapEntry arg1){
-		if((arg0.breadcrumb==null)||(arg0.breadcrumb.length()<1)){
+		String bc0=arg0.getBreadcrumbString();
+		String bc1=arg1.getBreadcrumbString();
+		if((bc0==null)||(bc0.length()<1)){
 			return(-1);
 		}
-		if((arg1.breadcrumb==null)||(arg1.breadcrumb.length()<1)){
+		if((bc1==null)||(bc1.length()<1)){
 			return(1);
 		}
-		String s0=arg0.breadcrumb+arg0.title;
-		String s1=arg1.breadcrumb+arg1.title;
+		String s0=bc0+arg0.getTitle();
+		String s1=bc1+arg1.getTitle();
 		return(s0.compareToIgnoreCase(s1));
 	}
 }

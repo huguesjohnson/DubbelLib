@@ -9,9 +9,9 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import com.huguesjohnson.dubbel.webpublisher.SimpleTemplater;
+import com.huguesjohnson.dubbel.webpublisher.SimpleStaticTemplater;
 
-class TestSimpleTemplater{
+class TestSimpleStaticTemplater{
 	@Test
 	void testStaticTemplates(){
 		//setup some data
@@ -20,7 +20,7 @@ class TestSimpleTemplater{
 		staticTemplates.put("{CSS_OVERRIDE}","2024-04-01");
 		staticTemplates.put("{CAROUSEL_VERSION}","2020-08-07");
 		//setup templater
-		SimpleTemplater templater=new SimpleTemplater(staticTemplates);
+		SimpleStaticTemplater templater=new SimpleStaticTemplater(staticTemplates);
 		//simple tests
 		String templateString="{CSS_VERSION}";
 		String expectedResult="533";

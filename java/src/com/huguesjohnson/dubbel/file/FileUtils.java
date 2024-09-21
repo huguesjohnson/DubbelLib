@@ -120,7 +120,7 @@ public abstract class FileUtils{
 		return("");
 	}
 	
-	//these are more like "mkdirs if needed"
+	//these next two are more like "mkdirs if needed"
 	public static void mkdirs(File f) throws Exception{
 		if(!f.exists()){
 			if(f.isDirectory()){
@@ -137,6 +137,14 @@ public abstract class FileUtils{
 	public static void mkdirs(String path) throws Exception{
 		File f=new File(path);
 		mkdirs(f);
+	}
+	
+	public static File getTempFile(String basePath){
+		File f=(new File(basePath+(UUID.randomUUID().toString().replace("-",""))+".tmp"));
+		while(f.exists()){//extremely small chance of this happening
+			f=(new File(basePath+(UUID.randomUUID().toString().replace("-",""))+".tmp"));
+		}
+		return(f);
 	}
 	
 	/* this is one of the most dangerous pieces of code I've written
