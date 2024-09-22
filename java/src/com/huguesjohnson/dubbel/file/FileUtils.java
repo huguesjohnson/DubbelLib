@@ -30,6 +30,11 @@ public abstract class FileUtils{
 		Collections.sort(files,(new FilePathComparator()));
 		return(files);
 	}
+
+	public final static ArrayList<File> getAllFilesRecursive(String path,FileFilter filter){
+		File f=new File(path);
+		return(getAllFilesRecursive(f,filter));
+	}
 	
 	//recursively build a list of Files in a directory based on a list of FileFilters, sort the resulting list
 	public final static ArrayList<File> getAllFilesRecursive(File path,ArrayList<FileFilter> filters){
