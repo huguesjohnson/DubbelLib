@@ -82,6 +82,8 @@ public abstract class BuildPalette extends BaseBuilder{
 						paletteWriter.write(newLine);
 					}
 				}
+				paletteWriter.flush();
+				paletteWriter.close();
 				//update the include file
 				if((entry.exclude==null)||(!entry.exclude.equalsIgnoreCase("true"))){
 					String includePathRel=PathResolver.getRelativePath(includeFilePath,outputFilePath);
