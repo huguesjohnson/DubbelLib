@@ -21,7 +21,7 @@ public abstract class BuildCollisionData extends BaseBuilder{
 	@SuppressWarnings("resource") //resources are closed in finally block but Eclipse still warns
 	public static void build(String basePath,CollisionDataParameters parameters) throws Exception{
 		Map<String,String> sourceDestinationMap=parameters.collisionMap;
-		String includeFilePath=basePath+parameters.includeFilePath;
+		String includeFilePath=PathResolver.getAbsolutePath(basePath,parameters.includeFilePath);
 		FileWriter collisionDataWriter=null;
 		FileWriter includeDataWriter=null;
 		String sourceFilePath=null;
@@ -33,8 +33,8 @@ public abstract class BuildCollisionData extends BaseBuilder{
 			includeDataWriter.write(newLine);
 			includeDataWriter.write(newLine);
 			for(Map.Entry<String,String> entry:sourceDestinationMap.entrySet()){
-				sourceFilePath=basePath+entry.getKey();
-				String outputFilePath=basePath+entry.getValue();
+				sourceFilePath=PathResolver.getAbsolutePath(basePath,entry.getKey());
+				String outputFilePath=PathResolver.getAbsolutePath(basePath,entry.getValue());
 				FileUtils.mkdirs(outputFilePath);
 				File sourceFile=new File(sourceFilePath);
 				BufferedImage image=ImageIO.read(sourceFile);

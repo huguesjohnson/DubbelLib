@@ -10,13 +10,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
+import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.MemoryMapParameters;
 
 public abstract class BuildMemoryMap extends BaseBuilder{
 
 	@SuppressWarnings("resource") //resources are closed in finally block but Eclipse still warns
 	public static void build(String basePath,MemoryMapParameters parameters) throws Exception{
-		String destinationFile=basePath+parameters.destinationFile;
+		String destinationFile=PathResolver.getAbsolutePath(basePath,parameters.destinationFile);
 		String baseAddress=parameters.baseAddress;
 		BufferedReader bufferedReader=null;
 		OutputStreamWriter outputStreamWriter=null;
@@ -33,8 +34,12 @@ public abstract class BuildMemoryMap extends BaseBuilder{
 			String currentAddressHex=baseAddress;
 			long currentAddressInt=Long.valueOf(currentAddressHex,16);
 			for(int fileIndex=0;fileIndex<parameters.sourceFiles.length;fileIndex++){
-				sourceFile=basePath+parameters.sourceFiles[fileIndex];
+				sourceFile=PathResolver.getAbsolutePath(basePath,parameters.sourceFiles[fileIndex]);
+				outputStreamWriter.write(";%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+				outputStreamWriter.write(newLine);
 				outputStreamWriter.write("; source file: "+parameters.sourceFiles[fileIndex]);
+				outputStreamWriter.write(newLine);
+				outputStreamWriter.write(";%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 				outputStreamWriter.write(newLine);
 				bufferedReader=new BufferedReader(new InputStreamReader(new FileInputStream(new File(sourceFile))));
 				String address=baseAddress;

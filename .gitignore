@@ -2,3 +2,5 @@
 *.project
 /java/bin/
 /build/
+/game-templates/genesis/build/
+/game-templates/genesis/build-tools/

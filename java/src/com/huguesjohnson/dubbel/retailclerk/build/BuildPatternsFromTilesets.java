@@ -23,7 +23,7 @@ public class BuildPatternsFromTilesets extends BaseBuilder{
 
 	@SuppressWarnings("resource") //everything is closed in finally block, Eclipse doesn't seem to understand that
 	public static void build(String basePath,PatternFromTilesetParameters parameters,HashMap<String,Tileset> tileMap,HashMap<String,PaletteMap> paletteMap) throws Exception{
-		String includeFilePath=basePath+parameters.patternIncludeFilePath;
+		String includeFilePath=PathResolver.getAbsolutePath(basePath,parameters.patternIncludeFilePath);
 		FileWriter patternWriter=null;
 		FileWriter includeWriter=null;
 		String currentPatternName=null;
@@ -48,14 +48,14 @@ public class BuildPatternsFromTilesets extends BaseBuilder{
 					patternNames.add(currentPatternName);
 				}					
 				//setup the pattern writer
-				String patternPath=basePath+pattern.destinationFilePath;
+				String patternPath=PathResolver.getAbsolutePath(basePath,pattern.destinationFilePath);
 				FileUtils.mkdirs(patternPath);
 				patternWriter=new FileWriter(patternPath);
 				//write pattern name
 				patternWriter.write("Pattern"+pattern.name+":");
 				patternWriter.write(newLine);
 				//read the source file
-				String sourceFilePath=basePath+pattern.sourceFilePath;
+				String sourceFilePath=PathResolver.getAbsolutePath(basePath,pattern.sourceFilePath);
 				File sourceFile=new File(sourceFilePath);
 				includeWriter.write("\t; source file: "+pattern.sourceFilePath);
 				includeWriter.write(newLine);
