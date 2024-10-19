@@ -1,0 +1,9 @@
+This folder contains libraries that are maintained outside of this project.
+
+For practical purposes the code is copied here vs compiling & linking to object code.
+-This is not purely laziness. 
+
+The libraries are:
+
+echo: See CREDITS.
+

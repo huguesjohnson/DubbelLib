@@ -1,0 +1,359 @@
+[
+   {
+      "name":"ExampleDialogWithMovement",
+      "actions":[
+         {
+            "comment":"start with player sprite",
+            "intConst":"SCRIPTED_EVENT_SPRITE_PLAYER"
+         },
+         {
+            "comment":"move player sprite into the scene",
+            "direction":"LEFT",
+            "intValue":16
+         },
+         {
+            "comment":"change to npc0 sprite",
+            "command":"CHANGE_SPRITE",
+            "intConst":"SCRIPTED_EVENT_SPRITE_NPC0"
+         },           
+         {
+            "comment":"move npc0 down",
+            "direction":"DOWN",
+            "intValue":20
+         },
+         {
+            "comment":"move npc0 right",
+            "direction":"RIGHT",
+            "intValue":40
+         },
+         {
+            "comment":"dialog",
+            "command":"DIALOG",
+            "label":"ScriptedEventExampleLine1"
+         },
+         {
+            "comment":"set distorted font",
+            "command":"LOADFONT",
+            "intConst":"FONT_ID_DISTORT"
+         },
+         {
+            "comment":"dialog - distorted text",
+            "command":"DIALOG",
+            "label":"ScriptedEventExampleLine2"
+         },
+         {
+            "comment":"set back to regular font",
+            "command":"LOADFONT",
+            "intConst":"FONT_ID_DEFAULT"
+         },     
+         {
+            "comment":"dialog - regular text again",
+            "command":"DIALOG",
+            "label":"ScriptedEventExampleLine3"
+         },             
+         {
+            "comment":"end",
+            "command":"END"
+         }
+      ]
+   },
+   {
+      "name":"ExampleExitEvent",
+      "actions":[
+         {
+            "comment":"NPC0 sprite",
+            "intConst":"SCRIPTED_EVENT_SPRITE_PLAYER"
+         },
+         {
+            "comment":"fade out",
+            "command":"FADE_BLACK"
+         },
+         {
+            "comment":"change player sprite",
+            "command":"CHANGE_PLAYER_SPRITE",
+            "intValue":1
+         },
+         {
+            "comment":"set where player sprite enters the scene",
+            "command":"SET_PLAYER_SPRITE_X",
+            "intValue":150
+         },
+         {
+            "comment":"set where player sprite enters the scene",
+            "command":"SET_PLAYER_SPRITE_Y",
+            "intValue":240
+         },        
+         {
+            "comment":"set where player direction",
+            "command":"SCRIPTED_EVENT_SET_PLAYER_SPRITE_DIRECTION",
+            "intConst":"DIRECTION_DOWN"
+         },            
+         {
+            "comment":"change scene room 00",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_ROOM00"
+         },
+         {
+            "comment":"clear npc out of room 02",
+            "command":"UPDATE_SCENE_NPCS",
+            "sceneId":"SCENE_ID_ROOM02",
+            "longValue":0
+         },            
+         {
+            "comment":"end",
+            "command":"END"
+         }
+      ]
+   },     
+   {
+      "name":"ExamplePaletteChange0",
+      "actions":[
+         {
+            "comment":"start with npc0  sprite",
+            "intConst":"SCRIPTED_EVENT_SPRITE_NPC0"
+         },
+         {
+            "comment":"change palette",
+            "command":"LOADPALETTE",
+            "intValue":2,
+            "label":"PaletteRoomGreen"
+         },             
+         {
+            "comment":"end",
+            "command":"END"
+         }
+      ]
+   },   
+   {
+      "name":"ExamplePaletteChange1",
+      "actions":[
+         {
+            "comment":"start with npc0 sprite",
+            "intConst":"SCRIPTED_EVENT_SPRITE_NPC0"
+         },
+         {
+            "comment":"change palette",
+            "command":"LOADPALETTE",
+            "intValue":2,
+            "label":"PaletteRoomBlue"
+         },             
+         {
+            "comment":"end",
+            "command":"END"
+         }
+      ]
+   },
+   {
+      "name":"ScriptedEventBadEnding",
+      "actions":[
+         {
+            "comment":"player sprite",
+            "intValue":1
+         },
+         {
+            "comment":"fade out",
+            "command":"FADE_BLACK"
+         },
+         {
+            "comment":"move player sprite off screen",
+            "command":"SET_PLAYER_SPRITE_X",
+            "intConst":"$0000"
+         },
+         {
+            "comment":"move player sprite off screen",
+            "command":"SET_PLAYER_SPRITE_Y",
+            "intConst":"$0000"
+         },
+         {
+            "comment":"change scene - programming credits",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_CREDITS_PROGRAM"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"change scene - graphics credits",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_CREDITS_GRAPHICS"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"change scene - sound credits",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_CREDITS_SOUND"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"change scene - ending",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_END_BAD"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"set end game",
+            "command":"ENDGAME"
+         },
+         {
+            "comment":"end",
+            "command":"END"
+         }
+      ]
+   },
+   {
+      "name":"ScriptedEventGoodEnding",
+      "actions":[
+         {
+            "comment":"player sprite",
+            "intValue":1
+         },
+         {
+            "comment":"fade out",
+            "command":"FADE_BLACK"
+         },
+         {
+            "comment":"move player sprite off screen",
+            "command":"SET_PLAYER_SPRITE_X",
+            "intConst":"$0000"
+         },
+         {
+            "comment":"move player sprite off screen",
+            "command":"SET_PLAYER_SPRITE_Y",
+            "intConst":"$0000"
+         },
+         {
+            "comment":"change scene - programming credits",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_CREDITS_PROGRAM"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"change scene - graphics credits",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_CREDITS_GRAPHICS"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"change scene - sound credits",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_CREDITS_SOUND"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"change scene - ending",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_END_GOOD"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"set end game",
+            "command":"ENDGAME"
+         },
+         {
+            "comment":"end",
+            "command":"END"
+         }
+      ]
+   }, 
+   {
+      "name":"ScriptedEventPerfectEnding",
+      "actions":[
+         {
+            "comment":"player sprite",
+            "intValue":1
+         },
+         {
+            "comment":"fade out",
+            "command":"FADE_BLACK"
+         },
+         {
+            "comment":"move player sprite off screen",
+            "command":"SET_PLAYER_SPRITE_X",
+            "intConst":"$0000"
+         },
+         {
+            "comment":"move player sprite off screen",
+            "command":"SET_PLAYER_SPRITE_Y",
+            "intConst":"$0000"
+         },
+         {
+            "comment":"change scene - programming credits",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_CREDITS_PROGRAM"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"change scene - graphics credits",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_CREDITS_GRAPHICS"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"change scene - sound credits",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_CREDITS_SOUND"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"change scene - ending",
+            "command":"CHANGE_SCENE",
+            "intConst":"SCENE_ID_END_PERFECT"
+         },
+         {
+            "comment":"timer for credits screen",
+            "command":"TIMER",
+            "intConst":"CREDITS_SCREEN_LOOP"
+         },
+         {
+            "comment":"set end game",
+            "command":"ENDGAME"
+         },
+         {
+            "comment":"end",
+            "command":"END"
+         }
+      ]
+   }   
+]

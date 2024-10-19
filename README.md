@@ -21,7 +21,11 @@ This also includes small single-use applications that aren't significant enough 
 
 **Everything here so far**
 
-* Java
+* /x68
+	* retailclerk: A library of code used to build Retail Clerk like games. Calling it an 'engine' is giving it too much credit. I can't stand when projects call themselves 'frameworks' because they rarely are so I'm not doing that either. It's really just a bunch of code - that's as fancy a name as I'm willing to give it.
+* /game-templates
+    * genesis: Example project that uses all the features of the retailclerk 68k library and build tools. It is also how I test for breaking changes.   
+* /java
     * audio: A couple simple classes to play audio (really just midi files).
     * aws: Data structures and some helper classes for projects that integrate with AWS.
     * converters: Various utilities to convert one file type to another.
@@ -32,8 +36,6 @@ This also includes small single-use applications that aren't significant enough 
 	* retailclerk: Tools to build games in the Retail Clerk series or other games using the same engine.
 	* util: General utility classes that don't fit anywhere else.
 	* webpublisher: Things to manage the aforementioned little insignificant web site.
-* x68
-	* retailclerk: A library of code used to build Retail Clerk like games. Calling it an 'engine' is giving it too much credit. I can't stand when projects call themselves 'frameworks' because they rarely are so I'm not doing that either. It's really just a bunch of code - that's as fancy a name as I'm willing to give it.
 
 There are three build scripts:
 * build-java-lib.sh: Builds a non-executable .jar with the library Java classes

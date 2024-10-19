@@ -1,0 +1,22 @@
+{
+   "name":"EndScreen",
+   "description":"Text used on the ending scene",
+   "lineLength":40,
+   "skipTable":"true",   
+   "formLines":0,
+   "defaultTerminator":"ETX",
+   "defaultLineFeed":"LF",
+   "defaultFormFeed":"FF",
+   "lines":{
+      "EndScreenLine00BadEnding":{"text":"Sega Genesis Template - Bad Ending"},
+      "EndScreenLine00GoodEnding":{"text":"Sega Genesis Template - Good Ending"},
+      "EndScreenLine00PerfectEnding":{"text":"Sega Genesis Template - Perfect Ending"},
+      "EndScreenTextLine1":{"text":" "},
+      "EndScreenTextLine2":{"text":"Thank you for trying this little demo!"},
+      "EndScreenTextLine3":{"text":" "},
+      "EndScreenTextLine4":{"text":"Check out my other projects over at"},
+      "EndScreenTextLine5":{"text":"https://HuguesJohnson.com/"},
+      "EndScreenTextLine6":{"text":" "},
+      "EndScreenTextLine7":{"text":"Press the start button to reset."}
+   }
+}

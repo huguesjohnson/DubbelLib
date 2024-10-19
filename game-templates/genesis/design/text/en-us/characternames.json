@@ -1,0 +1,17 @@
+{
+   "name":"CharacterName",
+   "lineLength":8,
+   "formLines":0,
+   "defaultTerminator":"NPCNAMEEND",
+   "defaultLineFeed":"LF",
+   "defaultFormFeed":"FF",
+   "lines":{
+      "CharacterNameUnknown":{"text":"????"},
+      "CharacterNamePlayer00":{"text":"You"},
+      "CharacterNamePlayer01":{"text":"You"},
+      "CharacterNameNPC00":{"text":"hj"},
+      "CharacterNameNPC01":{"text":"Dani"},
+      "CharacterNameNPC02":{"text":"Carl"},
+      "CharacterNameNPC03":{"text":"Grunberg"}
+   }
+}

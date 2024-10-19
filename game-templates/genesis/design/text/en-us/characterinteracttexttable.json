@@ -1,0 +1,30 @@
+{
+   "name":"CharacterInteractText",
+   "description":"Default character dialog",
+   "lineLength":22,
+   "formLines":1,
+   "defaultTerminator":"ETX",
+   "defaultLineFeed":"LF",
+   "defaultFormFeed":"FF",
+   "lines":{
+      "DialogTextUnknownNPC":{"text":""},
+      "DialogTextUnknownPlayer00":{"text":"00"},
+      "DialogTextUnknownPlayer01":{"text":"01"},
+      "DialogTextNPC00":{
+            "dialogTitle":"OBJ_NPC_NPC00",
+            "text":"Welcome to this little game template. Sorry but there's not much to do.",
+            "align":2},
+      "DialogTextNPC01":{
+            "dialogTitle":"OBJ_NPC_NPC01",
+            "text":"Why are you still here?",
+            "align":2},
+      "DialogTextNPC02":{
+            "dialogTitle":"OBJ_NPC_NPC02",
+            "text":"Maybe we'll meet again in another demo.",
+            "align":2},
+      "DialogTextNPC03":{
+            "dialogTitle":"OBJ_NPC_NPC03",
+            "text":"Now you have everything.",
+            "align":2}
+   }
+}

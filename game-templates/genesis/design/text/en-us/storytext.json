@@ -1,0 +1,49 @@
+{
+   "name":"StoryText",
+   "description":"Text for the main story",
+   "lineLength":22,
+   "formLines":1,
+   "defaultTerminator":"ETX",
+   "defaultLineFeed":"LF",
+   "defaultFormFeed":"FF",
+   "lines":{
+      "ScriptedEventExampleLine1":{
+            "dialogTitle":"OBJ_NPC_NPC02",
+            "text":"This is an example of a scripted event triggered when entering a scene.",
+            "align":2},
+      "ScriptedEventExampleLine2":{
+            "dialogTitle":"OBJ_NPC_NPC02",
+            "text":"And this is an example of distorted text.",
+            "align":2},
+      "ScriptedEventExampleLine3":{
+            "dialogTitle":"OBJ_NPC_NPC03",
+            "text":"Also your sprite will change when you exit and I will be gone.",
+            "align":2},
+      "DialogText2ChoiceExample":{
+            "dialogTitle":"OBJ_NPC_NPC01",
+            "text":"This is an example of a 2-choice dialog:|{ Green               { Blue",
+            "formFeed":"FFR",
+            "align":2},
+      "DialogText2ChoiceResponse0":{
+            "dialogTitle":"OBJ_NPC_NPC01",
+            "text":"You chose 'Green'.",
+            "align":2},
+      "DialogText2ChoiceResponse1":{
+            "dialogTitle":"OBJ_NPC_NPC01",
+            "text":"You chose 'Blue'.",
+            "align":2},
+      "DialogText4ChoiceExample":{
+            "dialogTitle":"OBJ_NPC_NPC03",
+            "text":"Choose something:|{ Item 00  { Item 01|{ Item 02  { Item 03",
+            "formFeed":"FFR",
+            "align":2},
+      "DialogText4ChoiceResponse0":{
+            "dialogTitle":"OBJ_NPC_NPC03",
+            "text":"Enjoy!",
+            "align":2},
+      "DialogText4ChoiceResponse1":{
+            "dialogTitle":"OBJ_NPC_NPC03",
+            "text":"You already have that.",
+            "align":2}
+   }
+}

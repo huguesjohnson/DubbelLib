@@ -1,0 +1,12 @@
+{
+   "name":"StatusScreenObjectives",
+   "description":"Status screen objectives",
+   "lineLength":38,
+   "formLines":6,
+   "defaultTerminator":"ETX",
+   "defaultLineFeed":"LF",
+   "defaultFormFeed":"FF",
+   "lines":{
+      "StatusScreenDay00Objective00":{"text":"Template objective"}
+   }
+}

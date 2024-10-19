@@ -1,0 +1,12 @@
+Build these using RCBuildTools to get source code, like:
+
+	"constants":{
+		"fileMap":{
+			"68/retailclerk/const/Characters.csv":"[... path to project ...]/const_Characters.X68",
+			"68/retailclerk/const/Characters.csv":"[... path to project ...]/const_MegaDrive.X68",
+			"68/retailclerk/const/MemoryMapRCBase.csv":"[... path to project ...]/const_MemoryMapRCBase.X68",
+			"68/retailclerk/const/RetailClerkBase.csv":"[... path to project ...]/const_RetailClerkBase.X68",
+			"68/retailclerk/const/RomMap.csv":"[... path to project ...]/const_RomMap.X68",
+			[... game specific files ...]
+		},
+

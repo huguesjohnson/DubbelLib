@@ -1,0 +1,43 @@
+;###############################################################################
+; constants specifically for this demo
+; some of the base id values need to be present for the demo to compile
+; even if they aren't used in a demo the base ids shouldn't be deleted 
+;###############################################################################
+;
+;-------------------------------------------------------------------------------
+; object ids
+;-------------------------------------------------------------------------------
+OBJ_NOTHING,$0000
+;
+;-------------------------------------------------------------------------------
+; items ids
+;-------------------------------------------------------------------------------
+OBJ_ITEM_BASE,$3000
+OBJ_ITEM_00,$3001
+OBJ_ITEM_01,$3002
+OBJ_ITEM_02,$3003
+OBJ_ITEM_03,$3004
+OBJ_ITEM_NOTHING,OBJ_ITEM_BASE
+;
+;-------------------------------------------------------------------------------
+; scenery
+;-------------------------------------------------------------------------------
+OBJ_SCENE_BASE,$1000
+;
+;-------------------------------------------------------------------------------
+; objectives
+;-------------------------------------------------------------------------------
+OBJECTIVE_00,$0000
+;
+;-------------------------------------------------------------------------------
+; MAX_OBJECTIVE is used to prevent lookup errors 
+;-------------------------------------------------------------------------------
+MAX_OBJECTIVE,OBJECTIVE_00
+;
+;-------------------------------------------------------------------------------
+; Title screen settings
+; TITLE_SCREEN_COUNTER_START is based on the length of the music for the screen
+;-------------------------------------------------------------------------------
+TITLE_SCREEN_COUNTER_START,$2800,how long to display title before reset
+TITLE_SCREEN_SELECTOR_X,$0160,x-position for selector (sprite zero)
+TITLE_SCREEN_SELECTOR_Y,$0118,y-position for selector (sprite zero)

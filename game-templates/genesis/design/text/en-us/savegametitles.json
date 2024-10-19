@@ -1,0 +1,12 @@
+{
+   "name":"SaveGameTitles",
+   "description":"Save game titles",
+   "lineLength":21,
+   "formLines":1,
+   "defaultTerminator":"ETX",
+   "defaultLineFeed":"LF",
+   "defaultFormFeed":"FF",
+   "lines":{
+      "SaveGameTitle00":{"text":"{ Default title"}
+   }
+}

@@ -1,0 +1,12 @@
+{
+   "name":"DefaultObjectDescription",
+   "description":"Default descriptions for objects",
+   "lineLength":22,
+   "formLines":1,
+   "defaultTerminator":"ETX",
+   "defaultLineFeed":"LF",
+   "defaultFormFeed":"FF",
+   "lines":{
+      "ObjectDescriptionNothing":{"text":"There's nothing very interesting here."}
+   }
+}

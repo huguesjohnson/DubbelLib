@@ -1,0 +1,12 @@
+{
+   "name":"SceneText",
+   "lineLength":22,
+   "skipTable":"true",   
+   "formLines":1,
+   "defaultTerminator":"ETX",
+   "defaultLineFeed":"LF",
+   "defaultFormFeed":"FF",
+   "lines":{
+      "SceneTextExit":{"text":"Exit"}
+   }
+}

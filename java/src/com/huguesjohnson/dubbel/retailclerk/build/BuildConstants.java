@@ -89,8 +89,8 @@ public class BuildConstants extends BaseBuilder{
 				constantFileWriter.close();
 				//update the include file
 				String includePathRel=PathResolver.getRelativePath(includeFilePath,outputFilePath);
-				if(includePathRel.startsWith("..")){
-					includePathRel=includePathRel.substring(3);
+				if(includePathRel.startsWith(PathResolver.PARENT_PATH)){
+					includePathRel=includePathRel.substring(PathResolver.PARENT_PATH.length()+1);
 				}
 				StringBuffer includeString=new StringBuffer();
 				includeString.append("\tinclude '");

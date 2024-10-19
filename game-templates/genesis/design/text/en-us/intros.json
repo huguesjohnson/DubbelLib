@@ -1,0 +1,20 @@
+{
+   "name":"DayIntros",
+   "description":"Text used on the day intro screenes",
+   "lineLength":40,
+   "skipTable":"true",   
+   "formLines":0,
+   "defaultTerminator":"ETX",
+   "defaultLineFeed":"LF",
+   "defaultFormFeed":"FF",
+   "lines":{
+      "Intro00Title":{"text":"           Intro Template              "},
+      "Intro00Tip0":{"text":"D-Pad: Move player, menu selection"},
+      "Intro00Tip1":{"text":"A: Interact with people & objects"},
+      "Intro00Tip2":{"text":"C: Open the menu screen"},
+      "Intro00Tip3":{"text":"A or C: Confirm menu selection"},
+      "Intro00Tip4":{"text":"B: Cancel dialog, exit menu"},      
+      "Intro00Tip5":{"text":"Z: Hold for fast-forward"},      
+      "Intro00Tip6":{"text":"Start: Pause, exit this screen"}
+   }
+}

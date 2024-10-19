@@ -66,6 +66,7 @@ public class BuildTiles extends BaseBuilder{
 				String patternOutputPath=null;
 				if(createPattern){
 					patternOutputPath=PathResolver.getAbsolutePath(basePath,entry.patternFilePath);
+					FileUtils.mkdirs(patternOutputPath);
 					patternWriter=new FileWriter(patternOutputPath);
 				}
 				//read the source file
