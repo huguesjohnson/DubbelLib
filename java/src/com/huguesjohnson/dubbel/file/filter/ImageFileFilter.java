@@ -12,8 +12,9 @@ public class ImageFileFilter implements FileFilter{
 			if(file.isDirectory()){
 				return(true);
 			} 	    	
+			String fl=file.getName().toLowerCase();
 	        for(String ext:exts){
-	        	if(file.getName().toLowerCase().endsWith(ext)){
+	        	if(fl.endsWith(ext)){
 	        		return(true);
 	            }
 	        }

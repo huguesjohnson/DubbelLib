@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import com.huguesjohnson.dubbel.util.ArrayUtil;
+import com.huguesjohnson.dubbel.util.StringComparator;
 
 class TestArrayUtil{
 
@@ -133,5 +134,64 @@ class TestArrayUtil{
 		for(int i=0;i<chars.length;i++){
 			assertEquals(list.get(i).charValue(),chars[i]);
 		}
+	}
+	
+	@Test
+	public void test_findDuplicateRows(){
+		ArrayList<String> a1=new ArrayList<String>();
+		a1.add("qqqq");
+		a1.add("wwww");
+		a1.add("eeee");
+		a1.add("rrrr");
+		a1.add("tttt");
+		a1.add("yyyy");
+		a1.add("uuuu");
+		a1.add("iiii");
+		a1.add("oooo");
+		a1.add("pppp");
+		ArrayList<String> a2=new ArrayList<String>();
+		a2.add("aaaa");
+		a2.add("ssss");
+		a2.add("dddd");
+		a2.add("ffff");
+		a2.add("gggg");
+		a2.add("hhhh");
+		a2.add("jjjj");
+		a2.add("kkkk");
+		a2.add("llll");
+		a1.add("zzzz");
+		a2.add("zzzz");
+		a1.add("xxxx");
+		a2.add("xxxx");
+		a1.add("cccc");
+		a2.add("cccc");
+		a1.add("vvvv");
+		a2.add("vvvv");
+		a1.add("bbbb");
+		a2.add("bbbb");
+		a1.add("nnnn");
+		a2.add("nnnn");
+		a1.add("mmmm");
+		a2.add("mmmm");
+		a1.sort(new StringComparator());
+		a2.sort(new StringComparator());
+		ArrayList<String> duplicates=ArrayUtil.findDuplicateRows(a1,a2);
+		assertEquals(7,duplicates.size());
+		assertTrue(duplicates.contains("zzzz"));
+		assertTrue(duplicates.contains("xxxx"));
+		assertTrue(duplicates.contains("cccc"));
+		assertTrue(duplicates.contains("vvvv"));
+		assertTrue(duplicates.contains("bbbb"));
+		assertTrue(duplicates.contains("nnnn"));
+		assertTrue(duplicates.contains("mmmm"));
+		duplicates=ArrayUtil.findDuplicateRows(a2,a1);
+		assertEquals(7,duplicates.size());
+		assertTrue(duplicates.contains("zzzz"));
+		assertTrue(duplicates.contains("xxxx"));
+		assertTrue(duplicates.contains("cccc"));
+		assertTrue(duplicates.contains("vvvv"));
+		assertTrue(duplicates.contains("bbbb"));
+		assertTrue(duplicates.contains("nnnn"));
+		assertTrue(duplicates.contains("mmmm"));
 	}
 }

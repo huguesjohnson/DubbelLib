@@ -8,9 +8,13 @@ import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.UUID;
 
 public abstract class FileUtils{
@@ -103,8 +107,7 @@ public abstract class FileUtils{
 		return(b);		
 	}
 	
-	public static ArrayList<String> readLines(String path) throws IOException{
-		File f=new File(path);
+	public static ArrayList<String> readLines(File f) throws IOException{
 		BufferedReader br=new BufferedReader(new FileReader(f));
 		ArrayList<String> lines=new ArrayList<String>();
 		String line;
@@ -113,7 +116,39 @@ public abstract class FileUtils{
 		}
 		br.close();		
 		return(lines);
+	}	
+	
+	public static ArrayList<String> readLines(String path) throws IOException{
+		File f=new File(path);
+		return(readLines(f));
 	}
+
+	//readLines but sorting the results
+	public static ArrayList<String> readLines(String path,Comparator<String> sortComparator) throws IOException{
+		ArrayList<String> linesSorted=readLines(path);
+		linesSorted.sort(sortComparator);
+		return(linesSorted);
+	}	
+	
+	public static ArrayList<String> readLines(URL url) throws IOException{
+		ArrayList<String> lines=new ArrayList<String>();
+        URLConnection connection=url.openConnection();
+        InputStreamReader in=new InputStreamReader(connection.getInputStream());
+        BufferedReader br=new BufferedReader(in);
+        String line;
+        while((line=br.readLine())!=null){
+        	lines.add(line);
+        }
+        br.close();
+        return(lines);
+	}
+
+	//readLines but sorting the results
+	public static ArrayList<String> readLines(URL url,Comparator<String> sortComparator) throws IOException{
+		ArrayList<String> linesSorted=readLines(url);
+		linesSorted.sort(sortComparator);
+		return(linesSorted);
+	}		
 	
 	public static String getExtension(String path){
 		int lastIndexOf=path.lastIndexOf('.');

@@ -3,6 +3,7 @@
 package com.huguesjohnson.dubbel.util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ArrayUtil{
 	
@@ -75,4 +76,33 @@ public abstract class ArrayUtil{
 		}
 		return(xor);
     }    
+    
+    /*
+     * returns duplicate entries in two lists
+     * assumes both lists are sorted, if they are not this will fail
+     * this is case sensitive but is trivial to add a parameter to ignore case
+     */
+    public static ArrayList<String> findDuplicateRows(List<String> list1,List<String> list2){
+    	ArrayList<String> duplicates=new ArrayList<String>();
+    	int size1=list1.size();
+    	int size2=list2.size();
+    	int index1=0;
+    	int index2=0;
+    	while((index1<size1)&&(index2<size2)){
+    		String item1=list1.get(index1);
+    		String item2=list2.get(index2);
+    		int compare=item1.compareTo(item2);
+    		if(compare==0){
+    			duplicates.add(item1);
+    			index1++;
+    			index2++;
+    		}else if(compare<0){
+    			index1++;
+    		}else{//compare>0
+    			index2++;
+    		}
+    	}
+    	return(duplicates);
+    }
+    
 }
