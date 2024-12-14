@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class FileUtils{
@@ -195,9 +197,13 @@ public abstract class FileUtils{
 	 * -sometimes long file names trip up mp3 speaker devices
 	 * -and the same but for digital photo frames or the like
 	 * 
+	 * returns a map of the old & new file names in case of regrets
+	 * if dryRun==true then no files are renamed but the map is populated
+	 * 
 	 * this is not recursive as a way to prevent myself from doing something really catastrophic	 
 	 */
-	public static void uuidRenamer(String path,FileFilter filter,boolean preserveExtension) throws Exception{
+	public static Map<String,String> uuidRenamer(String path,FileFilter filter,boolean preserveExtension,boolean dryRun) throws Exception{
+		Map<String,String> renameMap=new HashMap<String,String>();
 		File dir=new File(path);
 		File[] files=dir.listFiles(filter);
 		for(File file:files){
@@ -206,10 +212,14 @@ public abstract class FileUtils{
 			if(preserveExtension){
 				newFileName=newFileName+getExtension(currentFileName);
 			}
-			File newFile=new File(path+newFileName);
-			if(!file.renameTo(newFile)){
-				throw(new Exception("Exception trying to rename ["+currentFileName+"] to ["+newFileName+"]"));
+			renameMap.put(currentFileName,newFileName);
+			if(!dryRun){
+				File newFile=new File(path+newFileName);
+				if(!file.renameTo(newFile)){
+					throw(new Exception("Exception trying to rename ["+currentFileName+"] to ["+newFileName+"]"));
+				}
 			}
 		}
+		return(renameMap);
 	}
 }
