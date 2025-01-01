@@ -91,6 +91,8 @@ public class BuildScenes extends BaseBuilder{
 				sceneWriter.write(newLine);
 				sceneWriter.write("\t;---------------------------------------------------------------------------");
 				sceneWriter.write(newLine);
+				sceneWriter.write(scenes[sceneIndex].name+"Tiles:");
+				sceneWriter.write(newLine);
 				//tileset count
 				String[] tilesetNames=scenes[sceneIndex].tilesetNames;
 				sceneWriter.write("\tdc.w\t"+NumberFormatters.toHexWord(tilesetNames.length-1)+" ; tileset count - 1");
@@ -127,6 +129,8 @@ public class BuildScenes extends BaseBuilder{
 				sceneWriter.write(newLine);
 				sceneWriter.write("\t;---------------------------------------------------------------------------");
 				sceneWriter.write(newLine);
+				sceneWriter.write(scenes[sceneIndex].name+"Palettes:");
+				sceneWriter.write(newLine);
 				int numPalettes=scenes[sceneIndex].paletteNames.length;
 				for(int paletteIndex=0;paletteIndex<numPalettes;paletteIndex++){
 					sceneWriter.write("\tdc.l\t"+scenes[sceneIndex].paletteNames[paletteIndex]);
@@ -145,6 +149,8 @@ public class BuildScenes extends BaseBuilder{
 				sceneWriter.write(newLine);
 				sceneWriter.write("\t;---------------------------------------------------------------------------");
 				sceneWriter.write(newLine);
+				sceneWriter.write(scenes[sceneIndex].name+"Scenery:");
+				sceneWriter.write(newLine);
 				SceneScenery[] scenery=scenes[sceneIndex].scenery;
 				if((scenery==null)||(scenery.length==0)){
 					sceneWriter.write("\tdc.w\t$FFFF ; no scenery");
@@ -155,7 +161,11 @@ public class BuildScenes extends BaseBuilder{
 					sceneWriter.write(newLine);
 					sceneWriter.write(newLine);
 					for(int sceneryIndex=0;sceneryIndex<scenery.length;sceneryIndex++){
-						String comment=scenery[sceneryIndex].comment;
+						String label=scenery[sceneryIndex].label;
+						if((label!=null)&&(label.length()>0)){
+							sceneWriter.write(scenes[sceneIndex].name+scenery[sceneryIndex].label+":");
+							sceneWriter.write(newLine);
+						}						String comment=scenery[sceneryIndex].comment;
 						if((comment!=null)&&(comment.length()>0)){
 							sceneWriter.write("\t; "+scenery[sceneryIndex].comment);
 							sceneWriter.write(newLine);
@@ -186,6 +196,8 @@ public class BuildScenes extends BaseBuilder{
 				sceneWriter.write("\t; text");
 				sceneWriter.write(newLine);
 				sceneWriter.write("\t;---------------------------------------------------------------------------");
+				sceneWriter.write(newLine);
+				sceneWriter.write(scenes[sceneIndex].name+"Text:");
 				sceneWriter.write(newLine);
 				SceneText[] text=scenes[sceneIndex].text;
 				if((text==null)||(text.length==0)){
@@ -225,6 +237,8 @@ public class BuildScenes extends BaseBuilder{
 				sceneWriter.write("\t; objects");
 				sceneWriter.write(newLine);
 				sceneWriter.write("\t;---------------------------------------------------------------------------");
+				sceneWriter.write(newLine);
+				sceneWriter.write(scenes[sceneIndex].name+"Objects:");
 				sceneWriter.write(newLine);
 				sceneWriter.write("\tdc.w\tOBJ_LIST_LENGTH-1 ; object count");
 				sceneWriter.write(newLine);
@@ -293,6 +307,8 @@ public class BuildScenes extends BaseBuilder{
 				sceneWriter.write(newLine);
 				sceneWriter.write("\t;---------------------------------------------------------------------------");
 				sceneWriter.write(newLine);
+				sceneWriter.write(scenes[sceneIndex].name+"CollisionData:");
+				sceneWriter.write(newLine);
 				if(scenes[sceneIndex].collisionDataName==null){
 					sceneWriter.write("\tdc.l\t$00000000");
 				}else{
@@ -306,6 +322,8 @@ public class BuildScenes extends BaseBuilder{
 				sceneWriter.write("\t; exits: 0=south,1=north,2=west,3=east");
 				sceneWriter.write(newLine);
 				sceneWriter.write("\t;---------------------------------------------------------------------------");
+				sceneWriter.write(newLine);
+				sceneWriter.write(scenes[sceneIndex].name+"Exits:");
 				sceneWriter.write(newLine);
 				String[] exits=scenes[sceneIndex].exitIds;
 				int exitsLength=0;
@@ -328,6 +346,8 @@ public class BuildScenes extends BaseBuilder{
 				sceneWriter.write("\t; npc locations");
 				sceneWriter.write(newLine);
 				sceneWriter.write("\t;---------------------------------------------------------------------------");
+				sceneWriter.write(newLine);
+				sceneWriter.write(scenes[sceneIndex].name+"NPCLocations:");
 				sceneWriter.write(newLine);
 				SceneNpcLocation[] npcs=scenes[sceneIndex].npcLocations;
 				if((npcs==null)||(npcs.length==0)){
@@ -377,6 +397,8 @@ public class BuildScenes extends BaseBuilder{
 				sceneWriter.write("\t; bgm");
 				sceneWriter.write(newLine);
 				sceneWriter.write("\t;---------------------------------------------------------------------------");
+				sceneWriter.write(newLine);
+				sceneWriter.write(scenes[sceneIndex].name+"BGM:");
 				sceneWriter.write(newLine);
 				if(scenes[sceneIndex].bgmName==null){
 					sceneWriter.write("\tdc.l\t$00000000");

@@ -24,7 +24,7 @@ This also includes small single-use applications that aren't significant enough 
 * /x68
 	* retailclerk: A library of code used to build Retail Clerk like games. Calling it an 'engine' is giving it too much credit. I can't stand when projects call themselves 'frameworks' because they rarely are so I'm not doing that either. It's really just a bunch of code - that's as fancy a name as I'm willing to give it.
 * /game-templates
-    * genesis: Example project that uses all the features of the retailclerk 68k library and build tools. It is also how I test for breaking changes.   
+    * genesis: Example project that uses all the features of the retailclerk 68k library and build tools. It is also how I test for breaking changes.
 * /java
     * audio: A couple simple classes to play audio (really just midi files).
     * aws: Data structures and some helper classes for projects that integrate with AWS.

@@ -4,6 +4,7 @@ package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
 public class SceneScenery{
 	public String patternName;
+	public String label;
 	public String comment;
 	public int tilesetIndex;
 	public int tilesetOffset;
