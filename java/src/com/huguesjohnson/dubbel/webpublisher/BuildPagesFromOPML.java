@@ -74,6 +74,9 @@ public class BuildPagesFromOPML{
 						int startIndex=xmlUrlIndex+"xmlUrl=\"".length();
 						int endIndex=opmlLine.indexOf("\"",startIndex);
 						String xmlUrl=opmlLine.substring(startIndex,endIndex);
+						if(settings.upgradeRSSLinksToHTTPS){
+							xmlUrl=xmlUrl.replace("http:","https:");
+						}
 						pageWriter.write(xmlUrl);
 						pageWriter.write("\">");
 						startIndex=titleIndex+"title=\"".length();

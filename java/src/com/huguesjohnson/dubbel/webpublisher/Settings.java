@@ -11,6 +11,7 @@ public class Settings{
 	public boolean rebuildPagesFromOpml=true;  
 	public boolean rebuildPagesFromCsv=true; 
 	public boolean audit=true; 
+	public boolean upgradeRSSLinksToHTTPS=true; 
 	public String templateDirectory;
 	public String stagingDirectory;
 	public String publishDirectory;
