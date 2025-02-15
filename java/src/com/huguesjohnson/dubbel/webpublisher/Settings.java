@@ -10,6 +10,7 @@ public class Settings{
 	public boolean rebuildSitemap=true;
 	public boolean rebuildPagesFromOpml=true;  
 	public boolean rebuildPagesFromCsv=true; 
+	public boolean buildExternalLinksPage=true; 
 	public boolean audit=true; 
 	public boolean upgradeRSSLinksToHTTPS=true; 
 	public String templateDirectory;
@@ -18,6 +19,7 @@ public class Settings{
 	public String siteMapBasePath;
 	public String siteMapBaseUrl;
 	public String auditReportPath;
+	public String externalLinksPagePath;
 	public String rootDocument;
 	public String newLine;
 	public Map<String,String> opmlPages;

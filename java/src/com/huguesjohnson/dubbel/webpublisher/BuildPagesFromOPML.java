@@ -1,3 +1,5 @@
+/* https://github.com/huguesjohnson/DubbelLib/blob/main/LICENSE */
+
 package com.huguesjohnson.dubbel.webpublisher;
 
 import java.io.BufferedReader;
@@ -12,7 +14,7 @@ import com.huguesjohnson.dubbel.util.DateUtil;
 
 public class BuildPagesFromOPML{
 	public static void writePages(Settings settings) throws Exception{
-		if(!settings.rebuildPagesFromOpml){return;}
+		if(!settings.rebuildPagesFromOpml){return;}//in case I do something silly
 		if(settings.opmlPages==null){return;}
 		if(settings.opmlPages.size()<1){return;}
 		for(String opmlPath:settings.opmlPages.keySet()){

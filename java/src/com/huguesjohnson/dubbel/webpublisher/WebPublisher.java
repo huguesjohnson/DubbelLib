@@ -14,7 +14,8 @@ import com.huguesjohnson.dubbel.file.FileUtils;
 import com.huguesjohnson.dubbel.file.filter.HtmlFileFilter;
 
 public class WebPublisher{
-	public static void runWebPublisher(Settings settings) throws Exception{
+	public static WebPublisherResults runWebPublisher(Settings settings) throws Exception{
+		WebPublisherResults results=new WebPublisherResults();
 		FileWriter writer=null;
 		BufferedReader reader=null;
 		try{
@@ -30,10 +31,16 @@ public class WebPublisher{
 			int beginIndex=templateDirectory.getAbsolutePath().length();
 			//check if publish directory exists
 			if(!stagingDirectory.exists()){FileUtils.mkdirs(stagingDirectory);}
+			//do these first so any changes are included in the link map
+			if(settings.rebuildPagesFromOpml){BuildPagesFromOPML.writePages(settings);}
+			if(settings.rebuildPagesFromCsv){BuildPagesFromCSV.writePages(settings);};
+			//list of files to skip for the link map
+			ArrayList<String> skipList=buildSkipList(settings);
 			//get all html files
 			ArrayList<File> files=FileUtils.getAllFilesRecursive(templateDirectory,new HtmlFileFilter());
 			for(File file:files){
-				String relativePath=file.getAbsolutePath().substring(beginIndex);
+	        	String templateFileAbsolutePath=file.getAbsolutePath();
+				String relativePath=templateFileAbsolutePath.substring(beginIndex);
 				String stagingPath=stagingDirectory+relativePath;
 				String publishPath=publishDirectory+relativePath;
 				reader=new BufferedReader(new FileReader(file));
@@ -60,6 +67,33 @@ public class WebPublisher{
 						 * However, this would allow the entire HTML document to support templates.
 						 * That actually would be useful in a more robust system. 
 						 * This would also mean templatePath and publishPath have to be different. */
+						//first check for adding the line to the link map
+			        	boolean skipLinkmap=false;
+			        	if(skipList.contains(templateFileAbsolutePath)){
+			        		skipLinkmap=true;
+			        	}
+			        	if(!skipLinkmap){
+							int indexOf=line.toLowerCase().indexOf("href=\"");
+							if(indexOf>0){
+								int startIndex=indexOf+6; //href=" length
+								int endIndex=line.indexOf("\"",startIndex);
+								if((endIndex>0)&&(endIndex<line.length())){
+									String url=line.substring(startIndex,endIndex);
+									ArrayList<String> pageList=results.linkMap.get(url);
+									if(pageList==null){
+					        			pageList=new ArrayList<String>();
+						        		pageList.add(relativePath);
+						        		results.linkMap.put(url,pageList);
+									}else{
+					        			if(!pageList.contains(relativePath)){
+							        		pageList.add(relativePath);
+							        		results.linkMap.replace(url,pageList);
+					        			}
+									}
+								}
+							}
+						}
+						//now write the line
 						writer.write(line);
 						writer.write(settings.newLine);
 						ReplacementBlock rb=settings.replacements.findByStartTag(line);
@@ -79,19 +113,33 @@ public class WebPublisher{
 					Files.copy(stagingFile.toPath(),publishFile.toPath(),StandardCopyOption.REPLACE_EXISTING);
 				}
 			}//end for (list of files)
-			//rebuild pages that are based on data
-			if(settings.rebuildSitemap){
-				try{
-					BuildSiteMap.buildSiteMap(settings);
-				}catch(Exception x){
-					x.printStackTrace();
-				}
-			}
-			BuildPagesFromOPML.writePages(settings);
-			BuildPagesFromCSV.writePages(settings);
+			//pages to rebuild after everything else has processed
+			if(settings.rebuildSitemap){BuildSiteMap.buildSiteMap(settings);}
+			if(settings.buildExternalLinksPage){BuildExternalLinksPage.writePage(settings,results.linkMap);}
+			return(results);
 		}finally{
 			try{ writer.flush(); writer.close();}catch(Exception x){ }
 			try{ reader.close(); }catch(Exception x){ }
 		}
+	}
+	
+	//build list of pages to skip for building link map or other audits
+	public static ArrayList<String> buildSkipList(Settings settings){
+		ArrayList<String> skipList=new ArrayList<String>();
+		skipList.add(settings.externalLinksPagePath);
+		skipList.add(settings.siteMapBasePath+".html");
+		if(settings.csvPages.size()>0){
+			for(String csvPath:settings.csvPages.keySet()){
+				String pagePath=settings.csvPages.get(csvPath);
+				skipList.add(pagePath);
+			}		
+		}
+		if(settings.opmlPages.size()>0){
+			for(String opmlPath:settings.opmlPages.keySet()){
+				String pagePath=settings.opmlPages.get(opmlPath);
+				skipList.add(pagePath);
+			}
+		}		
+		return(skipList);
 	}
 }

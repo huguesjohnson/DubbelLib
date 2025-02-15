@@ -49,11 +49,20 @@ public class HTMLBlocks{
 	public void setBreadcrumbEndTag(String breadcrumbEndTag){this.breadcrumbEndTag=breadcrumbEndTag;}
 	public String getBreadcrumbEndTag(){return(this.breadcrumbEndTag);}
 	
+	public final static String DEFAULT_EXTERNALLINKS_START_TAG="<!-- start external links -->";
+	private String externalLinksStartTag=DEFAULT_EXTERNALLINKS_START_TAG;
+	public void setExternalLinksStartTag(String externalLinksStartTag){this.externalLinksStartTag=externalLinksStartTag;}
+	public String getExternalLinksStartTag(){return(this.externalLinksStartTag);}
+
+	public final static String DEFAULT_EXTERNALLINKS_END_TAG="<!-- end external links -->";
+	private String externalLinksEndTag=DEFAULT_EXTERNALLINKS_END_TAG;
+	public void setExternalLinksEndTag(String externalLinksEndTag){this.externalLinksEndTag=externalLinksEndTag;}
+	public String getExternalLinksEndTag(){return(this.externalLinksEndTag);}
+
 	public final static String DEFAULT_SITEMAP_XML_START="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
 	private String siteMapXmlStart=DEFAULT_SITEMAP_XML_START;
 	public void setSitemapXmlStart(String siteMapXmlStart){this.siteMapXmlStart=siteMapXmlStart;}
 	public String getSitemapXmlStart(){return(this.siteMapXmlStart);}
-
 	
 	public HTMLBlocks(){}
 }

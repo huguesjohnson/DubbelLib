@@ -1,3 +1,5 @@
+/* https://github.com/huguesjohnson/DubbelLib/blob/main/LICENSE */
+
 package com.huguesjohnson.dubbel.webpublisher;
 
 import java.io.BufferedReader;

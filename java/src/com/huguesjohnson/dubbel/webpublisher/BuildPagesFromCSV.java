@@ -1,3 +1,5 @@
+/* https://github.com/huguesjohnson/DubbelLib/blob/main/LICENSE */
+
 package com.huguesjohnson.dubbel.webpublisher;
 
 import java.io.BufferedReader;
@@ -12,9 +14,8 @@ import com.huguesjohnson.dubbel.file.FileUtils;
 import com.huguesjohnson.dubbel.util.DateUtil;
 
 public class BuildPagesFromCSV{
-
 	public static void writePages(Settings settings) throws Exception{
-		if(!settings.rebuildPagesFromCsv){return;}
+		if(!settings.rebuildPagesFromCsv){return;}//in case I do something silly
 		if(settings.csvPages==null){return;}
 		if(settings.csvPages.size()<1){return;}
 		for(String csvPath:settings.csvPages.keySet()){
