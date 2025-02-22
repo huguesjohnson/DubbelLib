@@ -15,7 +15,9 @@ public abstract class DateUtil{
 	public final static DateFormat DF_YearMonthDayHourMinuteSecond=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public final static DateFormat DF_YearMonthDayHourMinuteSecondMillisecond=new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
 	public final static DateFormat DF_MDVersion=new SimpleDateFormat("yyyyMMdd-HH");
-	
+	public final static DateFormat DF_RFC822=new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+	public final static DateFormat DF_RFC822_OPML_ALT=new SimpleDateFormat("EEE, dd MMM yy HH:mm:ss z");
+
 	public static String now(final DateFormat df){
 		return(df.format(now()));
 	}	
