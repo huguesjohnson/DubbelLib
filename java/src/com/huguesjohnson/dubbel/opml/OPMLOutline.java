@@ -11,8 +11,8 @@ public class OPMLOutline{
 	private	List<OPMLOutline> children;
 	private String text;
 	private String type;
-	private boolean isComment=false;
-	private boolean isBreakpoint=false;
+	private Boolean isComment;
+	private Boolean isBreakpoint;
 	private String created;
 	private long createdEpoch=0L;
 	private String language;
@@ -81,19 +81,19 @@ public class OPMLOutline{
 		this.type = type;
 	}
 
-	public boolean isComment() {
+	public Boolean isComment() {
 		return isComment;
 	}
 
-	public void setComment(boolean isComment) {
+	public void setComment(Boolean isComment) {
 		this.isComment = isComment;
 	}
 
-	public boolean isBreakpoint() {
+	public Boolean isBreakpoint() {
 		return isBreakpoint;
 	}
 
-	public void setBreakpoint(boolean isBreakpoint) {
+	public void setBreakpoint(Boolean isBreakpoint) {
 		this.isBreakpoint = isBreakpoint;
 	}
 

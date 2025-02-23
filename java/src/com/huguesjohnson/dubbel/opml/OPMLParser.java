@@ -96,6 +96,8 @@ public class OPMLParser{
             			head.setOwnerEmail(parseString(xmlReader));
             		}else if(name.equalsIgnoreCase(OPMLConstants.ELEMENT_OWNERID)){
             			head.setOwnerId(parseString(xmlReader));
+            		}else if(name.equalsIgnoreCase(OPMLConstants.ELEMENT_DOCS)){
+            			head.setDocs(parseString(xmlReader));
             		}else if(name.equalsIgnoreCase(OPMLConstants.ELEMENT_EXPANSIONSTATE)){
             			head.setExpansionState(parseString(xmlReader));
             		}else if(name.equalsIgnoreCase(OPMLConstants.ELEMENT_VERTSCROLLSTATE)){
@@ -146,12 +148,20 @@ public class OPMLParser{
 			}else if(attributeName.equalsIgnoreCase(OPMLConstants.ATTRIBUTE_ISCOMMENT)){
 				String s=xmlReader.getAttributeValue(i);
 				if(s!=null){
-					outline.setComment(s.equalsIgnoreCase("true"));
+					if(s.equalsIgnoreCase("true")){
+						outline.setComment(Boolean.TRUE);
+					}else{
+						outline.setComment(Boolean.FALSE);
+					}
 				}
 			}else if(attributeName.equalsIgnoreCase(OPMLConstants.ATTRIBUTE_ISBREAKPOINT)){
 				String s=xmlReader.getAttributeValue(i);
 				if(s!=null){
-					outline.setBreakpoint(s.equalsIgnoreCase("true"));
+					if(s.equalsIgnoreCase("true")){
+						outline.setBreakpoint(Boolean.TRUE);
+					}else{
+						outline.setBreakpoint(Boolean.FALSE);
+					}
 				}
 			}		
 		}

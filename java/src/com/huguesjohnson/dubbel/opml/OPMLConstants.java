@@ -11,6 +11,7 @@ public abstract class OPMLConstants{
 	public final static String ELEMENT_OWNERNAME="ownerName";
 	public final static String ELEMENT_OWNEREMAIL="ownerEmail";
 	public final static String ELEMENT_OWNERID="ownerId";
+	public final static String ELEMENT_DOCS="docs";
 	public final static String ELEMENT_EXPANSIONSTATE="expansionState";
 	public final static String ELEMENT_VERTSCROLLSTATE="vertScrollState";
 	public final static String ELEMENT_WINDOWTOP="windowTop";
@@ -32,4 +33,6 @@ public abstract class OPMLConstants{
 	public final static String ATTRIBUTE_CREATED="created";
 	public final static String ATTRIBUTE_CATEGORY="category";
 	public final static String ATTRIBUTE_URL="url";
+	public final static String XML_VERSION="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"; 
+	public final static String OPML_VERSION=" version=\"2.0\">";
 }

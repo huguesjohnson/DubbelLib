@@ -288,8 +288,8 @@ class TestOPMLParser {
 			assertEquals(outline.getType(),"rss");
 			assertEquals(outline.getVersion(),"RSS2");
 			assertEquals(outline.getXmlUrl(),"http://example.com/1.xml");
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCreated()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(1);
@@ -303,8 +303,8 @@ class TestOPMLParser {
 			assertEquals(outline.getType(),"rss");
 			assertEquals(outline.getVersion(),"RSS2");
 			assertEquals(outline.getXmlUrl(),"http://example.com/2.xml");
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCreated()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(2);
@@ -319,8 +319,8 @@ class TestOPMLParser {
 			assertEquals(outline.getVersion(),"RSS2");
 			assertEquals(outline.getXmlUrl(),"http://example.com/3.xml");
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCreated()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(3);
@@ -335,8 +335,8 @@ class TestOPMLParser {
 			assertEquals(outline.getVersion(),"RSS2");
 			assertEquals(outline.getXmlUrl(),"http://example.com/4.xml");
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCreated()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(4);
@@ -351,8 +351,8 @@ class TestOPMLParser {
 			assertEquals(outline.getVersion(),"RSS2");
 			assertEquals(outline.getXmlUrl(),"http://example.com/5.xml");
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCreated()==null);
 			assertTrue(outline.getCategory()==null);				
 			/*
@@ -392,8 +392,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCreated()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(0);
@@ -408,8 +408,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCreated()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(0);
@@ -424,8 +424,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCreated()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(1);
@@ -440,8 +440,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCreated()==null);
 			assertTrue(outline.getCategory()==null);	 
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(2);
@@ -456,8 +456,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCreated()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(3);
@@ -472,8 +472,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCreated()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(3).getChildren().get(0);
@@ -489,8 +489,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(3).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -505,8 +505,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(3).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -521,8 +521,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(3).getChildren().get(3);
 			childSize=outline.getChildren().size();
@@ -537,8 +537,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(4);
 			childSize=outline.getChildren().size();
@@ -553,8 +553,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(5);
 			childSize=outline.getChildren().size();
@@ -569,8 +569,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -585,8 +585,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(0).getChildren().get(1).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -601,8 +601,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(1).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -617,8 +617,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(1).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -633,8 +633,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(1).getChildren().get(3);
 			childSize=outline.getChildren().size();
@@ -649,8 +649,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(1).getChildren().get(4);
 			childSize=outline.getChildren().size();
@@ -665,8 +665,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(0).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -681,8 +681,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(2).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -697,8 +697,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(0).getChildren().get(2).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -713,8 +713,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(2).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -729,8 +729,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(2).getChildren().get(3);
 			childSize=outline.getChildren().size();
@@ -745,8 +745,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(2).getChildren().get(4);
 			childSize=outline.getChildren().size();
@@ -761,8 +761,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);				
 			outline=opml.getBody().get(0).getChildren().get(3);
 			childSize=outline.getChildren().size();
@@ -777,8 +777,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(3).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -793,8 +793,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(3).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -809,8 +809,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(3).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -825,8 +825,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(3).getChildren().get(3);
 			childSize=outline.getChildren().size();
@@ -841,8 +841,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(3).getChildren().get(4);
 			childSize=outline.getChildren().size();
@@ -857,8 +857,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(3).getChildren().get(5);
 			childSize=outline.getChildren().size();
@@ -873,8 +873,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(3).getChildren().get(6);
 			childSize=outline.getChildren().size();
@@ -889,8 +889,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(3).getChildren().get(7);
 			childSize=outline.getChildren().size();
@@ -905,8 +905,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);				
 			outline=opml.getBody().get(0).getChildren().get(3).getChildren().get(8);
 			childSize=outline.getChildren().size();
@@ -921,8 +921,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(3).getChildren().get(9);
 			childSize=outline.getChildren().size();
@@ -937,8 +937,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(4);
 			childSize=outline.getChildren().size();
@@ -953,8 +953,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);				
 			outline=opml.getBody().get(0).getChildren().get(4).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -969,8 +969,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(4).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -985,8 +985,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);		
 			outline=opml.getBody().get(0).getChildren().get(4).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -1001,8 +1001,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(4).getChildren().get(3);
 			childSize=outline.getChildren().size();
@@ -1017,8 +1017,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(4).getChildren().get(4);
 			childSize=outline.getChildren().size();
@@ -1033,8 +1033,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(5);
 			childSize=outline.getChildren().size();
@@ -1049,8 +1049,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(5).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1065,8 +1065,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(5).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -1081,8 +1081,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(5).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -1097,8 +1097,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(5).getChildren().get(3);
 			childSize=outline.getChildren().size();
@@ -1113,8 +1113,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);				
 			outline=opml.getBody().get(0).getChildren().get(5).getChildren().get(4);
 			childSize=outline.getChildren().size();
@@ -1129,8 +1129,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(5).getChildren().get(5);
 			childSize=outline.getChildren().size();
@@ -1145,8 +1145,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(0).getChildren().get(6);
 			childSize=outline.getChildren().size();
@@ -1161,8 +1161,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(0).getChildren().get(6).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1177,8 +1177,8 @@ class TestOPMLParser {
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
 			assertTrue(outline.getUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(6).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -1192,8 +1192,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(0).getChildren().get(6).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -1207,8 +1207,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(6).getChildren().get(3);
 			childSize=outline.getChildren().size();
@@ -1222,8 +1222,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);				
 			outline=opml.getBody().get(0).getChildren().get(6).getChildren().get(4);
 			childSize=outline.getChildren().size();
@@ -1237,8 +1237,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(6).getChildren().get(5);
 			childSize=outline.getChildren().size();
@@ -1252,8 +1252,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(6).getChildren().get(6);
 			childSize=outline.getChildren().size();
@@ -1267,8 +1267,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(6).getChildren().get(7);
 			childSize=outline.getChildren().size();
@@ -1282,8 +1282,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(0).getChildren().get(6).getChildren().get(8);
 			childSize=outline.getChildren().size();
@@ -1297,8 +1297,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(6).getChildren().get(9);
 			childSize=outline.getChildren().size();
@@ -1312,8 +1312,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(7);
 			childSize=outline.getChildren().size();
@@ -1327,8 +1327,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(0).getChildren().get(7).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1342,8 +1342,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);				
 			outline=opml.getBody().get(0).getChildren().get(7).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -1357,8 +1357,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(7).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -1372,8 +1372,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			/*
 			 * scriptExample is the only that tests isBreakpoint and isComment
@@ -1409,8 +1409,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==true);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==Boolean.TRUE);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1424,8 +1424,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1439,8 +1439,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -1454,8 +1454,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==true);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==Boolean.TRUE);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(1).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1469,8 +1469,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(1);
 			childSize=outline.getChildren().size();
@@ -1484,8 +1484,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(1).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1499,8 +1499,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==true);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==Boolean.TRUE);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(1).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -1514,8 +1514,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(2);
 			childSize=outline.getChildren().size();
@@ -1529,8 +1529,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(3);
 			childSize=outline.getChildren().size();
@@ -1544,8 +1544,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(3).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1559,8 +1559,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			/*
 			 * another example with nested outline
@@ -1596,8 +1596,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(0).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1611,8 +1611,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1626,8 +1626,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(0).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -1641,8 +1641,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -1656,8 +1656,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(1).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1671,8 +1671,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(1).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -1686,8 +1686,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(1).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -1701,8 +1701,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(1).getChildren().get(3);
 			childSize=outline.getChildren().size();
@@ -1716,8 +1716,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -1731,8 +1731,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(2).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1746,8 +1746,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(2).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -1761,8 +1761,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(3);
 			childSize=outline.getChildren().size();
@@ -1776,8 +1776,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);				
 			outline=opml.getBody().get(0).getChildren().get(3).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1791,8 +1791,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(4);
 			childSize=outline.getChildren().size();
@@ -1807,8 +1807,8 @@ class TestOPMLParser {
 			assertTrue(outline.getTitle()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(5);
 			childSize=outline.getChildren().size();
@@ -1822,8 +1822,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(5).getChildren().get(0);
 			childSize=outline.getChildren().size();
@@ -1837,8 +1837,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			outline=opml.getBody().get(0).getChildren().get(5).getChildren().get(1);
 			childSize=outline.getChildren().size();
@@ -1852,8 +1852,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(0).getChildren().get(5).getChildren().get(2);
 			childSize=outline.getChildren().size();
@@ -1867,8 +1867,8 @@ class TestOPMLParser {
 			assertTrue(outline.getType()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			/*
 			 * directoryExample is a simple case
@@ -1906,8 +1906,8 @@ class TestOPMLParser {
 			assertTrue(outline.getTitle()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);			
 			outline=opml.getBody().get(1);
 			childSize=outline.getChildren().size();
@@ -1922,8 +1922,8 @@ class TestOPMLParser {
 			assertTrue(outline.getTitle()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(2);
 			childSize=outline.getChildren().size();
@@ -1938,8 +1938,8 @@ class TestOPMLParser {
 			assertTrue(outline.getTitle()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);	
 			outline=opml.getBody().get(3);
 			childSize=outline.getChildren().size();
@@ -1954,8 +1954,8 @@ class TestOPMLParser {
 			assertTrue(outline.getTitle()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 			assertTrue(outline.getCategory()==null);
 			/*
 			 * categoryExample is very simple
@@ -1994,8 +1994,8 @@ class TestOPMLParser {
 			assertTrue(outline.getTitle()==null);
 			assertTrue(outline.getVersion()==null);
 			assertTrue(outline.getXmlUrl()==null);
-			assertTrue(outline.isComment()==false);
-			assertTrue(outline.isBreakpoint()==false);
+			assertTrue(outline.isComment()==null);
+			assertTrue(outline.isBreakpoint()==null);
 		}catch(Exception x){
 			fail(x);
 		}
