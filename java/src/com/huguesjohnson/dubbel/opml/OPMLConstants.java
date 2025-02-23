@@ -34,5 +34,5 @@ public abstract class OPMLConstants{
 	public final static String ATTRIBUTE_CATEGORY="category";
 	public final static String ATTRIBUTE_URL="url";
 	public final static String XML_VERSION="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"; 
-	public final static String OPML_VERSION=" version=\"2.0\">";
+	public final static String OPML_DEFAULT_VERSION="2.0\">";
 }

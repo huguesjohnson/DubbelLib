@@ -23,7 +23,13 @@ public class OPMLObject{
 		//start of <opml>
 		sb.append("<");
 		sb.append(OPMLConstants.ELEMENT_OPML);
-		sb.append(OPMLConstants.OPML_VERSION);
+		sb.append(" version=\"");
+		if((this.version!=null)&&(this.version.length()>0)){
+			sb.append(this.version);
+		}else{
+			sb.append(OPMLConstants.OPML_DEFAULT_VERSION);
+		}
+		sb.append("\">");
 		sb.append(newLine);
 		//start of <head>
 		sb.append("<");
