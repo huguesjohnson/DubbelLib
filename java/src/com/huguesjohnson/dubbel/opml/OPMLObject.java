@@ -3,6 +3,7 @@
 package com.huguesjohnson.dubbel.opml;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class OPMLObject{
@@ -13,6 +14,20 @@ public class OPMLObject{
 	public OPMLObject(){
 		this.head=new OPMLHead();
 		this.body=new ArrayList<OPMLOutline>();
+	}
+	
+	public void sortOutlines(){
+		this.sortOutlines(this.getBody());
+	}
+
+	private void sortOutlines(List<OPMLOutline> outlines){
+		Collections.sort(outlines);
+		for(OPMLOutline outline:outlines){
+			List<OPMLOutline> children=outline.getChildren();
+			if((children!=null)&&(children.size()>0)){
+				sortOutlines(children);
+			}
+		}
 	}
 	
 	public String toXml(){

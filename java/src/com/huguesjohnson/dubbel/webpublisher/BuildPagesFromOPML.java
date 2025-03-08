@@ -8,8 +8,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 import com.huguesjohnson.dubbel.file.FileUtils;
+import com.huguesjohnson.dubbel.opml.OPMLObject;
+import com.huguesjohnson.dubbel.opml.OPMLOutline;
+import com.huguesjohnson.dubbel.opml.OPMLParser;
 import com.huguesjohnson.dubbel.util.DateUtil;
 
 public class BuildPagesFromOPML{
@@ -37,7 +41,8 @@ public class BuildPagesFromOPML{
 		File pageRead=(new File(pagePath));
 		BufferedReader pageReader=new BufferedReader(new FileReader(pageRead));
 		File opmlFile=(new File(opmlPath));
-		BufferedReader opmlReader=new BufferedReader(new FileReader(opmlFile));
+		OPMLObject opml=OPMLParser.parse(opmlFile);
+		opml.sortOutlines();
 		
 		//find location to write the rss links
 		String line=pageReader.readLine();
@@ -51,52 +56,36 @@ public class BuildPagesFromOPML{
 		String date=DateUtil.now(DateUtil.DF_YearMonthDay);
 		pageWriter.write("<p>Updated: "+date+"</p>");
 		pageWriter.write(settings.newLine);
-		boolean firstItem=true;
-		String opmlLine="";
-		while((opmlLine=opmlReader.readLine())!=null){
-			if(opmlLine.indexOf("<outline")>-1){
-				int titleIndex=opmlLine.indexOf("title");
-				if(titleIndex>-1){
-					int xmlUrlIndex=opmlLine.indexOf("xmlUrl");
-					if(xmlUrlIndex<0){
-						if(!firstItem){
-							pageWriter.write(ulEnd);
-						}else{
-							firstItem=false;
-						}
-						pageWriter.write(ulStart);
-						int startIndex=titleIndex+"title=\"".length();
-						int endIndex=opmlLine.indexOf("\"",startIndex);
-						String title=opmlLine.substring(startIndex,endIndex);
-						pageWriter.write(liHeaderStart);
-						pageWriter.write(title);
-						pageWriter.write(liHeaderEnd);
-					}else{
-						pageWriter.write(liStart);
-						int startIndex=xmlUrlIndex+"xmlUrl=\"".length();
-						int endIndex=opmlLine.indexOf("\"",startIndex);
-						String xmlUrl=opmlLine.substring(startIndex,endIndex);
-						if(settings.upgradeRSSLinksToHTTPS){
-							xmlUrl=xmlUrl.replace("http:","https:");
-						}
-						pageWriter.write(xmlUrl);
-						pageWriter.write("\">");
-						startIndex=titleIndex+"title=\"".length();
-						endIndex=opmlLine.indexOf("\"",startIndex);
-						String title=opmlLine.substring(startIndex,endIndex);
-						if((title==null)||(title.length()<1)){
-							title=xmlUrl;
-						}
-						pageWriter.write(title);
-						pageWriter.write(liEnd);
-					}
+		List<OPMLOutline> categories=opml.getBody();
+		for(OPMLOutline category:categories){
+			//start list
+			pageWriter.write(ulStart);
+			pageWriter.write(liHeaderStart);
+			pageWriter.write(category.getTitle());
+			pageWriter.write(liHeaderEnd);
+			//go through the child nodes
+			List<OPMLOutline> children=category.getChildren();
+			for(OPMLOutline child:children){
+				pageWriter.write(liStart);
+				String xmlUrl=child.getXmlUrl();
+				if(settings.upgradeRSSLinksToHTTPS){
+					xmlUrl=xmlUrl.replace("http:","https:");
 				}
+				pageWriter.write(xmlUrl);
+				pageWriter.write("\">");
+				String title=child.getTitle();
+				if((title==null)||(title.length()<1)){
+					title=child.getText();
+				}
+				if((title==null)||(title.length()<1)){
+					title=xmlUrl;
+				}
+				pageWriter.write(title);
+				pageWriter.write(liEnd);				
 			}
+			//end list
+			pageWriter.write(ulEnd);
 		}
-		pageWriter.write(ulEnd);
-
-		opmlReader.close();
-	    		
 		//finish the page
 		while(!line.contains(settings.htmlBlocks.getRssLinksEndTag())){
 			line=pageReader.readLine();
