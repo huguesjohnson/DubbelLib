@@ -4,8 +4,10 @@ package com.huguesjohnson.dubbel.util;
 
 import java.util.StringTokenizer;
 
-//TODO - these all need unit tests
+//I could have called this NumberConvertors but whatever
 public abstract class NumberFormatters{
+    /* (2^8) - java only defines a max signed byte */
+    public final static int MAX_UNSIGNED_BYTE=256;
 	
 	//I heard a rumor jdk17 might have a built-in feature like this
 	public final static String toHexWord(int i){
@@ -166,8 +168,23 @@ public abstract class NumberFormatters{
     	return(sb.toString());
     }
     
+    public static int byteArrayToInt(byte[] b,Endianness byteOrder){
+    	return(byteArrayToInt(b,0,b.length,byteOrder));
+    }
+    
+    public static int byteArrayToInt(byte[] b,int startOffset,int length,Endianness byteOrder){
+    	int value=0;
+    	for(int i=0;i<length;i++){
+    		if(byteOrder==Endianness.LITTLE_ENDIAN){
+    			value+=(b[i+startOffset])*(Math.pow(MAX_UNSIGNED_BYTE,i));
+    		}else if(byteOrder==Endianness.BIG_ENDIAN){
+    			value+=(b[i+startOffset])*(Math.pow(MAX_UNSIGNED_BYTE,(length-i-1)));
+    		}
+    	}
+    	return(value);
+    }
+    
     public static String intToHex(int i){
     	return("0x"+Integer.toHexString(i).toUpperCase());
     }
-    
 }
