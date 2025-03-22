@@ -77,7 +77,6 @@ class TestNumberFormatters{
 		b[1]=4;
 		b[2]=89;
 		assertEquals(NumberFormatters.byteArrayToString(b),"[0x6] [0x4] [0x59] ");
-		
 	}
 
 	@Test
@@ -86,10 +85,41 @@ class TestNumberFormatters{
 		b[0]=6;
 		b[1]=4;
 		b[2]=89;
+		//(6*256^2)+(4*256)+(89)=394329
 		assertEquals(NumberFormatters.byteArrayToInt(b,Endianness.BIG_ENDIAN),394329);
+		//(6)+(4*256)+(89*256^2)=5833734
 		assertEquals(NumberFormatters.byteArrayToInt(b,Endianness.LITTLE_ENDIAN),5833734);
+		//(4×256)+(89)
 		assertEquals(NumberFormatters.byteArrayToInt(b,1,2,Endianness.BIG_ENDIAN),1113);
+		//(4)+(89*256)=22788
 		assertEquals(NumberFormatters.byteArrayToInt(b,1,2,Endianness.LITTLE_ENDIAN),22788);
+		b[0]=-6;//(-6&255)=250
+		b[1]=-4;//(-4&255)=252
+		b[2]=-89;//(-89&255)=167
+		//(250*256^2)+(252*256)+(167)=16448679
+		assertEquals(NumberFormatters.byteArrayToInt(b,Endianness.BIG_ENDIAN),16448679);
+		//(250)+(252*256)+(167*256^2)=11009274
+		assertEquals(NumberFormatters.byteArrayToInt(b,Endianness.LITTLE_ENDIAN),11009274);
+		//(252×256)+(167)=64679
+		assertEquals(NumberFormatters.byteArrayToInt(b,1,2,Endianness.BIG_ENDIAN),64679);
+		//(252)+(167*256)=43004
+		assertEquals(NumberFormatters.byteArrayToInt(b,1,2,Endianness.LITTLE_ENDIAN),43004);
+		b[0]=6;
+		b[1]=4;
+		b[2]=89;
+		//should be the same as the first three tests
+		assertEquals(NumberFormatters.byteArrayToInt(b,Endianness.BIG_ENDIAN,true),394329);
+		assertEquals(NumberFormatters.byteArrayToInt(b,Endianness.LITTLE_ENDIAN,true),5833734);
+		assertEquals(NumberFormatters.byteArrayToInt(b,1,2,Endianness.BIG_ENDIAN,true),1113);
+		assertEquals(NumberFormatters.byteArrayToInt(b,1,2,Endianness.LITTLE_ENDIAN,true),22788);
+		b[0]=-6;
+		b[1]=-4;
+		b[2]=-89;
+		//should be the same as the first three tests but negative
+		assertEquals(NumberFormatters.byteArrayToInt(b,Endianness.BIG_ENDIAN,false),-394329);
+		assertEquals(NumberFormatters.byteArrayToInt(b,Endianness.LITTLE_ENDIAN,false),-5833734);
+		assertEquals(NumberFormatters.byteArrayToInt(b,1,2,Endianness.BIG_ENDIAN,false),-1113);
+		assertEquals(NumberFormatters.byteArrayToInt(b,1,2,Endianness.LITTLE_ENDIAN,false),-22788);		
 	}
 
 	@Test

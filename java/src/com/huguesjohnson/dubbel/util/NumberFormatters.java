@@ -172,13 +172,23 @@ public abstract class NumberFormatters{
     	return(byteArrayToInt(b,0,b.length,byteOrder));
     }
     
+    public static int byteArrayToInt(byte[] b,Endianness byteOrder,boolean unsigned){
+    	return(byteArrayToInt(b,0,b.length,byteOrder,unsigned));
+    }    
+
     public static int byteArrayToInt(byte[] b,int startOffset,int length,Endianness byteOrder){
+    	return(byteArrayToInt(b,startOffset,length,byteOrder,true));
+    }
+    
+    public static int byteArrayToInt(byte[] b,int startOffset,int length,Endianness byteOrder,boolean unsigned){
     	int value=0;
     	for(int i=0;i<length;i++){
+    		int bi=b[i+startOffset];
+    		if(unsigned){bi=bi&0xFF;}
     		if(byteOrder==Endianness.LITTLE_ENDIAN){
-    			value+=(b[i+startOffset])*(Math.pow(MAX_UNSIGNED_BYTE,i));
+    			value+=bi*(Math.pow(MAX_UNSIGNED_BYTE,i));
     		}else if(byteOrder==Endianness.BIG_ENDIAN){
-    			value+=(b[i+startOffset])*(Math.pow(MAX_UNSIGNED_BYTE,(length-i-1)));
+    			value+=bi*(Math.pow(MAX_UNSIGNED_BYTE,(length-i-1)));
     		}
     	}
     	return(value);
