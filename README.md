@@ -26,7 +26,8 @@ This also includes small single-use applications that aren't significant enough 
 * /game-templates
     * genesis: Example project that uses all the features of the retailclerk 68k library and build tools. It is also how I test for breaking changes.
 * /java
-    * audio: A couple simple classes to play audio (really just midi files).
+    * audio: A couple simple classes to play audio (only midi files are playable).
+	* audio.xm: Classes to read XM (FastTracker 2) files - the eventual goal is to add functionality to convert XM files to other formats.
     * aws: Data structures and some helper classes for projects that integrate with AWS.
     * converters: Various utilities to convert one file type to another.
 	* example: Reference implementations of data structures and algorithms, the kind of stuff that shows up in development interviews that we all forgot after graduating college.
