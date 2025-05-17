@@ -95,6 +95,15 @@ public abstract class FileUtils{
 		return(readBytes(f,startByte,length));
 	}
 
+	public static String readString(String path) throws IOException{
+		File f=new File(path);
+		return(readString(f));
+	}
+	
+	public static String readString(File f) throws IOException{
+		return(new String(readBytes(f,0,(int)f.length())));
+	}
+	
 	public static byte[] readBytes(String path) throws IOException{
 		File f=new File(path);
 		return(readBytes(f,0,(int)f.length()));

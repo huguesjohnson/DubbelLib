@@ -12,13 +12,14 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.huguesjohnson.dubbel.file.FileUtils;
+import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.util.DateUtil;
 
 public class BuildExternalLinksPage{
 	public static void writePage(Settings settings,Map<String,ArrayList<String>> linkMap) throws Exception{
 		if(!settings.buildExternalLinksPage){return;}//in case I do something silly
-		if(settings.externalLinksPagePath==null){return;}
-		if(settings.externalLinksPagePath.length()==0){return;}
+		if(settings.externalLinksPagePathRel==null){return;}
+		if(settings.externalLinksPagePathRel.length()==0){return;}
 		//now build the page - could move this to a subroutine I suppose
 		String baseSiteLower=settings.siteMapBaseUrl.toLowerCase();
 		//TODO - use templater here for the class
@@ -29,9 +30,10 @@ public class BuildExternalLinksPage{
 		String tdStart="<td width=\"50%\">"+settings.newLine;
 		String tdEnd="</td>"+settings.newLine;
 		//find where to insert the table
-		File pageWrite=FileUtils.getTempFile(settings.externalLinksPagePath);
+		String externalLinksPagePathAbs=PathResolver.getAbsolutePath(settings.publishDirectoryAbs,settings.externalLinksPagePathRel);
+		File pageWrite=FileUtils.getTempFile(externalLinksPagePathAbs);
 		FileWriter pageWriter=new FileWriter(pageWrite);
-		File pageRead=(new File(settings.externalLinksPagePath));
+		File pageRead=(new File(externalLinksPagePathAbs));
 		BufferedReader pageReader=new BufferedReader(new FileReader(pageRead));
 		//find location to write link table
 		String line=pageReader.readLine();

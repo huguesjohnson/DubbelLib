@@ -75,9 +75,9 @@ public class SimpleDynamicTemplater{
 						dynamicReplace=DateUtil.now(DateUtil.DF_Year);
 					}else if(dynamicIndex==TAG_CANONICAL_INDEX){
 						if(filePath.endsWith((settings.rootDocument))){
-							dynamicReplace=filePath.substring(settings.templateDirectory.length(),filePath.length()-(settings.rootDocument.length()-1));
+							dynamicReplace=filePath.substring(settings.publishDirectoryAbs.length(),filePath.length()-(settings.rootDocument.length()-1));
 						}else{
-							dynamicReplace=filePath.substring(settings.templateDirectory.length(),filePath.length());
+							dynamicReplace=filePath.substring(settings.publishDirectoryAbs.length(),filePath.length());
 						}
 					}
 					//replace the template with the value

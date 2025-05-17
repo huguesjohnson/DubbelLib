@@ -11,6 +11,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import com.huguesjohnson.dubbel.file.FileUtils;
+import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.opml.OPMLObject;
 import com.huguesjohnson.dubbel.opml.OPMLOutline;
 import com.huguesjohnson.dubbel.opml.OPMLParser;
@@ -23,6 +24,8 @@ public class BuildPagesFromOPML{
 		if(settings.opmlPages.size()<1){return;}
 		for(String opmlPath:settings.opmlPages.keySet()){
 			String pagePath=settings.opmlPages.get(opmlPath);
+			opmlPath=PathResolver.getAbsolutePath(settings.publishDirectoryAbs,opmlPath);
+			pagePath=PathResolver.getAbsolutePath(settings.publishDirectoryAbs,pagePath);
 			writePage(pagePath,opmlPath,settings);
 		}
 	}

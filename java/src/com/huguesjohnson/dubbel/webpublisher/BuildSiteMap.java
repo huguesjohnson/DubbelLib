@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import com.huguesjohnson.dubbel.file.FileUtils;
+import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.file.filter.HtmlFileFilter;
 import com.huguesjohnson.dubbel.util.DateUtil;
 
@@ -23,7 +24,7 @@ public class BuildSiteMap{
 	
 	private static ArrayList<SiteMapEntry> buildSiteMapList(Settings settings) throws Exception{
 		ArrayList<SiteMapEntry> siteMapList=new ArrayList<SiteMapEntry>();
-		File rootDir=new File(settings.publishDirectory);
+		File rootDir=new File(settings.publishDirectoryAbs);
 		ArrayList<File> files=FileUtils.getAllFilesRecursive(rootDir,new HtmlFileFilter());
 		for(File file:files){
 			boolean siteMapInclude=true;
@@ -70,10 +71,11 @@ public class BuildSiteMap{
 
 
 	private static void writeSitemap(Settings settings,ArrayList<SiteMapEntry> siteMapList) throws Exception{
-		FileWriter siteMapXMLWriter=new FileWriter(new File(settings.siteMapBasePath+".xml"));
-		File htmlWrite=FileUtils.getTempFile(settings.siteMapBasePath);
+		String siteMapBasePathAbs=PathResolver.getAbsolutePath(settings.publishDirectoryAbs,settings.siteMapPathRel);
+		FileWriter siteMapXMLWriter=new FileWriter(new File(siteMapBasePathAbs+".xml"));
+		File htmlWrite=FileUtils.getTempFile(siteMapBasePathAbs);
 		FileWriter siteMapHTMLWriter=new FileWriter(htmlWrite);
-		File htmlRead=(new File(settings.siteMapBasePath+".html"));
+		File htmlRead=(new File(siteMapBasePathAbs+".html"));
 		BufferedReader siteMapHTMLReader=new BufferedReader(new FileReader(htmlRead));
 		//write start of xml sitemap
 		siteMapXMLWriter.write(settings.htmlBlocks.getSitemapXmlStart());

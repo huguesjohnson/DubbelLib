@@ -11,6 +11,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 
 import com.huguesjohnson.dubbel.file.FileUtils;
+import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.util.DateUtil;
 
 public class BuildPagesFromCSV{
@@ -20,6 +21,8 @@ public class BuildPagesFromCSV{
 		if(settings.csvPages.size()<1){return;}
 		for(String csvPath:settings.csvPages.keySet()){
 			String pagePath=settings.csvPages.get(csvPath);
+			csvPath=PathResolver.getAbsolutePath(settings.publishDirectoryAbs,csvPath);
+			pagePath=PathResolver.getAbsolutePath(settings.publishDirectoryAbs,pagePath);
 			writePage(pagePath,csvPath,settings);
 		}		
 	}

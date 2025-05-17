@@ -29,6 +29,7 @@ public abstract class PathResolver{
 	 * </ul>
 	 * If the drives are different then an absolute path must be returned.<br>
 	 * For example: absolutePath1="c:\\folder1\\" absolutePath2="d:\\folder2\\" getRelativePath="d:\\folder2\\" 
+	 * This has been tested on Windows, Linux, and MacOS.
 	 */
 	public final static String getRelativePath(String absolutePath1,String absolutePath2){
 		// verify input parameters
@@ -100,6 +101,7 @@ public abstract class PathResolver{
 	 * <li>absolutePath="c:\\folder1\\sub-folder1\\" relativePath="..\\..\\folder2\\" getAbsolutePath="c:\\folder2\\"</li>
 	 * <li>absolutePath="c:\\folder1\\sub-folder1\\" relativePath="..\\..\\folder2\\file.txt" getAbsolutePath="c:\\folder2\\file.txt"</li>
 	 * </ul>
+	 * This has been tested on Windows, Linux, and MacOS.
 	 */
 	public final static String getAbsolutePath(String absolutePath,String relativePath){
 		// verify input parameters

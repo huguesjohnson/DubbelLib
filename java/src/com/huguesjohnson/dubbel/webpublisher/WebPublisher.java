@@ -11,6 +11,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 
 import com.huguesjohnson.dubbel.file.FileUtils;
+import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.file.filter.HtmlFileFilter;
 
 public class WebPublisher{
@@ -22,13 +23,18 @@ public class WebPublisher{
 			//pre-process replacement text
 			SimpleStaticTemplater staticTemplater=new SimpleStaticTemplater(settings.staticTemplates);
 			for(ReplacementBlock rb:settings.replacements){
-				rb.setReplacementText(staticTemplater.process(rb.getReplacementText()));
+				String replacementText=rb.getReplacementText();
+				if((replacementText==null)||(replacementText.length()<1)){
+					//try loading from file then
+					String path=PathResolver.getAbsolutePath(settings.publishDirectoryAbs,rb.getReplacementTextPath());
+					replacementText=FileUtils.readString(path);
+				}
+				rb.setReplacementText(staticTemplater.process(replacementText));
 			}
 			//set directory locations
-			File templateDirectory=new File(settings.templateDirectory);
 			File stagingDirectory=new File(settings.stagingDirectory);
-			File publishDirectory=new File(settings.publishDirectory);
-			int beginIndex=templateDirectory.getAbsolutePath().length();
+			File publishDirectory=new File(settings.publishDirectoryAbs);
+			int beginIndex=publishDirectory.getAbsolutePath().length();
 			//check if publish directory exists
 			if(!stagingDirectory.exists()){FileUtils.mkdirs(stagingDirectory);}
 			//do these first so any changes are included in the link map
@@ -37,10 +43,10 @@ public class WebPublisher{
 			//list of files to skip for the link map
 			ArrayList<String> skipList=buildSkipList(settings);
 			//get all html files
-			ArrayList<File> files=FileUtils.getAllFilesRecursive(templateDirectory,new HtmlFileFilter());
+			ArrayList<File> files=FileUtils.getAllFilesRecursive(publishDirectory,new HtmlFileFilter());
 			for(File file:files){
-	        	String templateFileAbsolutePath=file.getAbsolutePath();
-				String relativePath=templateFileAbsolutePath.substring(beginIndex);
+	        	String absolutePath=file.getAbsolutePath();
+				String relativePath=absolutePath.substring(beginIndex);
 				String stagingPath=stagingDirectory+relativePath;
 				String publishPath=publishDirectory+relativePath;
 				reader=new BufferedReader(new FileReader(file));
@@ -69,7 +75,7 @@ public class WebPublisher{
 						 * This would also mean templatePath and publishPath have to be different. */
 						//first check for adding the line to the link map
 			        	boolean skipLinkmap=false;
-			        	if(skipList.contains(templateFileAbsolutePath)){
+			        	if(skipList.contains(absolutePath)){
 			        		skipLinkmap=true;
 			        	}
 			        	if(!skipLinkmap){
@@ -126,17 +132,23 @@ public class WebPublisher{
 	//build list of pages to skip for building link map or other audits
 	public static ArrayList<String> buildSkipList(Settings settings){
 		ArrayList<String> skipList=new ArrayList<String>();
-		skipList.add(settings.externalLinksPagePath);
-		skipList.add(settings.siteMapBasePath+".html");
+		String externalLinksPagePathRel=settings.externalLinksPagePathRel;
+		if((externalLinksPagePathRel!=null)&&(externalLinksPagePathRel.length()>0)){
+			skipList.add(PathResolver.getAbsolutePath(settings.publishDirectoryAbs,settings.externalLinksPagePathRel));
+		}
+		String siteMapPathRel=settings.siteMapPathRel;
+		if((siteMapPathRel!=null)&&(siteMapPathRel.length()>0)){
+			skipList.add(PathResolver.getAbsolutePath(settings.publishDirectoryAbs,settings.siteMapPathRel)+".html");
+		}
 		if(settings.csvPages.size()>0){
 			for(String csvPath:settings.csvPages.keySet()){
-				String pagePath=settings.csvPages.get(csvPath);
+				String pagePath=PathResolver.getAbsolutePath(settings.publishDirectoryAbs,settings.csvPages.get(csvPath));
 				skipList.add(pagePath);
 			}		
 		}
 		if(settings.opmlPages.size()>0){
 			for(String opmlPath:settings.opmlPages.keySet()){
-				String pagePath=settings.opmlPages.get(opmlPath);
+				String pagePath=PathResolver.getAbsolutePath(settings.publishDirectoryAbs,settings.opmlPages.get(opmlPath));
 				skipList.add(pagePath);
 			}
 		}		
