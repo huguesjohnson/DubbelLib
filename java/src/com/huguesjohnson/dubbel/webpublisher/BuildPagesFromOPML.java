@@ -70,7 +70,7 @@ public class BuildPagesFromOPML{
 			List<OPMLOutline> children=category.getChildren();
 			for(OPMLOutline child:children){
 				pageWriter.write(liStart);
-				String xmlUrl=child.getXmlUrl();
+				String xmlUrl=child.getXmlUrl().replace("&","&amp;");
 				if(settings.upgradeRSSLinksToHTTPS){
 					xmlUrl=xmlUrl.replace("http:","https:");
 				}
