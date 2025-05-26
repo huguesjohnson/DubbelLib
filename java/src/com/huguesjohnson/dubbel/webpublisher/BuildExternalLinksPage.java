@@ -27,7 +27,7 @@ public class BuildExternalLinksPage{
 		String tableEnd="</table>"+settings.newLine;
 		String trStart="<tr>"+settings.newLine;
 		String trEnd="</tr>"+settings.newLine;
-		String tdStart="<td width=\"50%\">"+settings.newLine;
+		String tdStart="<td>"+settings.newLine;
 		String tdEnd="</td>"+settings.newLine;
 		//find where to insert the table
 		String externalLinksPagePathAbs=PathResolver.getAbsolutePath(settings.publishDirectoryAbs,settings.externalLinksPagePathRel);
@@ -73,7 +73,7 @@ public class BuildExternalLinksPage{
 			if(!skip){
 				pageWriter.write(trStart);//new row
 				pageWriter.write(tdStart);//new column
-				pageWriter.write("<p><a href=\""+link+"\" rel=\"nofollow\" target=\"_blank\">"+link+"</a></p>");
+				pageWriter.write("<p><a href=\""+link.replace("&","&amp;")+"\" rel=\"nofollow\" target=\"_blank\">"+link+"</a></p>");
 				pageWriter.write(tdEnd);//close 1st column
 				pageWriter.write(tdStart);//start 2nd column
 				ArrayList<String> linkedPages=linkMap.get(link);
