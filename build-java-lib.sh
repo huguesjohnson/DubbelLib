@@ -8,6 +8,7 @@ rm -rf ./build/java/
 echo 'creating output directories..'
 mkdir -p ./build/java/bin/com/huguesjohnson/dubbel/
 mkdir -p ./build/java/bin/com/huguesjohnson/dubbel/audio/
+mkdir -p ./build/java/bin/com/huguesjohnson/dubbel/audio/xm/
 mkdir -p ./build/java/bin/com/huguesjohnson/dubbel/aws/
 mkdir -p ./build/java/bin/com/huguesjohnson/dubbel/converters/
 mkdir -p ./build/java/bin/com/huguesjohnson/dubbel/example/
@@ -19,6 +20,7 @@ mkdir -p ./build/java/bin/com/huguesjohnson/dubbel/webpublisher/
 
 echo 'compiling..'
 javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/audio/*.java
+javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/audio/xm/*.java
 javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/aws/*.java
 javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/converters/*.java
 javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/example/*.java
@@ -30,6 +32,7 @@ javac -cp ./java/src/ ./java/src/com/huguesjohnson/dubbel/webpublisher/*.java
 
 echo 'moving compiled classes..'
 mv ./java/src/com/huguesjohnson/dubbel/audio/*.class ./build/java/bin/com/huguesjohnson/dubbel/audio/
+mv ./java/src/com/huguesjohnson/dubbel/audio/xm/*.class ./build/java/bin/com/huguesjohnson/dubbel/audio/xm/
 mv ./java/src/com/huguesjohnson/dubbel/aws/*.class ./build/java/bin/com/huguesjohnson/dubbel/aws/
 mv ./java/src/com/huguesjohnson/dubbel/converters/*.class ./build/java/bin/com/huguesjohnson/dubbel/converters/
 mv ./java/src/com/huguesjohnson/dubbel/example/*.class ./build/java/bin/com/huguesjohnson/dubbel/example/
