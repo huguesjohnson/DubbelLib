@@ -14,7 +14,10 @@ public class Settings{
 	public boolean rebuildPagesFromOpml=true;//if true then pages generated from opml are recreated in the publish directory
 	public boolean rebuildPagesFromCsv=true;//if true then pages generated from csv are recreated in the publish directory
 	public boolean buildExternalLinksPage=true;//if true then the page to audit external links will be built in the publish directory
-	public boolean audit=true;//if true then various audits will run with results logged to a text file
+	public boolean auditCompare=true;//if true then the original and staged files will be compared line by line
+	public boolean auditTidy=true;//if true then html-tidy will be run against all pages
+	public boolean auditLinks=true;//if true then an audit is run for any non-http links in pages
+	public boolean auditPihole=false;//if true the the hosted pihole page is checked for duplicate links
 	public boolean upgradeRSSLinksToHTTPS=true;//if true then any links generated from rss/opml will be upgraded to https
 	/*
 	 * Paths to things
@@ -38,7 +41,7 @@ public class Settings{
 	public ReplacementBlockList replacements;
 	public HTMLBlocks htmlBlocks;
 	/*
-	 * I can think of why this would be substituted though
+	 * I can't think of why this would be substituted though
 	 */	
 	public String newLine=System.lineSeparator();
 }
