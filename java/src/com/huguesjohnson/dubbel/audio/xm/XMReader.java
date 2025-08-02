@@ -126,6 +126,11 @@ public abstract class XMReader{
 			end=start+FieldLengths.PATTERN_HEADER;
 			pattern.setHeaderSize(Arrays.copyOfRange(b,start,end));
 			/*
+			 * Pattern -> packing type
+			 */
+			start=patternStart+XMConstants.Offsets.PATTERN_PACKING_TYPE;
+			pattern.setPackingType(b[start]);
+			/*
 			 * Pattern -> number of rows
 			 */
 			start=patternStart+XMConstants.Offsets.PATTERN_NUM_ROWS;
@@ -136,14 +141,14 @@ public abstract class XMReader{
 			 */
 			start=patternStart+XMConstants.Offsets.PATTERN_DATA_SIZE;
 			end=start+FieldLengths.PATTERN_DATA_SIZE;
-			pattern.setPatternDataSize(Arrays.copyOfRange(b,start,end));
+			pattern.setPackedDataSize(Arrays.copyOfRange(b,start,end));
 			/*
 			 * Pattern -> data
 			 */
-			int patternDataSize=pattern.getPatternDataSize();
+			int patternDataSize=pattern.getPackedDataSize();
 			start=end;
 			end=start+patternDataSize;
-			pattern.setPatternData(Arrays.copyOfRange(b,start,end));
+			pattern.setPackedData(Arrays.copyOfRange(b,start,end));
 			patterns.add(pattern);
 			patternStart=end;
 		}

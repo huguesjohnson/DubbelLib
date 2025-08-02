@@ -12,9 +12,10 @@ package com.huguesjohnson.dubbel.audio.xm;
 public abstract class XMConstants{
 
 	public static abstract class Offsets{
-		public static int PATTERN_NUM_ROWS=5;
+		public static int PATTERN_PACKING_TYPE=FieldLengths.PATTERN_HEADER;
+		public static int PATTERN_NUM_ROWS=Offsets.PATTERN_PACKING_TYPE+FieldLengths.PATTERN_PACKING_TYPE;
 		public static int PATTERN_DATA_SIZE=PATTERN_NUM_ROWS+FieldLengths.PATTERN_NUM_ROWS;
-		public static int INSTRUMENT_NAME=4;
+		public static int INSTRUMENT_NAME=FieldLengths.INSTRUMENT_HEADER_SIZE;
 		public static int INSTRUMENT_TYPE=INSTRUMENT_NAME+FieldLengths.INSTRUMENT_NAME;
 		public static int INSTRUMENT_NUM_SAMPLES=INSTRUMENT_TYPE+FieldLengths.INSTRUMENT_TYPE;
 	}
@@ -35,6 +36,7 @@ public abstract class XMConstants{
 		public static int HEADER_SONG_BPM=2;
 		public static int HEADER_SONG_PATTERN_ORDER=256;
 		public static int PATTERN_HEADER=4;
+		public static int PATTERN_PACKING_TYPE=1;
 		public static int PATTERN_NUM_ROWS=2;
 		public static int PATTERN_DATA_SIZE=2;
 		public static int INSTRUMENT_HEADER_SIZE=4;
