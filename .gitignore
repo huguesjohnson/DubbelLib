@@ -1,3 +1,4 @@
+**/.DS_Store
 *.class
 *.project
 /java/bin/
@@ -6,5 +7,3 @@
 /game-templates/genesis/build-tools/
 /bin/
 .settings/org.eclipse.core.resources.prefs
-java/.DS_Store
-.DS_Store
