@@ -19,13 +19,18 @@ import java.util.Map;
 
 public class XMESFMap{
 	public enum ESFType{BGM,SFX};
+	public enum PSGRetriggerVolumeEnvelope{NEVER,INSTRUMENT_COLUMN,ALWAYS};
 	public final static int DEFAULT_TEMPO=7;
 	public final static boolean DEFAULT_LOOP=true;
+	public final static boolean DEFAULT_NOTE_OFF_PSG=false;
 	
 	public String xmFilePath;
+	public String esfOutputPath;
 	public String description;//optional, to make json more readable
 	public ESFType type=ESFType.BGM;
+	public PSGRetriggerVolumeEnvelope psgRetriggerVolumeEnvelope=PSGRetriggerVolumeEnvelope.NEVER;
 	public boolean loop=DEFAULT_LOOP;
+	public boolean ignoreNoteOffPSG=DEFAULT_NOTE_OFF_PSG;
 	public int tempo=DEFAULT_TEMPO;
 	public int[] fmChannelMap={-1,-1,-1,-1,-1,-1};
 	public int[] fmVolume={-1,-1,-1,-1,-1,-1};

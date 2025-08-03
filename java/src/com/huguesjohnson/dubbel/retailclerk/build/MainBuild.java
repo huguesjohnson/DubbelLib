@@ -57,6 +57,7 @@ public class MainBuild{
 			* Backup
 			*********************************************************** */
 			if((instructions.backupPath!=null)&&(instructions.backupPath.length()>0)){
+				StringBuilder errSB=new StringBuilder();
 				String fullBackupPath=PathResolver.getAbsolutePath(basePath,instructions.backupPath);
 				if(!fullBackupPath.endsWith(File.separator)){
 					fullBackupPath=fullBackupPath+File.separator;
@@ -82,7 +83,10 @@ public class MainBuild{
 				p.waitFor();
 				sErr=new BufferedReader(new InputStreamReader(p.getErrorStream()));
 				line=null;
-				while((line=sErr.readLine())!=null){System.out.println(line);}
+				while((line=sErr.readLine())!=null){errSB.append(line);}
+				if(errSB.length()>0){
+					throw(new Exception(errSB.toString()));
+				}
 			}else{
 				System.out.println("backupPath not defined, skipping task.");
 			}
@@ -211,6 +215,7 @@ public class MainBuild{
 			* Compile
 			*********************************************************** */
 			if(instructions.assembly!=null){
+				StringBuilder errSB=new StringBuilder();
 				for(int i=0;i<instructions.assembly.length;i++){
 					ProcessBuilder pb=new ProcessBuilder(new String[]{"sh","-c",instructions.assembly[i].arguments});
 					pb.directory(new File(basePath+instructions.assembly[i].assemblerPath));
@@ -218,7 +223,10 @@ public class MainBuild{
 					p.waitFor();
 					BufferedReader sErr=new BufferedReader(new InputStreamReader(p.getErrorStream()));
 					String line=null;
-					while((line=sErr.readLine())!=null){System.out.println(line);}
+					while((line=sErr.readLine())!=null){errSB.append(line);}
+				}
+				if(errSB.length()>0){
+					throw(new Exception(errSB.toString()));
 				}
 			}else{
 				System.out.println("assembly not defined, skipping task.");

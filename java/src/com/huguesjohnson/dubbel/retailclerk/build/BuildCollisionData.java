@@ -84,6 +84,8 @@ public abstract class BuildCollisionData extends BaseBuilder{
 						}
 					}
 				}
+				collisionDataWriter.flush();
+				collisionDataWriter.close();
 				//update the include file
 				String includePathRel=PathResolver.getRelativePath(includeFilePath,outputFilePath);
 				if(includePathRel.startsWith("..")){
