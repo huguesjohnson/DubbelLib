@@ -56,7 +56,7 @@ public class OPMLParser{
 							}
 						}else if(name.equalsIgnoreCase(OPMLConstants.ELEMENT_HEAD)){//start of <head>
 							opml.setHead(parseHead(xmlReader));
-						}else if(name.equalsIgnoreCase(OPMLConstants.ELEMENT_OUTLINE)){//start of <head>
+						}else if(name.equalsIgnoreCase(OPMLConstants.ELEMENT_OUTLINE)){//start of <outline>
 							opml.getBody().add(parseOutline(xmlReader));
 						}
 	            	}
