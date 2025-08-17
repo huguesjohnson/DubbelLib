@@ -36,8 +36,10 @@ public class BuildPagesFromOPML{
 		String ulEnd="</ul>"+settings.newLine+"<br><br>"+settings.newLine;
 		String liHeaderStart=staticTemplater.process("<li {LI_HEADER_CLASS}>");
 		String liHeaderEnd="</li>"+settings.newLine;
-		String liStart=staticTemplater.process("<li {LI_CLASS}><a href=\"");
-		String liEnd="</a></li>"+settings.newLine;
+		String liStart=staticTemplater.process("<li {LI_CLASS}>");
+		String liEnd="</li>"+settings.newLine;
+		String hrefStart="<a href=\"";
+		String hrefEnd="</a>";
 		
 		File pageWrite=FileUtils.getTempFile(pagePath);
 		FileWriter pageWriter=new FileWriter(pageWrite);
@@ -70,20 +72,45 @@ public class BuildPagesFromOPML{
 			List<OPMLOutline> children=category.getChildren();
 			for(OPMLOutline child:children){
 				pageWriter.write(liStart);
-				String xmlUrl=child.getXmlUrl().replace("&","&amp;");
-				if(settings.upgradeRSSLinksToHTTPS){
-					xmlUrl=xmlUrl.replace("http:","https:");
+				String xmlUrl=child.getXmlUrl();
+				if(xmlUrl!=null){
+					xmlUrl=xmlUrl.replace("&","&amp;");
 				}
-				pageWriter.write(xmlUrl);
-				pageWriter.write("\">");
+				String htmlUrl=child.getHtmlUrl();
+				if(htmlUrl!=null){
+					htmlUrl=htmlUrl.replace("&","&amp;");
+				}
+				if(settings.upgradeRSSLinksToHTTPS){
+					if(xmlUrl!=null){xmlUrl=xmlUrl.replace("http:","https:");}
+					if(htmlUrl!=null){htmlUrl=htmlUrl.replace("http:","https:");}
+				}
+				//write page title
 				String title=child.getTitle();
 				if((title==null)||(title.length()<1)){
 					title=child.getText();
 				}
 				if((title==null)||(title.length()<1)){
-					title=xmlUrl;
+					title=htmlUrl;
 				}
 				pageWriter.write(title);
+				//write html link
+				if(htmlUrl!=null){
+					pageWriter.write("<br>&nbsp;&nbsp;");
+					pageWriter.write(hrefStart);
+					pageWriter.write(htmlUrl);
+					pageWriter.write("\">");
+					pageWriter.write(getShortUrl(htmlUrl,settings.upgradeRSSLinksToHTTPS));
+					pageWriter.write(hrefEnd);
+				}
+				//write rss link
+				if(xmlUrl!=null){
+					pageWriter.write("<br>&nbsp;&nbsp;");
+					pageWriter.write(hrefStart);
+					pageWriter.write(xmlUrl);
+					pageWriter.write("\">");
+					pageWriter.write(getShortUrl(xmlUrl,settings.upgradeRSSLinksToHTTPS));
+					pageWriter.write(hrefEnd);
+				}
 				pageWriter.write(liEnd);				
 			}
 			//end list
@@ -106,4 +133,16 @@ public class BuildPagesFromOPML{
 		Files.delete(pageWrite.toPath());
 	}
 	
+	private final static String getShortUrl(String url,boolean upgradeRSSLinksToHTTPS){
+		String shortUrl=url.replace("www.","");
+		if(upgradeRSSLinksToHTTPS){
+			shortUrl=shortUrl.replace("https://","");
+		}else{
+			shortUrl=shortUrl.replace("http://","");
+		}
+		if(shortUrl.endsWith("/")){
+			shortUrl=shortUrl.substring(0,shortUrl.length()-1);
+		}
+		return(shortUrl);
+	}
 }
