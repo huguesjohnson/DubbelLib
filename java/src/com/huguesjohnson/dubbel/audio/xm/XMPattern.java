@@ -49,47 +49,49 @@ public class XMPattern{
 	 * Unpack data
 	 */
 	public PatternData[][] unpack(int numChannels){
-		PatternData[][] unpacked=new PatternData[numChannels][this.numRows];
+		PatternData[][] unpacked=new PatternData[this.numRows][numChannels];
 		int currentRow=0;
 		int currentChannel=0;
-		int updIndex=0;
-		while((currentRow<this.numRows)&&(updIndex<this.packedDataSize)){
+		int packedDataIndex=0;
+		while((currentRow<this.numRows)&&(packedDataIndex<this.packedDataSize)){
 			PatternData pd=new PatternData();
-			byte firstByte=this.packedData[updIndex];
-			if((firstByte&0x80)!=0){//test packing bit
-				if((firstByte&0x01)!=0){
-					updIndex++;
-					pd.note=this.packedData[updIndex];
+			byte firstByte=this.packedData[packedDataIndex];
+			if((firstByte&XMConstants.PackingBits.PACKING_BIT_PRESENT)!=0){//test packing bit
+				if((firstByte&XMConstants.PackingBits.PACKING_BIT_NOTE)!=0){
+					packedDataIndex++;
+					pd.note=(short)(this.packedData[packedDataIndex]&0xFF);
 				}
-				if((firstByte&0x02)!=0){
-					updIndex++;
-					pd.instrument=this.packedData[updIndex];
+				if((firstByte&XMConstants.PackingBits.PACKING_BIT_INSTRUMENT)!=0){
+					packedDataIndex++;
+					pd.instrument=(short)(this.packedData[packedDataIndex]&0xFF);
 				}
-				if((firstByte&0x04)!=0){
-					updIndex++;
-					pd.volumeColumn=this.packedData[updIndex];
+				if((firstByte&XMConstants.PackingBits.PACKING_BIT_VOLUME)!=0){
+					packedDataIndex++;
+					pd.volumeColumn=(short)(this.packedData[packedDataIndex]&0xFF);
 				}
-				if((firstByte&0x08)!=0){
-					updIndex++;
-					pd.effectType=this.packedData[updIndex];
+				if((firstByte&XMConstants.PackingBits.PACKING_BIT_EFFECT_TYPE)!=0){
+					packedDataIndex++;
+					pd.effectType=(short)(this.packedData[packedDataIndex]&0xFF);
 				}
-				if((firstByte&0x10)!=0){
-					updIndex++;
-					pd.effectParameter=this.packedData[updIndex];
+				if((firstByte&XMConstants.PackingBits.PACKING_BIT_EFFECT_PARAMETER)!=0){
+					packedDataIndex++;
+					pd.effectParameter=(short)(this.packedData[packedDataIndex]&0xFF);
 				}
-			}else{//((firstByte&0x80)==0)
-				pd.note=this.packedData[updIndex];
-				updIndex++;
-				pd.instrument=this.packedData[updIndex];
-				updIndex++;
-				pd.volumeColumn=this.packedData[updIndex];
-				updIndex++;
-				pd.effectType=this.packedData[updIndex];
-				updIndex++;
-				pd.effectParameter=this.packedData[updIndex];
+				packedDataIndex++;
+			}else{//((firstByte&XMConstants.PackingBits.PACKING_BIT_PRESENT)==0) -> data is not packed
+				pd.note=(short)(this.packedData[packedDataIndex]&0xFF);
+				packedDataIndex++;
+				pd.instrument=(short)(this.packedData[packedDataIndex]&0xFF);
+				packedDataIndex++;
+				pd.volumeColumn=(short)(this.packedData[packedDataIndex]&0xFF);
+				packedDataIndex++;
+				pd.effectType=(short)(this.packedData[packedDataIndex]&0xFF);
+				packedDataIndex++;
+				pd.effectParameter=(short)(this.packedData[packedDataIndex]&0xFF);
+				packedDataIndex++;
 			}
 			//update return array
-			unpacked[currentChannel][currentRow]=pd;
+			unpacked[currentRow][currentChannel]=pd;
 			//advance to next channel or row
 			currentChannel++;
 	        if(currentChannel>=numChannels){

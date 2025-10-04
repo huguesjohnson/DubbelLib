@@ -53,4 +53,15 @@ public abstract class XMConstants{
 		public static int SAMPLE_HEADER_LOOPLENGTH=4;
 		public static int SAMPLE_HEADER_NAME=22;
 	}
+	
+	public static short NOTE_OFF=97;
+	
+	public static abstract class PackingBits{
+		public static int PACKING_BIT_PRESENT=0x80;
+		public static int PACKING_BIT_NOTE=0x01;
+		public static int PACKING_BIT_INSTRUMENT=0x02;
+		public static int PACKING_BIT_VOLUME=0x04;
+		public static int PACKING_BIT_EFFECT_TYPE=0x08;
+		public static int PACKING_BIT_EFFECT_PARAMETER=0x10;
+	}
 }
