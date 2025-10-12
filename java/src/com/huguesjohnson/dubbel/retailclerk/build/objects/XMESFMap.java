@@ -6,7 +6,7 @@
  * 
  * xm2esf is released under a license very similar the MIT License.
  * It's probably compatible but I'm not an expert. 
- * This is not a port of xm2esf though.
+ * This code is not a direct port of xm2esf though.
  * This is part of an attempt to build XM -> ESF conversion in Java... 
  *  with a longer-term goal to support other formats beyond XM.
  * Whatever the case, noting this seems like the right thing to do.
@@ -22,6 +22,7 @@ public class XMESFMap{
 	public enum PSGRetriggerVolumeEnvelope{NEVER,INSTRUMENT_COLUMN,ALWAYS};
 	public final static int DEFAULT_TEMPO=7;
 	public final static boolean DEFAULT_LOOP=true;
+	public final static boolean DEFAULT_XMSYNC=false;
 	public final static boolean DEFAULT_NOTE_OFF_PSG=false;
 	
 	public String xmFilePath;
@@ -30,6 +31,9 @@ public class XMESFMap{
 	public ESFType type=ESFType.BGM;
 	public PSGRetriggerVolumeEnvelope psgRetriggerVolumeEnvelope=PSGRetriggerVolumeEnvelope.NEVER;
 	public boolean loop=DEFAULT_LOOP;
+	public int loopPattern=-1;
+	public int loopRow=-1;
+	public boolean xmSync=DEFAULT_XMSYNC;
 	public boolean ignoreNoteOffPSG=DEFAULT_NOTE_OFF_PSG;
 	public int tempo=DEFAULT_TEMPO;
 	public int[] fmChannelMap={-1,-1,-1,-1,-1,-1};
@@ -38,6 +42,6 @@ public class XMESFMap{
 	public int[] psgChannelMap={-1,-1,-1,-1};
 	public int[] psgVolume={-1,-1,-1,-1};
 	public int[] psgFrequency={-1,-1,-1,-1};
-	public int pcmChannelMap=-1;
+	public int pcmChannel=-1;
 	public Map<Integer,Integer> instrumentMap=new HashMap<Integer,Integer>();
 }
