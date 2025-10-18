@@ -1,6 +1,6 @@
 /* https://github.com/huguesjohnson/DubbelLib/blob/main/LICENSE */
 
-package com.huguesjohnson.dubbel.retailclerk.build.objects;
+package com.huguesjohnson.dubbel.retailclerk.build.objects.echo;
 
 //see -  https://github.com/sikthehedgehog/Echo/blob/master/doc/esf.txt
 public enum ESFEvent{

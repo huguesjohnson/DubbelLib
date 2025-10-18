@@ -4,12 +4,17 @@
  * Based on xm2esf - https://github.com/oerg866/xm2esf
  * © 2010-2015 Eric Voirin alias Oerg866
  * 
- * xm2esf is released under a license very similar the MIT License.
- * It's probably compatible but I'm not a legal expert. 
+ * xm2esf is released under a license similar to the MIT License but with restrictions on commercial use.
+ * In the extraordinarily unlikely chance someone wants to use this conversion in a commercial project... have fun figuring that out.
  * 
  * Initial FreeBASIC -> Java conversion was done using Google Gemini.
- * Although a non-trivial effort was required to make the resulting code actually work and be structured like a Java program.
- * It was really a lot of work just to avoid writing a sound driver, which I will probably eventually do anyway.
+ * I wonder if that also makes commercial use interesting from a license standpoint?
+ * A non-trivial effort was required to make the resulting code actually work and be structured like a Java program.
+ * I'm not positive if Gemini saved any time vs converting manually or building from scratch based on the ESF documentation.
+ * Gemini initially thought the FreeBASIC code was trying to parse .xml if that's an indicator of how well it works.
+ * It was good at explaining how math functions differ between FreeBASIC and Java at least.
+ * 
+ * This was all done to avoid writing a sound driver, which I will probably eventually do anyway.
  */
 
 package com.huguesjohnson.dubbel.retailclerk.build.xmToEsf;

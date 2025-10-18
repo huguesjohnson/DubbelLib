@@ -4,17 +4,26 @@
  * Based on xm2esf - https://github.com/oerg866/xm2esf
  * © 2010-2015 Eric Voirin alias Oerg866
  * 
- * xm2esf is released under a license very similar the MIT License.
- * It's probably compatible but I'm not a legal expert. 
+ * xm2esf is released under a license similar to the MIT License but with restrictions on commercial use.
+ * In the extraordinarily unlikely chance someone wants to use this conversion in a commercial project... have fun figuring that out.
  * 
  * Initial FreeBASIC -> Java conversion was done using Google Gemini.
- * Although a non-trivial effort was required to make the resulting code actually work and be structured like a Java program.
- * It was really a lot of work just to avoid writing a sound driver, which I will probably eventually do anyway.
+ * I wonder if that also makes commercial use interesting from a license standpoint?
+ * A non-trivial effort was required to make the resulting code actually work and be structured like a Java program.
+ * I'm not positive if Gemini saved any time vs converting manually or building from scratch based on the ESF documentation.
+ * Gemini initially thought the FreeBASIC code was trying to parse .xml if that's an indicator of how well it works.
+ * It was good at explaining how math functions differ between FreeBASIC and Java at least.
+ * 
+ * This was all done to avoid writing a sound driver, which I will probably eventually do anyway.
  */
 
 package com.huguesjohnson.dubbel.retailclerk.build.xmToEsf;
 
-import com.huguesjohnson.dubbel.retailclerk.build.objects.ESFEvent;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import com.huguesjohnson.dubbel.retailclerk.build.objects.echo.ESFEvent;
+import com.huguesjohnson.dubbel.retailclerk.build.objects.echo.EchoNoise;
 
 public abstract class XmToEsfUtil{
 	
@@ -61,13 +70,79 @@ public abstract class XmToEsfUtil{
 	public static byte calculateFmVolume(double a){
 		if(a==0){return(127);}
 		if(a==64){return(0);}
-		int b=(int) ((10 * (Math.log10(Math.pow(64.0 / a, 2)))) / 0.375);
+		int b=(int)((10*(Math.log10(Math.pow(64.0/a,2))))/0.375);
 		if(b>127){return(127);}
 		if(b<0){return(0);}
 		return((byte)b);
 	}
 	
-	//this is just used for testing/debugging though
+	//FM and PSG logic are similar enough they could be grouped together instead of the current implementation
+	public static void writeVolume(OutputStream out,int esfChannel,ChannelType channelType,int volume,double quotient) throws IOException{
+		if(channelType==ChannelType.FM){
+			out.write((byte)(esfChannel+ESFEvent.SET_VOL_FM1.getValue()));
+			int fmVolume=(int)XmToEsfUtil.calculateFmVolume(quotient*(double)volume);
+			out.write((byte)fmVolume);
+		}else{
+			if(channelType==ChannelType.NOISE){
+				/*
+				 * The original code writes 0x2A (SET_VOL_PSG3)...
+				 * but I think it is supposed to be 0x2B (SET_VOL_PSG4).
+				 * I may have to go back and fix this later after testing.
+				 * It's possible I don't understand how this works of course.
+				 */
+				out.write(ESFEvent.SET_VOL_PSG3.getValue());
+			}else{//PSG
+				out.write((byte)(esfChannel+ESFEvent.SET_VOL_FM1.getValue()));
+			}
+			int psgVolume=(int)XmToEsfUtil.calculatePSGVolume(quotient*(double)volume);
+			out.write((byte)psgVolume);
+        }
+	}
+	
+	//comments from the previous method more or less apply here too
+	public static void writeFrequency(OutputStream out,int esfChannel,ChannelType channelType,long frequency,EchoNoise noiseType) throws IOException {
+		if(channelType==ChannelType.FM){
+			out.write((byte)(esfChannel+ESFEvent.SET_FREQ_FM1.getValue()));
+			out.write((byte)(frequency/256));
+			out.write((byte)(frequency%256));
+		}else{
+			if((channelType==ChannelType.NOISE)&&(noiseType.isPSG())){
+				out.write((byte)ESFEvent.SET_FREQ_PSG3.getValue());
+			}else{
+				out.write((byte)(esfChannel+ESFEvent.SET_FREQ_FM1.getValue()));
+			}
+			out.write((byte)(frequency%16));
+			out.write((byte)(frequency/16));
+		}
+	}
+	
+	/*
+	 * The original implementation modifies the table of frequencies.
+	 * To avoid a larger rewrite this is returning the frequency value.
+	 * This is a good candidate of things to rewrite though.
+	 */
+	public static long writeNote(OutputStream out,int esfChannel,ChannelType channelType,double note,EchoNoise noiseType) throws IOException{ 
+		if(channelType==ChannelType.FM){
+			long fmFrequency=XmToEsfUtil.calculateFmFrequency(note);
+			out.write((byte)(esfChannel+ESFEvent.SET_FREQ_FM1.getValue()));
+			out.write((byte)(fmFrequency/256));
+			out.write((byte)(fmFrequency%256));
+			return(fmFrequency);
+		}else{
+			long psgFrequency=(long)Math.floor((Math.pow(0.5,((note)/12.0-1.0)))/2.0*851.0);
+			if((channelType==ChannelType.NOISE)&&(noiseType.isPSG())){
+				out.write((byte)ESFEvent.SET_FREQ_PSG3.getValue());
+			}else{
+				out.write((byte)(esfChannel+ESFEvent.SET_FREQ_FM1.getValue()));
+			}
+			out.write((byte)(psgFrequency%16));
+			out.write((byte)(psgFrequency/16));
+			return(psgFrequency);
+		}
+	}
+	
+	/* This was built for testing/debugging.
+	 * Obsoleted by EsfCompare though. */
 	public final static String listESFEvents(byte[] b,int start,int length) throws Exception{
 		StringBuilder eventString=new StringBuilder();
 		for(int i=start;i<length;i++){
