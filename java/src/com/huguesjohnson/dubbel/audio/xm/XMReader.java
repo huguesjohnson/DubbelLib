@@ -3,6 +3,7 @@
 package com.huguesjohnson.dubbel.audio.xm;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +16,7 @@ public abstract class XMReader{
 		return(read(new File(filePath)));
 	}
 	
-	public static XMFile read(File f) throws Exception{
+	public static XMFile read(File f) throws IOException{
 		XMFile xm=new XMFile();
 		/*
 		 * This assumes most xm files are small and reading the entire file won't be a memory issue.
