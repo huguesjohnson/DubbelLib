@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.huguesjohnson.dubbel.audio.xm.EffectType;
+import com.huguesjohnson.dubbel.audio.xm.XMConstants;
 import com.huguesjohnson.dubbel.retailclerk.build.xmToEsf.XmToEsfUtil;
 
 class TestXmToEsfUtil{
@@ -69,5 +71,80 @@ class TestXmToEsfUtil{
 		assertEquals(64,XmToEsfUtil.calculateFmVolume(4.0));
 		assertEquals(80,XmToEsfUtil.calculateFmVolume(2.0));
 		assertEquals(96,XmToEsfUtil.calculateFmVolume(1.0));
+	}
+	
+	@Test
+	void testCalculateSlideSpeed(){
+		/*
+		 * based on the code conversion, this is only called with:
+		 * -PORTAMENTO_UP
+		 * -PORTAMENTO_DOWN
+		 * other values may be interesting to test but aren't used
+		 */		
+		assertEquals(0,XmToEsfUtil.calculateSlideSpeed(EffectType.PORTAMENTO_UP.getValue(),0));
+		assertEquals(1,XmToEsfUtil.calculateSlideSpeed(EffectType.PORTAMENTO_UP.getValue(),1));
+		assertEquals(16,XmToEsfUtil.calculateSlideSpeed(EffectType.PORTAMENTO_UP.getValue(),16));
+		assertEquals(64,XmToEsfUtil.calculateSlideSpeed(EffectType.PORTAMENTO_UP.getValue(),64));
+		assertEquals(255,XmToEsfUtil.calculateSlideSpeed(EffectType.PORTAMENTO_UP.getValue(),255));
+		assertEquals(0,XmToEsfUtil.calculateSlideSpeed(EffectType.PORTAMENTO_DOWN.getValue(),0));
+		assertEquals(1,XmToEsfUtil.calculateSlideSpeed(EffectType.PORTAMENTO_DOWN.getValue(),-1));
+		assertEquals(16,XmToEsfUtil.calculateSlideSpeed(EffectType.PORTAMENTO_DOWN.getValue(),-16));
+		assertEquals(64,XmToEsfUtil.calculateSlideSpeed(EffectType.PORTAMENTO_DOWN.getValue(),-64));
+		assertEquals(255,XmToEsfUtil.calculateSlideSpeed(EffectType.PORTAMENTO_DOWN.getValue(),-255));
+	}
+	
+	@Test
+	void testCalculateSlideTarget(){
+		/*
+		 * based on the code conversion, this is only called with:
+		 * -PORTAMENTO_UP
+		 * -PORTAMENTO_DOWN
+		 * other values may be interesting to test but aren't used
+		 */
+		assertEquals(XMConstants.MAX_NOTE,XmToEsfUtil.calculateSlideTarget(EffectType.PORTAMENTO_UP.getValue()));
+		assertEquals(0,XmToEsfUtil.calculateSlideTarget(EffectType.PORTAMENTO_DOWN.getValue()));
+	}
+	
+	@Test
+	void testCalculateFmNote(){
+		assertEquals(1,XmToEsfUtil.calculateFmNote(0));
+		assertEquals(3,XmToEsfUtil.calculateFmNote(1));
+		assertEquals(17,XmToEsfUtil.calculateFmNote(8));
+		assertEquals(41,XmToEsfUtil.calculateFmNote(16));
+		assertEquals(81,XmToEsfUtil.calculateFmNote(32));
+		assertEquals(-127,XmToEsfUtil.calculateFmNote(48));
+		assertEquals(-87,XmToEsfUtil.calculateFmNote(64));
+		assertEquals(1,XmToEsfUtil.calculateFmNote(96));
+	}
+	
+	@Test
+	void testCalculatePsgNote(){
+		assertEquals(0,XmToEsfUtil.calculatePsgNote(0));
+		assertEquals(2,XmToEsfUtil.calculatePsgNote(1));
+		assertEquals(16,XmToEsfUtil.calculatePsgNote(8));
+		assertEquals(32,XmToEsfUtil.calculatePsgNote(16));
+		assertEquals(64,XmToEsfUtil.calculatePsgNote(32));
+		assertEquals(96,XmToEsfUtil.calculatePsgNote(48));
+		assertEquals(-128,XmToEsfUtil.calculatePsgNote(64));
+		assertEquals(-64,XmToEsfUtil.calculatePsgNote(96));
+	}
+
+	@Test
+	void testCalculatePsgFrequency(){
+		assertEquals(851,XmToEsfUtil.calculatePsgFrequency(0));
+		assertEquals(803,XmToEsfUtil.calculatePsgFrequency(1));
+		assertEquals(536,XmToEsfUtil.calculatePsgFrequency(8));
+		assertEquals(337,XmToEsfUtil.calculatePsgFrequency(16));
+		assertEquals(134,XmToEsfUtil.calculatePsgFrequency(32));
+		assertEquals(53,XmToEsfUtil.calculatePsgFrequency(48));
+		assertEquals(21,XmToEsfUtil.calculatePsgFrequency(64));
+		assertEquals(3,XmToEsfUtil.calculatePsgFrequency(96));
+	}
+	
+	@Test
+	void testCalculateVibratoSlideStepConversion(){
+		assertEquals(0,XmToEsfUtil.calculateVibratoSlideStepConversion(0,0,0));
+		assertEquals(96,XmToEsfUtil.calculateVibratoSlideStepConversion(0,0,96));
+		assertEquals(96,XmToEsfUtil.calculateVibratoSlideStepConversion(0,5,96));
 	}
 }

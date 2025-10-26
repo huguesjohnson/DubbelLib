@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
+import com.huguesjohnson.dubbel.audio.xm.EffectType;
 import com.huguesjohnson.dubbel.audio.xm.PatternData;
 import com.huguesjohnson.dubbel.audio.xm.XMConstants;
 import com.huguesjohnson.dubbel.audio.xm.XMFile;
@@ -73,8 +74,8 @@ public abstract class XmToEsfConverter{
 			Arrays.fill(currentNote,0);
 			Arrays.fill(currentVolume,0);
 			Arrays.fill(currentFrequency,0L);
-			Arrays.fill(effectData,255);//Set in a loop later on in original source 
-			Arrays.fill(effectValue,255);//Set in a loop later on in original source
+			Arrays.fill(effectData,255);//set in a loop later on in original source 
+			Arrays.fill(effectValue,255);//set in a loop later on in original source
 			Arrays.fill(slideStep,0.0);
 			Arrays.fill(slideTarget,0);
 			Arrays.fill(slideSpeed,0);
@@ -136,7 +137,6 @@ public abstract class XmToEsfConverter{
 			pitchAdjust[7]=map.psgPitch[1];
 			pitchAdjust[8]=map.psgPitch[2];
 			pitchAdjust[9]=map.psgPitch[3];
-			
 
 			//SFX handling
 			if(map.type==ESFType.SFX){
@@ -200,78 +200,76 @@ public abstract class XmToEsfConverter{
 								lastfd[currentChannel]=effectValue[currentChannel];
 							}
 							//set speed fx
-							if(xmEffectType==0xF){//TODO should have this in a constant
-								map.tempo=xmEffectParameter;//TODO is this right? change global tempo?
+							if(xmEffectType==EffectType.SET_TEMPO.getValue()){
+								map.tempo=xmEffectParameter;
 							}
 							//reset slide attributes when no related effect(1xx, 2xx, 3xx, 4xx) is in use
-							if(xmEffectType>4||xmEffectType==0){//TODO these should also be constants
+							if(xmEffectType>EffectType.VIBRATO.getValue()||xmEffectType==EffectType.ARPEGGIO.getValue()){
 								slideStep[currentChannel]=0;
 								slideSpeed[currentChannel]=0;
 								slideTarget[currentChannel]=0;
 							}
 							//reset conversion values for effects when no effect is in use]
-							if((xmEffectType==0)&&(xmEffectParameter==0)){
+							if((xmEffectType==EffectType.ARPEGGIO.getValue())&&(xmEffectParameter==0)){
 								effectData[currentChannel]=255;
 								effectValue[currentChannel]=255;
 							}
-							//arpeggio 0xx
-							if((xmEffectType==0)&&(xmEffectParameter!=0)){
-								effectData[currentChannel]=0;
+							//arpeggio
+							if((xmEffectType==EffectType.ARPEGGIO.getValue())&&(xmEffectParameter!=0)){
+								effectData[currentChannel]=EffectType.ARPEGGIO.getValue();
 								effectValue[currentChannel]=xmEffectParameter;
 								arpnote1[currentChannel]=(xmEffectParameter/16);
 								arpnote2[currentChannel]=(xmEffectParameter%16);
 								slideStep[currentChannel]=currentNote[currentChannel]; //used as base for arpeggio notes
 							}
 							//set panning 8xx
-							if(xmEffectType==8){//TODO another thing that should be a constant
+							if(xmEffectType==EffectType.SET_PANNING.getValue()){
 								if((XmToEsfConst.channelType[currentChannel]!=ChannelType.FM)&&(XmToEsfConst.channelType[currentChannel]!=ChannelType.PCM)){
-									//TODO there is nothing to do here unless I decide to have this method return a log or messages or whatever
-									//System.out.println("WARNING: Panning on PSG or Noise channel! Ignoring..."); ////[cite: 108, 109]
+									//there is nothing to do here unless I decide to have this method return a log or messages or whatever
 								}else{
 									if(XmToEsfConst.channelType[currentChannel]==ChannelType.PCM){
 										esfOut.write(ESFEvent.SET_PARAMETERS_FM6.getValue());
 									}else{
 										esfOut.write((byte)(XmToEsfConst.ESF_CHANNELS[currentChannel]+ESFEvent.SET_PARAMETERS_FM1.getValue()));
 									}
-									//TODO constants for all of these
-									if(xmEffectParameter==0x80){//center panning (0x80)
-										esfOut.write((byte)0xC0);
-									}else if(xmEffectParameter>0x80){//right panning (>0x80)
-										esfOut.write((byte)0x40);
+									if(xmEffectParameter==XMConstants.CENTER_PAN){//center panning (0x80)
+										esfOut.write(EchoConst.CENTER_PAN);
+									}else if(xmEffectParameter>XMConstants.CENTER_PAN){//right panning (>0x80)
+										esfOut.write(EchoConst.RIGHT_PAN);
 									}else{ //left panning (<0x80)
-										esfOut.write((byte)0x80);
+										esfOut.write(EchoConst.LEFT_PAN);
 									}
 								}
 							}
-							//vibrato 4xx
-							if(xmEffectType==4){//TODO constants again
-								if(effectData[currentChannel]==4){//continue vibrato if already active
+							//vibrato
+							if(xmEffectType==EffectType.VIBRATO.getValue()){
+								if(effectData[currentChannel]==EffectType.VIBRATO.getValue()){//continue vibrato if already active
 									vibratoSpeed[currentChannel]=(xmEffectParameter/16);
 									vibratoDepth[currentChannel]=(xmEffectParameter%16);
-									effectData[currentChannel]=4;
+									effectData[currentChannel]=EffectType.VIBRATO.getValue();
 									effectValue[currentChannel]=xmEffectParameter;
 								}else{//start new vibrato
-									effectData[currentChannel]=4;
+									effectData[currentChannel]=EffectType.VIBRATO.getValue();
 									effectValue[currentChannel]=xmEffectParameter;
 									vibratoSpeed[currentChannel]=(xmEffectParameter/16);
 									vibratoDepth[currentChannel]=(xmEffectParameter%16);
 									vibratoStep[currentChannel]=0; 
 								}
 							}
-							//tone portamento 3xx
-							if(xmEffectType==3){//TODO constant
-								if(lastfx[currentChannel] > 4){
+							//tone portamento 
+							if(xmEffectType==EffectType.TONE_PORTAMENTO.getValue()){
+								if(lastfx[currentChannel]>EffectType.VIBRATO.getValue()){
 									//if previous effect was not pitch-related, set base
 									slideStep[currentChannel]=currentNote[currentChannel]; 
 								}
-								if(effectData[currentChannel]==3){//continue tone portamento
+								if(effectData[currentChannel]==EffectType.TONE_PORTAMENTO.getValue()){//continue tone portamento
 									if(slideSpeed[currentChannel]<0){
 										slideSpeed[currentChannel]=((-1)*xmEffectParameter);
 									}else{
 										slideSpeed[currentChannel]=xmEffectParameter;
 									}
 								}
-								effectData[currentChannel]=3;
+								effectData[currentChannel]=EffectType.TONE_PORTAMENTO.getValue();
 								effectValue[currentChannel]=xmEffectParameter;
 								if((xmNote>0)&&(xmNote<XMConstants.NOTE_OFF)){//new note plays a role in target
 									if(slideStep[currentChannel]!=0){//if slidestep was already set(from previous note/effect)
@@ -294,9 +292,9 @@ public abstract class XmToEsfConverter{
 							if((xmNote<XMConstants.NOTE_OFF)&&(xmNote>0)){
 								currentNote[currentChannel]=(xmNote+pitchAdjust[currentChannel]);
 							}
-							//portamento up 1xx / down 2xx
-							if((xmEffectType==1)||(xmEffectType==2)){//TODO constants
-								if(lastfx[currentChannel]>4){//TODO also a constant here
+							//portamento up / down
+							if((xmEffectType==EffectType.PORTAMENTO_UP.getValue())||(xmEffectType==EffectType.PORTAMENTO_DOWN.getValue())){
+								if(lastfx[currentChannel]>EffectType.VIBRATO.getValue()){
 									//if no pitch effect before, use current note
 									slideStep[currentChannel]=currentNote[currentChannel]; 
 								}
@@ -306,9 +304,8 @@ public abstract class XmToEsfConverter{
 								}
 								effectData[currentChannel]=xmEffectType;
 								effectValue[currentChannel]=xmEffectParameter;
-								//TODO - move these calculations to util class
-								slideSpeed[currentChannel]=(-((xmEffectType-1)*2-1)*xmEffectParameter); //speed calculation
-								slideTarget[currentChannel]=(-(xmEffectType-2)*96); //target is max/min note range(0 or 96 for XM)
+								slideSpeed[currentChannel]=XmToEsfUtil.calculateSlideSpeed(xmEffectType,xmEffectParameter);
+								slideTarget[currentChannel]=XmToEsfUtil.calculateSlideTarget(xmEffectType);
 							}
 							//set current note variable
 							if((xmNote<XMConstants.NOTE_OFF)&&(xmNote>0)){
@@ -325,28 +322,28 @@ public abstract class XmToEsfConverter{
 							//handle new note
 							if((xmNote>0)&&(xmNote<XMConstants.NOTE_OFF)){
 								if(XmToEsfConst.channelType[currentChannel]!=ChannelType.PCM){//not PCM channel
-									if(xmEffectType!=3){//if not tone portamento
-										if((currentInstrument[currentChannel]!=xmInstrument)&&(xmInstrument!= 0)){
+									if(xmEffectType!=EffectType.TONE_PORTAMENTO.getValue()){//if not tone portamento
+										if((currentInstrument[currentChannel]!=xmInstrument)&&(xmInstrument!=0)){
 											currentInstrument[currentChannel]=xmInstrument;
 											esfOut.write((byte)(ESFEvent.SET_INSTRUMENT_FM1.getValue()+XmToEsfConst.ESF_CHANNELS[currentChannel]));
 											byte instrument=(byte)map.instrumentMap.get(currentInstrument[currentChannel]).intValue();
 											esfOut.write(instrument);
 										}
-										if((xmEffectType!=3)&&(xmEffectType!=0xC)&&(xmVolume!= 1)){//if not tone portamento, set volume, or volume column
-											currentVolume[currentChannel]=64;//TODO this should be a constant //default volume
+										if((xmEffectType!=EffectType.TONE_PORTAMENTO.getValue())&&(xmEffectType!=EffectType.SET_VOLUME.getValue())&&(xmVolume!= 1)){//if not tone portamento, set volume, or volume column
+											currentVolume[currentChannel]=XmToEsfConst.DEFAULT_VOLUME;//default volume
 											XmToEsfUtil.writeVolume(esfOut,XmToEsfConst.ESF_CHANNELS[currentChannel],XmToEsfConst.channelType[currentChannel],currentVolume[currentChannel],quotient[currentChannel]);
 											volslidepos[currentChannel]=currentVolume[currentChannel];
 										}
 										if(XmToEsfConst.channelType[currentChannel]==ChannelType.FM){
 											esfOut.write((byte)XmToEsfConst.ESF_CHANNELS[currentChannel]); //note on
-											//note calculation
-											//TODO move this to a utility method with unit tests
-											esfOut.write((byte)(int)(32*Math.floor(currentNote[currentChannel]/12.0)+(2 *(currentNote[currentChannel]%12))+1));
+											byte fmNote=XmToEsfUtil.calculateFmNote(currentNote[currentChannel]);
+											esfOut.write(fmNote);
 										}else if(XmToEsfConst.channelType[currentChannel]==ChannelType.PSG){
 											esfOut.write((byte)XmToEsfConst.ESF_CHANNELS[currentChannel]); //note on
-											//TODO move this to a utility method with unit tests
-											esfOut.write((byte)(int)(24 * Math.floor(currentNote[currentChannel] / 12.0) +(2 *(currentNote[currentChannel] % 12))));
-											currentFrequency[currentChannel]=(long) Math.floor((Math.pow(0.5,((currentNote[currentChannel])/12.0-1.0)))/2.0*851.0);
+											byte psgNote=XmToEsfUtil.calculatePsgNote(currentNote[currentChannel]);
+											esfOut.write(psgNote);
+											long psgFrequency=XmToEsfUtil.calculatePsgFrequency(currentNote[currentChannel]);
+											currentFrequency[currentChannel]=psgFrequency;
 										}else{//noise channel
 											if(!map.noiseType.isPSG()){//stock noise
 												esfOut.write((byte)ESFEvent.NOTE_PSG4.getValue());
@@ -356,8 +353,8 @@ public abstract class XmToEsfConverter{
 													esfOut.write((byte)EchoNoise.WHITE_HIGH.getValue());
 												}
 											}else{//PSG3
-												//TODO move this to a utility method with unit tests
-												currentFrequency[currentChannel]=(long) Math.floor((Math.pow(0.5,((currentNote[currentChannel])/12.0-1.0)))/2.0*851.0);
+												long psgFrequency=XmToEsfUtil.calculatePsgFrequency(currentNote[currentChannel]);
+												currentFrequency[currentChannel]=psgFrequency;
 												esfOut.write(ESFEvent.SET_FREQ_PSG3.ordinal());
 												esfOut.write((byte)(currentFrequency[currentChannel]%16));
 												esfOut.write((byte)(currentFrequency[currentChannel]/16));
@@ -378,30 +375,29 @@ public abstract class XmToEsfConverter{
 								}
 							}
 							//simulate XM behavior (PSG retriggers)
-							if(((map.psgRetriggerVolumeEnvelope.equals(PSGRetriggerVolumeEnvelope.INSTRUMENT_COLUMN)) && xmEffectType > 0 && xmEffectType < 5) ||(map.psgRetriggerVolumeEnvelope.equals(PSGRetriggerVolumeEnvelope.ALWAYS))){
+							if(((map.psgRetriggerVolumeEnvelope.equals(PSGRetriggerVolumeEnvelope.INSTRUMENT_COLUMN))&&(xmEffectType>0)&&(xmEffectType<5))||(map.psgRetriggerVolumeEnvelope.equals(PSGRetriggerVolumeEnvelope.ALWAYS))){
 								if((xmInstrument>0)&&(XmToEsfConst.channelType[currentChannel]==ChannelType.PSG)){
 									currentInstrument[currentChannel]=xmInstrument;
-									esfOut.write((byte)(0x40 + XmToEsfConst.ESF_CHANNELS[currentChannel])); 
+									esfOut.write((byte)(ESFEvent.SET_INSTRUMENT_FM1.getValue()+XmToEsfConst.ESF_CHANNELS[currentChannel])); 
 									byte instrument=(byte)map.instrumentMap.get(currentInstrument[currentChannel]).intValue();
 									esfOut.write(instrument);
-									esfOut.write((byte)(0x10 + XmToEsfConst.ESF_CHANNELS[currentChannel]));
+									esfOut.write((byte)(ESFEvent.NOTE_OFF_FM1.getValue()+XmToEsfConst.ESF_CHANNELS[currentChannel]));
 									esfOut.write((byte)XmToEsfConst.ESF_CHANNELS[currentChannel]); 
 									esfOut.write((byte)0x00);//note 0 (likely retriggering with no new note) 
-									currentVolume[currentChannel]=64;//TODO constant
+									currentVolume[currentChannel]=XmToEsfConst.DEFAULT_VOLUME;//default volume
 									XmToEsfUtil.writeFrequency(esfOut,XmToEsfConst.ESF_CHANNELS[currentChannel],XmToEsfConst.channelType[currentChannel],currentFrequency[currentChannel],map.noiseType);
 									XmToEsfUtil.writeVolume(esfOut,XmToEsfConst.ESF_CHANNELS[currentChannel],XmToEsfConst.channelType[currentChannel],currentVolume[currentChannel],quotient[currentChannel]);
 								}
 							}
-							//volume slide Axx
-							if(xmEffectType==0xA){//TODO constant
+							//volume slide
+							if(xmEffectType==EffectType.VOLUME_SLIDE.getValue()){
 								if(XmToEsfConst.channelType[currentChannel]!=ChannelType.PCM){ 
-									if(effectData[currentChannel]!=0xA){ //start new volume slide 
-										effectData[currentChannel]=0xA; //TODO another constant
+									if(effectData[currentChannel]!=EffectType.VOLUME_SLIDE.getValue()){ //start new volume slide 
+										effectData[currentChannel]=EffectType.VOLUME_SLIDE.getValue();
 										volslidepos[currentChannel]=currentVolume[currentChannel];
 									}
 									//fine slide detection 
-									//TODO maybe utility methods
-									if(((xmEffectParameter/16)==0xF)&&((xmEffectParameter % 16)>0)){ //FxxY - fine volume slide up
+									if(((xmEffectParameter/16)==0xF)&&((xmEffectParameter%6)>0)){ //FxxY - fine volume slide up
 										fineslide[currentChannel]=1; 
 									}else if(((xmEffectParameter%16)==0xF)&&((xmEffectParameter/16)>0)){ //XFxx - fine volume slide down
 										fineslide[currentChannel]=1;
@@ -417,14 +413,14 @@ public abstract class XmToEsfConverter{
 									}
 								}
 							}
-							//set Volume Cxx 
-							if(xmEffectType==0xC){//TODO constant
+							//set volume 
+							if(xmEffectType==EffectType.SET_VOLUME.getValue()){
 								if(XmToEsfConst.channelType[currentChannel]==ChannelType.PCM){
 									//ignore for pcm+noise 
 									effectData[currentChannel]=255;
 									effectValue[currentChannel]=255;
 								}else{
-									effectData[currentChannel]=0xC;//TODO constant
+									effectData[currentChannel]=EffectType.SET_VOLUME.getValue();
 									effectValue[currentChannel]=xmEffectParameter;
 									currentVolume[currentChannel]=xmEffectParameter;
 									XmToEsfUtil.writeVolume(esfOut,XmToEsfConst.ESF_CHANNELS[currentChannel],XmToEsfConst.channelType[currentChannel],currentVolume[currentChannel],quotient[currentChannel]);
@@ -433,10 +429,10 @@ public abstract class XmToEsfConverter{
 						}
 					}
 					//process current effects in-between rows (per tick)
-					for(int tick=1;tick<=map.tempo;tick++){//TODO should make this zero based 
+					for(int tick=1;tick<=map.tempo;tick++){//1 is the lowest tick value (if I understand correctly) 
 						for(int currentChannel=0;currentChannel<EchoConst.MAX_CHANNELS;currentChannel++){//loop over channels
 							switch(effectData[currentChannel]){ 
-							//TODO constants for all these
+							//TODO constants for all these - oh, but it's a switch statement so EffectType.getValue() is no good here, I really don't like the way this code was converted
 							case 0x00: //arpeggio
 								if(effectValue[currentChannel]!=0){ 
 									if((XmToEsfConst.channelType[currentChannel]==ChannelType.FM)||(XmToEsfConst.channelType[currentChannel]==ChannelType.PSG)){
@@ -494,15 +490,14 @@ public abstract class XmToEsfConverter{
 								 *  Or, if `pi` from `fbmath.bi` is defined as it would be used in trig, then `Math.PI` is fine.
 								 *  Given `pi/180`, it's likely `vibstep` is treated as degrees.
 								*/
-								//TODO this is another thing that could maybe go into a utility class
-								conversion=Math.sin(Math.toRadians(vibratoStep[currentChannel]))*vibratoDepth[currentChannel]/5.0+currentNote[currentChannel];
+								conversion=XmToEsfUtil.calculateVibratoSlideStepConversion(vibratoStep[currentChannel],vibratoDepth[currentChannel],currentNote[currentChannel]);
 								slideStep[currentChannel]=conversion;
 								currentFrequency[currentChannel]=XmToEsfUtil.writeNote(esfOut,XmToEsfConst.ESF_CHANNELS[currentChannel],XmToEsfConst.channelType[currentChannel],slideStep[currentChannel],map.noiseType);
 								break;
 							}
 						}
 						esfOut.write(ESFEvent.DELAY_TICKS_LONG.getValue());
-						esfOut.write((byte)0x01);//TODO why? check esf document for why 0x01 needs to follow 0xFE
+						esfOut.write((byte)0x01);//1 delay tick (1/60th of a second)
 					}
 				}//end of main conversion loop
 			}
@@ -513,7 +508,7 @@ public abstract class XmToEsfConverter{
 			}else if((map.loopPattern>=0)&&(map.loopRow>=0)){//if loop is enabled and restart point is defined
 				//restore instruments on looping
 				for(int i=0;i<=5;i++){//loop through FM channels
-					if((loopInstrument[i]!=currentInstrument[i])&&(i!=10)){//TODO how could i ever be 10 though? double-check this vs original
+					if((loopInstrument[i]!=currentInstrument[i])){
 						esfOut.write((byte)(ESFEvent.SET_INSTRUMENT_FM1.getValue()+XmToEsfConst.ESF_CHANNELS[i])); //instrument change
 						byte instrument=(byte)map.instrumentMap.get(loopInstrument[i]).intValue();
 						esfOut.write(instrument);

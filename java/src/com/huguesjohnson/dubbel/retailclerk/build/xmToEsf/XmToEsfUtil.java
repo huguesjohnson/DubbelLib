@@ -22,6 +22,7 @@ package com.huguesjohnson.dubbel.retailclerk.build.xmToEsf;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.huguesjohnson.dubbel.audio.xm.XMConstants;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.echo.ESFEvent;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.echo.EchoNoise;
 
@@ -74,6 +75,40 @@ public abstract class XmToEsfUtil{
 		if(b>127){return(127);}
 		if(b<0){return(0);}
 		return((byte)b);
+	}
+	
+	public static int calculateSlideSpeed(int xmEffectType,int xmEffectParameter){
+		return(-((xmEffectType-1)*2-1)*xmEffectParameter); //speed calculation
+	}
+	
+	public static int calculateSlideTarget(int xmEffectType){
+		 //target is max/min note range (0 or 96 for XM)
+		return(-(xmEffectType-2)*XMConstants.MAX_NOTE);
+	}
+	
+	public static byte calculateFmNote(int currentNote){
+		return((byte)(int)(32*Math.floor(currentNote/12.0)+(2*(currentNote%12))+1));
+	}
+	
+	public static byte calculatePsgNote(int currentNote){
+		return(((byte)(int)(24*Math.floor(currentNote/12.0)+(2*(currentNote%12)))));
+	}
+
+	public static long calculatePsgFrequency(int currentNote){
+		return((long)Math.floor((Math.pow(0.5,((currentNote)/12.0-1.0)))/2.0*851.0));
+	}
+	
+	public static double calculateVibratoSlideStepConversion(double vibratoStep,int vibratoDepth,int currentNote){
+		/* 
+		 * Source code conversion notes from Gemini:
+		 *  C++: SIN(pi/180 * vibstep(i)) -- This implies `pi` was actually used for trig in C++!
+		 *  The BASIC used `fbmath.bi` which is FreeBASIC's math library.
+		 *  `SIN` usually expects radians. `pi/180 * angle_in_degrees` converts to radians.
+		 *  Or, if `pi` from `fbmath.bi` is defined as it would be used in trig, then `Math.PI` is fine.
+		 *  Given `pi/180`, it's likely `vibstep` is treated as degrees.
+		*/
+		double conversion=Math.sin(Math.toRadians(vibratoStep))*vibratoDepth/5.0+currentNote;
+		return(conversion);
 	}
 	
 	//FM and PSG logic are similar enough they could be grouped together instead of the current implementation
@@ -140,7 +175,7 @@ public abstract class XmToEsfUtil{
 			return(psgFrequency);
 		}
 	}
-	
+
 	/* This was built for testing/debugging.
 	 * Obsoleted by EsfCompare though. */
 	public final static String listESFEvents(byte[] b,int start,int length) throws Exception{

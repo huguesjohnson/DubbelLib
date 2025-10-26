@@ -43,4 +43,6 @@ public abstract class XmToEsfConst{
 		ChannelType.PCM,//9
 		ChannelType.NOISE//10
 	};
+	
+	public static int DEFAULT_VOLUME=64;
 }

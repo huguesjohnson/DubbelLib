@@ -54,7 +54,11 @@ public abstract class XMConstants{
 		public static int SAMPLE_HEADER_NAME=22;
 	}
 	
-	public static short NOTE_OFF=97;
+	public static int NOTE_OFF=97;
+	
+	public static int CENTER_PAN=0x80;
+
+	public static int MAX_NOTE=96;
 	
 	public static abstract class PackingBits{
 		public static int PACKING_BIT_PRESENT=0x80;
