@@ -6,12 +6,8 @@ import java.io.File;
 import java.io.FileFilter;
 
 public class TxtFileFilter implements FileFilter{
-
 	@Override
 	public boolean accept(File f){
-		if(f.isDirectory()){
-			return(true);
-		} 
-		return(f.getName().toLowerCase().endsWith(".txt"));
+		return(FileFilterUtil.accept(f,"txt"));
 	}
 }

@@ -7,17 +7,7 @@ import java.io.FileFilter;
 
 public class ImageFileFilter implements FileFilter{
 	    private final String[] exts=new String[]{"png","jpg","jpeg","gif","bmp"};
-
-	    public boolean accept(File file){
-			if(file.isDirectory()){
-				return(true);
-			} 	    	
-			String fl=file.getName().toLowerCase();
-	        for(String ext:exts){
-	        	if(fl.endsWith(ext)){
-	        		return(true);
-	            }
-	        }
-	        return(false);
+	    public boolean accept(File f){
+			return(FileFilterUtil.accept(f,exts));
 	    }
 	}

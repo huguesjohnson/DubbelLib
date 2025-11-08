@@ -11,10 +11,6 @@ public class RarFileFilter implements FileFilter{
 
 	@Override
 	public boolean accept(File f){
-		if(f.isDirectory()){
-			return(true);
-		}
-		String lname=f.getName().toLowerCase();
-		return(lname.endsWith(".rar")||lname.endsWith(".rsn"));
+		return(FileFilterUtil.accept(f,(new String[]{"rar","rsn"})));
 	}
 }

@@ -6,13 +6,8 @@ import java.io.File;
 import java.io.FileFilter;
 
 public class PhpFileFilter implements FileFilter{
-
 	@Override
 	public boolean accept(File f){
-		if(f.isDirectory()){
-			return(true);
-		} 
-		String name=f.getName().toLowerCase();
-		return(name.endsWith(".php"));
+		return(FileFilterUtil.accept(f,"php"));
 	}
 }
