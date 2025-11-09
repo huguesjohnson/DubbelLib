@@ -11,12 +11,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 public abstract class FileUtils{
@@ -198,6 +202,15 @@ public abstract class FileUtils{
 		return(f);
 	}
 	
+	public static String buildUUIDName(File f,boolean preserveExtension){
+		String currentFileName=f.getName();
+		String newFileName=UUID.randomUUID().toString().replace("-","");
+		if(preserveExtension){
+			newFileName=newFileName+getExtension(currentFileName);
+		}
+		return(newFileName);
+	}
+	
 	/* this is one of the most dangerous pieces of code I've written
 	 * it overwrites all file names in a directory as a UUID
 	 * 
@@ -209,7 +222,9 @@ public abstract class FileUtils{
 	 * returns a map of the old & new file names in case of regrets
 	 * if dryRun==true then no files are renamed but the map is populated
 	 * 
-	 * this is not recursive as a way to prevent myself from doing something really catastrophic	 
+	 * this is not recursive as a way to prevent myself from doing something really catastrophic
+	 * 
+	 * this does not work on MacOS if there are files with any extended characters on a FAT drive.. like many non-English languages
 	 */
 	public static Map<String,String> uuidRenamer(String path,FileFilter filter,boolean preserveExtension,boolean dryRun) throws Exception{
 		Map<String,String> renameMap=new HashMap<String,String>();
@@ -217,10 +232,7 @@ public abstract class FileUtils{
 		File[] files=dir.listFiles(filter);
 		for(File file:files){
 			String currentFileName=file.getName();
-			String newFileName=UUID.randomUUID().toString().replace("-","");
-			if(preserveExtension){
-				newFileName=newFileName+getExtension(currentFileName);
-			}
+			String newFileName=buildUUIDName(file,preserveExtension);
 			renameMap.put(currentFileName,newFileName);
 			if(!dryRun){
 				File newFile=new File(path+newFileName);
@@ -230,5 +242,67 @@ public abstract class FileUtils{
 			}
 		}
 		return(renameMap);
+	}
+	
+	/*
+	 * This is similar to the previous method but:
+	 * 1) Slightly safer
+	 * 2) Address an issue with the previous on MacOS when uuidRenameName is true
+	 * 3) Really what I should have implemented in the first place
+	 * 
+	 * This was created to copy mp3s in a random order to an SD card.
+	 * It works by:
+	 * 1) Taking a list of file paths (sourceFileList) and choosing items randomly.
+	 * 2) It checks if there is enough space at destinationPath to copy the file.
+	 * 3) If there is enough space it copies the file.
+	 * 4) It continues until all files are copied or destinationPath is out of space. 
+	 * 5) The maxBytesKillswitch allows setting a maximum number of total bytes to copy.
+	 *    Use this if you are prone to accidentally setting destinationPath to your hard drive.
+	 *    I have not done this but am certainly capable of it.
+	 * 
+	 * Returns a map of which files were copied and what the destination name is.
+	 */
+	public static Map<String,String> shuffleCopy(List<String> sourceFileList,String destinationPath,boolean uuidRename,long maxBytesKillswitch){
+		Map<String,String> copyMap=new HashMap<String,String>();
+		if(sourceFileList==null){
+			return(copyMap);
+		}
+		if(!destinationPath.endsWith(File.separator)){
+			destinationPath=destinationPath+File.separator;
+		}
+		File destinationRoot=new File(destinationPath);
+		if(!destinationRoot.exists()){
+			return(copyMap);
+		}
+		int filesRemaining=sourceFileList.size();
+		Random r=new Random();
+		while((filesRemaining>0)&&(maxBytesKillswitch>0)){
+			int index=r.nextInt(filesRemaining);
+			String filePath=sourceFileList.remove(index);
+			filesRemaining--;
+			//is there room for this file?
+			File source=new File(filePath);
+			long sourceSize=source.length();
+			long usableSpace=destinationRoot.getUsableSpace();//yes, need to check this each time in case on concurrent operations
+			if(sourceSize<usableSpace){
+				try{
+					String fileName;
+					if(uuidRename){
+						fileName=buildUUIDName(source,true);
+					}else{
+						fileName=source.getName();
+					}
+					File destination=new File(destinationPath+File.separator+fileName);
+					Files.copy(source.toPath(),destination.toPath(),StandardCopyOption.COPY_ATTRIBUTES);
+					copyMap.put(filePath,destination.getPath());
+					maxBytesKillswitch-=sourceSize;
+				}catch(IOException iox){
+					if(iox.getMessage().toLowerCase().contains("no space left on device")){
+						filesRemaining=-1;
+					}
+				}
+			}			
+		}		
+		return(copyMap);
 	}
 }
