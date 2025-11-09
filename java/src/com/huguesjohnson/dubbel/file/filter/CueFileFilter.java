@@ -6,12 +6,8 @@ import java.io.File;
 import java.io.FileFilter;
 
 public class CueFileFilter implements FileFilter{
-
 	@Override
 	public boolean accept(File f){
-		if(f.isDirectory()){
-			return(true);
-		} 
-		return(f.getName().toLowerCase().endsWith(".cue"));
+		return(FileFilterUtil.accept(f,"cue"));
 	}
 }
