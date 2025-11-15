@@ -169,10 +169,11 @@ public abstract class XmToEsfConverter{
 					if((currentPattern==map.loopPattern)&&(currentRow==map.loopRow)){
 						if(map.loop){
 							esfOut.write(ESFEvent.SET_LOOP.getValue()); 
-							//store instruments for looping
-							for(int i=0;i<EchoConst.MAX_CHANNELS;i++){
-								loopInstrument[i]=currentInstrument[i];
-							}
+							//TODO - this doesn't work and I can't figure out why it was needed in the first place
+//							//store instruments for looping
+//							for(int i=0;i<EchoConst.MAX_CHANNELS;i++){
+//								loopInstrument[i]=currentInstrument[i];
+//							}
 						}
 					}
 					/*
@@ -509,9 +510,10 @@ public abstract class XmToEsfConverter{
 				//restore instruments on looping
 				for(int i=0;i<=5;i++){//loop through FM channels
 					if((loopInstrument[i]!=currentInstrument[i])){
-						esfOut.write((byte)(ESFEvent.SET_INSTRUMENT_FM1.getValue()+XmToEsfConst.ESF_CHANNELS[i])); //instrument change
-						byte instrument=(byte)map.instrumentMap.get(loopInstrument[i]).intValue();
-						esfOut.write(instrument);
+						//TODO - this doesn't work and I can't figure out why it was needed in the first place
+						//esfOut.write((byte)(ESFEvent.SET_INSTRUMENT_FM1.getValue()+XmToEsfConst.ESF_CHANNELS[i])); //instrument change
+						//byte instrument=(byte)map.instrumentMap.get(loopInstrument[i]).intValue();
+						//esfOut.write(instrument);
 					}
 				}
 				esfOut.write(ESFEvent.GOTO_LOOP.getValue());
