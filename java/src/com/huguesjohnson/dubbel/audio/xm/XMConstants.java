@@ -60,6 +60,13 @@ public abstract class XMConstants{
 
 	public static int MAX_NOTE=96;
 	
+	public static abstract class InstrumentHeaderSize{
+		//I'm not committed to these names 
+		public static int DEFAULT=263;//Header with sample(s)
+		public static int MINIMUM=29;//Header with name only
+		public static int MINIMUM_STRIPPED=33;//Header with name and blank sample header
+	}
+	
 	public static abstract class PackingBits{
 		public static int PACKING_BIT_PRESENT=0x80;
 		public static int PACKING_BIT_NOTE=0x01;
