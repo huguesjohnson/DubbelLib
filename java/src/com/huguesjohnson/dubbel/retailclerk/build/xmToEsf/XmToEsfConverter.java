@@ -155,7 +155,12 @@ public abstract class XmToEsfConverter{
 			byte[] patternOrderTable=xm.getHeader().getPatternOrderTable();
 			int numPatterns=xm.getHeader().getSongLength();
 			for(int currentPattern=0;currentPattern<numPatterns;currentPattern++){
-				XMPattern pattern=xm.getPatterns().get((int)patternOrderTable[currentPattern]);
+				int nextPatternNum=(int)patternOrderTable[currentPattern];
+				if(nextPatternNum>=xm.getPatterns().size()){
+					//yes, this can totally happen
+					continue;
+				}
+				XMPattern pattern=xm.getPatterns().get(nextPatternNum);
 				PatternData[][] unpacked=pattern.unpack(xm.getHeader().getNumChannels());
 				int numRows=pattern.getNumRows();
 				/*
@@ -398,7 +403,7 @@ public abstract class XmToEsfConverter{
 										volslidepos[currentChannel]=currentVolume[currentChannel];
 									}
 									//fine slide detection 
-									if(((xmEffectParameter/16)==0xF)&&((xmEffectParameter%6)>0)){ //FxxY - fine volume slide up
+									if(((xmEffectParameter/16)==0xF)&&((xmEffectParameter%16)>0)){ //FxxY - fine volume slide up
 										fineslide[currentChannel]=1; 
 									}else if(((xmEffectParameter%16)==0xF)&&((xmEffectParameter/16)>0)){ //XFxx - fine volume slide down
 										fineslide[currentChannel]=1;
@@ -495,13 +500,13 @@ public abstract class XmToEsfConverter{
 								slideStep[currentChannel]=conversion;
 								currentFrequency[currentChannel]=XmToEsfUtil.writeNote(esfOut,XmToEsfConst.ESF_CHANNELS[currentChannel],XmToEsfConst.channelType[currentChannel],slideStep[currentChannel],map.noiseType);
 								break;
-							}
-						}
+							}//switch(effectData[currentChannel])
+						}//for channel
 						esfOut.write(ESFEvent.DELAY_TICKS_LONG.getValue());
 						esfOut.write((byte)0x01);//1 delay tick (1/60th of a second)
-					}
-				}//end of main conversion loop
-			}
+					}//for tick
+				}//for row
+			}//for pattern
 
 			//end of Song/looping
 			if(!map.loop){
