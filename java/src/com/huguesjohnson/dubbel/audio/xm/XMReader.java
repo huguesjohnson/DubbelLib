@@ -162,32 +162,44 @@ public abstract class XMReader{
 		for(int instrumentNumber=0;instrumentNumber<numInstruments;instrumentNumber++){
 			XMInstrument instrument=new XMInstrument();
 			/*
-			 * Instrument -> header size
+			 * Instrument -> size
 			 */
 			start=end;
 	        end=start+XMConstants.FieldLengths.INSTRUMENT_HEADER_SIZE;
 	        instrument.setHeaderSize(Arrays.copyOfRange(b,start,end));
+	        int size=instrument.getHeaderSize();//set size converts byte to int
+	        int instrumentEnd=start+size;
 			/*
 			 * Instrument -> name
 			 */
 	        start=end;
 	        end=start+XMConstants.FieldLengths.INSTRUMENT_NAME;
-	        instrument.setName(Arrays.copyOfRange(b,start,end));
+	        if(end<instrumentEnd){
+		        instrument.setName(Arrays.copyOfRange(b,start,end));
+	        }
 			/*
 			 * Instrument -> type
 			 */
 	        start=end;
 	        end=start+XMConstants.FieldLengths.INSTRUMENT_TYPE;
-	        instrument.setType(b[start]);
+	        if(end<instrumentEnd){
+		        instrument.setType(b[start]);
+	        }
 			/*
 			 * Instrument -> number of samples
 			 */
 	        start=end;
 	        end=start+XMConstants.FieldLengths.INSTRUMENT_NUM_SAMPLES;
-	        instrument.setNumSamples(Arrays.copyOfRange(b,start,end));
+	        if(end<instrumentEnd){
+	        	instrument.setNumSamples(Arrays.copyOfRange(b,start,end));
+	        }
 			instruments.add(instrument);
 			int numSamples=instrument.getNumSamples();
-			if(numSamples>0){
+			if(numSamples<1){
+				if(instrument.getHeaderSize()==XMConstants.InstrumentHeaderSize.MINIMUM_STRIPPED){
+					end+=(XMConstants.InstrumentHeaderSize.MINIMUM_STRIPPED-XMConstants.InstrumentHeaderSize.MINIMUM);
+				}
+			}else{
 				XMInstrumentHeader instrumentHeader=new XMInstrumentHeader();
 				/*
 				 * Instrument -> header -> header size
@@ -370,7 +382,7 @@ public abstract class XMReader{
 					sampleData.add(new XMSampleData(Arrays.copyOfRange(b,start,end)));
 				}
 				instrument.setSampleData(sampleData);
-			}//if(numSamples>0)
+			}//if(numSamples<1)
 		}//for instrument loop
 		xm.setInstruments(instruments);
 		return(xm);

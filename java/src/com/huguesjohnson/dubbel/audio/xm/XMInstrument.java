@@ -17,9 +17,9 @@ import com.huguesjohnson.dubbel.util.NumberFormatters;
 
 public class XMInstrument{
 	/*
-	 * Header size
+	 * Instrument header size
 	 */
-	private int headerSize;
+	private int headerSize=0;
 	public void setHeaderSize(byte[] b){this.headerSize=NumberFormatters.byteArrayToInt(b,Endianness.LITTLE_ENDIAN);}
 	public int getHeaderSize(){return(this.headerSize);}
 	/*
@@ -31,13 +31,13 @@ public class XMInstrument{
 	/*
 	 * Instrument type
 	 */
-	private byte type;
+	private byte type=0;
 	public void setType(byte b){this.type=b;}
 	public byte getType(){return(this.type);}
 	/*
 	 * Number of samples
 	 */
-	private int numSamples;
+	private int numSamples=0;
 	public void setNumSamples(byte[] b){this.numSamples=NumberFormatters.byteArrayToInt(b,Endianness.LITTLE_ENDIAN);}
 	public int getNumSamples(){return(this.numSamples);}
 	/*
