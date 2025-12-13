@@ -27,7 +27,7 @@ echo 'moving compiled classes..'
 mv ./java/src/com/huguesjohnson/dubbel/file/*.class ./build/java/bin/com/huguesjohnson/dubbel/file/
 mv ./java/src/com/huguesjohnson/dubbel/util/*.class ./build/java/bin/com/huguesjohnson/dubbel/util/
 mv ./java/src/com/huguesjohnson/dubbel/retailclerk/build/objects/*.class ./build/java/bin/com/huguesjohnson/dubbel/retailclerk/build/objects/
-mv ./java/src/com/huguesjohnson/dubbel/retailclerk/build/objects/*.class ./build/java/bin/com/huguesjohnson/dubbel/retailclerk/build/objects/echo/
+mv ./java/src/com/huguesjohnson/dubbel/retailclerk/build/objects/echo/*.class ./build/java/bin/com/huguesjohnson/dubbel/retailclerk/build/objects/echo/
 mv ./java/src/com/huguesjohnson/dubbel/retailclerk/build/parameters/*.class ./build/java/bin/com/huguesjohnson/dubbel/retailclerk/build/parameters/
 mv ./java/src/com/huguesjohnson/dubbel/retailclerk/build/xmToEsf/*.class ./build/java/bin/com/huguesjohnson/dubbel/retailclerk/build/xmToEsf/
 mv ./java/src/com/huguesjohnson/dubbel/retailclerk/build/*.class ./build/java/bin/com/huguesjohnson/dubbel/retailclerk/build/
