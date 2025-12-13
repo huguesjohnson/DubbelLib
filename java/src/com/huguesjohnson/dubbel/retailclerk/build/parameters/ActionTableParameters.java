@@ -2,13 +2,9 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.parameters;
 
-import java.io.Serializable;
-
 import com.huguesjohnson.dubbel.retailclerk.build.objects.ActionTableEntry;
 
-public class ActionTableParameters implements Serializable{
-	private static final long serialVersionUID=-666L;
-	
+public class ActionTableParameters{
 	public int dayCount;
 	public int sceneCount;
 	public ActionTableEntry[] entries;

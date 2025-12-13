@@ -2,13 +2,9 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.parameters;
 
-import java.io.Serializable;
-
 import com.huguesjohnson.dubbel.retailclerk.build.objects.Sprite;
 
-public class SpriteParameters implements Serializable{
-	private static final long serialVersionUID=19890604L;
-
+public class SpriteParameters{
 	public Sprite[] sprites;
 	public String palette;
 	public String includeFilePath;

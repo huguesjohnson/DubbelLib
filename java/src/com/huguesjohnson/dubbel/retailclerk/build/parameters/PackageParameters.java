@@ -2,11 +2,7 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.parameters;
 
-import java.io.Serializable;
-
-public class PackageParameters implements Serializable{
-	private static final long serialVersionUID=220200L;
-
+public class PackageParameters{
 	public String[] includeFilePaths;
 	public String packagePath;
 }

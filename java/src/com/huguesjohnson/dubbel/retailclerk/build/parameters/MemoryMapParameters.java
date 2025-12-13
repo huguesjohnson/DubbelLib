@@ -2,11 +2,7 @@
 
 package com.huguesjohnson.dubbel.retailclerk.build.parameters;
 
-import java.io.Serializable;
-
-public class MemoryMapParameters implements Serializable{
-	private static final long serialVersionUID=22122L;
-
+public class MemoryMapParameters{
 	public String[] sourceFiles;
 	public String destinationFile;
 	public String baseAddress;
