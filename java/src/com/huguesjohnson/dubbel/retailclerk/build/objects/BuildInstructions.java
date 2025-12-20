@@ -16,6 +16,7 @@ import com.huguesjohnson.dubbel.retailclerk.build.parameters.SimpleSourceDestina
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.SpriteParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.TextParameters;
 import com.huguesjohnson.dubbel.retailclerk.build.parameters.TilesetParameters;
+import com.huguesjohnson.dubbel.retailclerk.build.parameters.XmToEsfParameters;
 
 
 public class BuildInstructions{
@@ -89,6 +90,11 @@ public class BuildInstructions{
 	*********************************************************** */
 	public ActionTableParameters actionTable;
 	
+	/* ***********************************************************
+	* Music conversions
+	*********************************************************** */
+	public XmToEsfParameters xmToEsf;
+
 	/* ***********************************************************
 	* Header
 	*********************************************************** */

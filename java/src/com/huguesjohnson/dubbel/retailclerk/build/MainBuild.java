@@ -203,6 +203,15 @@ public class MainBuild{
 			}
 			
 			/* ***********************************************************
+			* Audio conversion
+			*********************************************************** */
+			if(instructions.xmToEsf!=null){
+				BuildXmToEsf.build(basePath,instructions.xmToEsf);
+			}else{
+				System.out.println("xmToEsf not defined, skipping task.");
+			}
+
+			/* ***********************************************************
 			* Generate header
 			*********************************************************** */
 			if(instructions.header!=null){
