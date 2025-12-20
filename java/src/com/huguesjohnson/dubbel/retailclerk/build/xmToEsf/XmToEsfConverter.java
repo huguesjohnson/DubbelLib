@@ -45,7 +45,7 @@ public abstract class XmToEsfConverter{
 			int[] channelPresent=new int[EchoConst.MAX_CHANNELS];
 			int[] pitchAdjust=new int[EchoConst.MAX_CHANNELS];
 			double[] quotient=new double[EchoConst.MAX_CHANNELS];
-			int[] currentInstrument=new int[EchoConst.MAX_CHANNELS];
+			int[] channelCurrentInstrument=new int[EchoConst.MAX_CHANNELS];
 			int[] currentNote=new int[EchoConst.MAX_CHANNELS];
 			int[] currentVolume=new int[EchoConst.MAX_CHANNELS];
 			long[] currentFrequency=new long[EchoConst.MAX_CHANNELS-1];
@@ -70,7 +70,7 @@ public abstract class XmToEsfConverter{
 			//Initialize arrays from BASIC, which often clear them implicitly
 			Arrays.fill(pitchAdjust,0);
 			Arrays.fill(quotient,0.0);
-			Arrays.fill(currentInstrument,0);
+			Arrays.fill(channelCurrentInstrument,0);
 			Arrays.fill(currentNote,0);
 			Arrays.fill(currentVolume,0);
 			Arrays.fill(currentFrequency,0L);
@@ -87,7 +87,7 @@ public abstract class XmToEsfConverter{
 			Arrays.fill(vibratoSpeed,0);
 			Arrays.fill(vibratoDepth,0);
 			Arrays.fill(fineslide,(byte)0);
-			Arrays.fill(loopInstrument,0);
+			Arrays.fill(loopInstrument,-1);
 			Arrays.fill(lastfx,0);
 			Arrays.fill(lastfd,0);
 
@@ -174,11 +174,12 @@ public abstract class XmToEsfConverter{
 					if((currentPattern==map.loopPattern)&&(currentRow==map.loopRow)){
 						if(map.loop){
 							esfOut.write(ESFEvent.SET_LOOP.getValue()); 
-							//TODO - this doesn't work and I can't figure out why it was needed in the first place
-//							//store instruments for looping
-//							for(int i=0;i<EchoConst.MAX_CHANNELS;i++){
-//								loopInstrument[i]=currentInstrument[i];
-//							}
+							//store instruments for looping
+							for(int i=0;i<EchoConst.MAX_CHANNELS;i++){
+								if(channelPresent[i]>=0){
+									loopInstrument[i]=channelCurrentInstrument[i];
+								}
+							}
 						}
 					}
 					/*
@@ -207,7 +208,12 @@ public abstract class XmToEsfConverter{
 							}
 							//set speed fx
 							if(xmEffectType==EffectType.SET_TEMPO.getValue()){
-								map.tempo=xmEffectParameter;
+								//I don't know that this is technically right
+								if((xmEffectParameter<=10)&&(xmEffectParameter>0)){
+									map.tempo=xmEffectParameter;
+								}else{
+									map.tempo=XMESFMap.DEFAULT_TEMPO;
+								}
 							}
 							//reset slide attributes when no related effect(1xx, 2xx, 3xx, 4xx) is in use
 							if(xmEffectType>EffectType.VIBRATO.getValue()||xmEffectType==EffectType.ARPEGGIO.getValue()){
@@ -329,10 +335,10 @@ public abstract class XmToEsfConverter{
 							if((xmNote>0)&&(xmNote<XMConstants.NOTE_OFF)){
 								if(XmToEsfConst.channelType[currentChannel]!=ChannelType.PCM){//not PCM channel
 									if(xmEffectType!=EffectType.TONE_PORTAMENTO.getValue()){//if not tone portamento
-										if((currentInstrument[currentChannel]!=xmInstrument)&&(xmInstrument!=0)){
-											currentInstrument[currentChannel]=xmInstrument;
+										if((channelCurrentInstrument[currentChannel]!=xmInstrument)&&(xmInstrument!=0)){
+											channelCurrentInstrument[currentChannel]=xmInstrument;
 											esfOut.write((byte)(ESFEvent.SET_INSTRUMENT_FM1.getValue()+XmToEsfConst.ESF_CHANNELS[currentChannel]));
-											byte instrument=(byte)map.instrumentMap.get(currentInstrument[currentChannel]).intValue();
+											byte instrument=(byte)map.instrumentMap.get(channelCurrentInstrument[currentChannel]).intValue();
 											esfOut.write(instrument);
 										}
 										if((xmEffectType!=EffectType.TONE_PORTAMENTO.getValue())&&(xmEffectType!=EffectType.SET_VOLUME.getValue())&&(xmVolume!= 1)){//if not tone portamento, set volume, or volume column
@@ -374,18 +380,18 @@ public abstract class XmToEsfConverter{
 										}
 									}
 								}else if(XmToEsfConst.channelType[currentChannel]==ChannelType.PCM){
-									currentInstrument[currentChannel]=xmInstrument;
+									channelCurrentInstrument[currentChannel]=xmInstrument;
 									esfOut.write(ESFEvent.NOTE_PCM.getValue());
-									byte instrument=(byte)map.instrumentMap.get(currentInstrument[currentChannel]).intValue();
+									byte instrument=(byte)map.instrumentMap.get(channelCurrentInstrument[currentChannel]).intValue();
 									esfOut.write(instrument);
 								}
 							}
 							//simulate XM behavior (PSG retriggers)
 							if(((map.psgRetriggerVolumeEnvelope.equals(PSGRetriggerVolumeEnvelope.INSTRUMENT_COLUMN))&&(xmEffectType>0)&&(xmEffectType<5))||(map.psgRetriggerVolumeEnvelope.equals(PSGRetriggerVolumeEnvelope.ALWAYS))){
 								if((xmInstrument>0)&&(XmToEsfConst.channelType[currentChannel]==ChannelType.PSG)){
-									currentInstrument[currentChannel]=xmInstrument;
+									channelCurrentInstrument[currentChannel]=xmInstrument;
 									esfOut.write((byte)(ESFEvent.SET_INSTRUMENT_FM1.getValue()+XmToEsfConst.ESF_CHANNELS[currentChannel])); 
-									byte instrument=(byte)map.instrumentMap.get(currentInstrument[currentChannel]).intValue();
+									byte instrument=(byte)map.instrumentMap.get(channelCurrentInstrument[currentChannel]).intValue();
 									esfOut.write(instrument);
 									esfOut.write((byte)(ESFEvent.NOTE_OFF_FM1.getValue()+XmToEsfConst.ESF_CHANNELS[currentChannel]));
 									esfOut.write((byte)XmToEsfConst.ESF_CHANNELS[currentChannel]); 
@@ -437,7 +443,7 @@ public abstract class XmToEsfConverter{
 					//process current effects in-between rows (per tick)
 					for(int tick=1;tick<=map.tempo;tick++){//1 is the lowest tick value (if I understand correctly) 
 						for(int currentChannel=0;currentChannel<EchoConst.MAX_CHANNELS;currentChannel++){//loop over channels
-							switch(effectData[currentChannel]){ 
+							switch(effectData[currentChannel]){
 							//TODO constants for all these - oh, but it's a switch statement so EffectType.getValue() is no good here, I really don't like the way this code was converted
 							case 0x00: //arpeggio
 								if(effectValue[currentChannel]!=0){ 
@@ -511,14 +517,18 @@ public abstract class XmToEsfConverter{
 			//end of Song/looping
 			if(!map.loop){
 				esfOut.write(ESFEvent.STOP.getValue());//end of song, no loop)
-			}else if((map.loopPattern>=0)&&(map.loopRow>=0)){//if loop is enabled and restart point is defined
+			}else if((map.loop)&&(map.loopPattern>=0)&&(map.loopRow>=0)){//if loop is enabled and restart point is defined
 				//restore instruments on looping
-				for(int i=0;i<=5;i++){//loop through FM channels
-					if((loopInstrument[i]!=currentInstrument[i])){
-						//TODO - this doesn't work and I can't figure out why it was needed in the first place
-						//esfOut.write((byte)(ESFEvent.SET_INSTRUMENT_FM1.getValue()+XmToEsfConst.ESF_CHANNELS[i])); //instrument change
-						//byte instrument=(byte)map.instrumentMap.get(loopInstrument[i]).intValue();
-						//esfOut.write(instrument);
+				for(int channelIndex=0;channelIndex<=5;channelIndex++){//loop through FM channels
+					if((loopInstrument[channelIndex]!=channelCurrentInstrument[channelIndex])&&(loopInstrument[channelIndex]>=0)){
+						if(channelPresent[channelIndex]>=0){
+							Integer mappedInstrument=map.instrumentMap.get(loopInstrument[channelIndex]);
+							if(mappedInstrument!=null){
+								byte instrument=(byte)mappedInstrument.intValue();
+								esfOut.write((byte)(ESFEvent.SET_INSTRUMENT_FM1.getValue()+XmToEsfConst.ESF_CHANNELS[channelIndex])); //instrument change
+								esfOut.write(instrument);
+							}
+						}
 					}
 				}
 				esfOut.write(ESFEvent.GOTO_LOOP.getValue());
