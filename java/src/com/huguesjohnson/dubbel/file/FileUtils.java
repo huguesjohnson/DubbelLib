@@ -283,7 +283,7 @@ public abstract class FileUtils{
 			//is there room for this file?
 			File source=new File(filePath);
 			long sourceSize=source.length();
-			long usableSpace=destinationRoot.getUsableSpace();//yes, need to check this each time in case on concurrent operations
+			long usableSpace=destinationRoot.getUsableSpace();//yes, need to check this each time in case of concurrent operations
 			if(sourceSize<usableSpace){
 				try{
 					String fileName;
@@ -297,6 +297,11 @@ public abstract class FileUtils{
 					copyMap.put(filePath,destination.getPath());
 					maxBytesKillswitch-=sourceSize;
 				}catch(IOException iox){
+					/*
+					 * I checked the Java source code for this one...
+					 * This error, from what I can tell, is platform independent and not localized.
+					 * So this is 'safe' to check for. 
+					 */
 					if(iox.getMessage().toLowerCase().contains("no space left on device")){
 						filesRemaining=-1;
 					}
