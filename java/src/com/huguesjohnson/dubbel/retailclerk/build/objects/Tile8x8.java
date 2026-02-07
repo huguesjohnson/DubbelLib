@@ -3,7 +3,7 @@
 package com.huguesjohnson.dubbel.retailclerk.build.objects;
 
 public class Tile8x8{
-	private final static String newLine=System.lineSeparator();
+	public final static String newLine=System.lineSeparator();
 
 	public int[][] pixels;
 	
