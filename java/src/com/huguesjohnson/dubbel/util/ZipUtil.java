@@ -9,6 +9,8 @@ import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import com.huguesjohnson.dubbel.file.FileUtils;
+
 public abstract class ZipUtil{
 	private final static int BUFFER_LENGTH=1024;
 
@@ -17,7 +19,9 @@ public abstract class ZipUtil{
 		ZipOutputStream zout=null;
 		FileInputStream fin=null;
 		try{
-			zout=new ZipOutputStream(new FileOutputStream(new File(basePath+archiveFileName)));
+			String fullArchivePath=basePath+archiveFileName;
+			FileUtils.mkdirs(fullArchivePath);
+			zout=new ZipOutputStream(new FileOutputStream(new File(fullArchivePath)));
 			zout.setMethod(ZipOutputStream.DEFLATED);
 			for(int i=0;i<includeFilePaths.length;i++){
 				String sourceFileName=basePath+includeFilePaths[i];

@@ -12,11 +12,11 @@ import java.util.HashMap;
 import com.google.gson.Gson;
 import com.huguesjohnson.dubbel.file.FileUtils;
 import com.huguesjohnson.dubbel.file.PathResolver;
-import com.huguesjohnson.dubbel.util.DateUtil;
-import com.huguesjohnson.dubbel.util.ZipUtil;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.BuildInstructions;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.PaletteMap;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.Tileset;
+import com.huguesjohnson.dubbel.util.DateUtil;
+import com.huguesjohnson.dubbel.util.ZipUtil;
 
 public class MainBuild{
 
@@ -226,8 +226,28 @@ public class MainBuild{
 			if(instructions.assembly!=null){
 				StringBuilder errSB=new StringBuilder();
 				for(int i=0;i<instructions.assembly.length;i++){
-					ProcessBuilder pb=new ProcessBuilder(new String[]{"sh","-c",instructions.assembly[i].arguments});
-					pb.directory(new File(basePath+instructions.assembly[i].assemblerPath));
+					//relative paths to absolute paths
+					String sourceDirPathAbs=PathResolver.getAbsolutePath(basePath,instructions.assembly[i].sourceDir);
+					String outputFilePathAbs=PathResolver.getAbsolutePath(sourceDirPathAbs,instructions.assembly[i].outputFilePath);
+					FileUtils.mkdirs(outputFilePathAbs);//ensure this exists
+					//start building the command
+					StringBuilder cmd=new StringBuilder();
+					cmd.append(instructions.assembly[i].assemblerExe);
+					for(String option:instructions.assembly[i].assemblerOptions){
+						cmd.append(" ");
+						cmd.append(option);
+					}
+					cmd.append(" ");
+					cmd.append(instructions.assembly[i].outputFilePath);
+					for(String option:instructions.assembly[i].moduleOptions){
+						cmd.append(" ");
+						cmd.append(option);
+					}
+					cmd.append(" ");
+					cmd.append(instructions.assembly[i].sourceFilePath);
+					//now run the process
+					ProcessBuilder pb=new ProcessBuilder(new String[]{"sh","-c",cmd.toString()});
+					pb.directory(new File(sourceDirPathAbs));
 					Process p=pb.start();
 					p.waitFor();
 					BufferedReader sErr=new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -255,6 +275,9 @@ public class MainBuild{
 				System.out.println("package not defined, skipping task.");
 			}
 			
+			/* ***********************************************************
+			* Done
+			*********************************************************** */
 			System.out.println("Build finished, have a nice day or whatever.");
 		}catch(Exception x){
 			System.err.println("\nFatal build error: "+x.getMessage()+"\n");

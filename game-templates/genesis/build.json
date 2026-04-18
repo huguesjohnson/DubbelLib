@@ -637,16 +637,34 @@
 	},
 	"assembly":[
 		{
-			"assemblerPath":"src/",
-			"arguments":"vasmm68k_mot -o ../build/GenesisProjectTemplate.bin -Fbin -spaces -D_DEBUG_\u003d0 -D_ATGAMES_HACKS_\u003d0 GenesisProjectTemplate.X68"
+			"sourceDir":"src/",
+			"assemblerExe":"vasmm68k_mot",
+			"assemblerOptions":[
+				"-o"
+			],
+			"moduleOptions":[
+				"-Fbin",
+				"-spaces",
+				"-D_DEBUG_\u003d0",
+				"-D_ATGAMES_HACKS_\u003d0"
+			],
+			"sourceFilePath":"GenesisProjectTemplate.X68",
+			"outputFilePath":"../build/GenesisProjectTemplate.bin"
 		},
 		{
-			"assemblerPath":"src/",
-			"arguments":"vasmm68k_mot -o ../build/GenesisProjectTemplate_DEBUG.bin -Fbin -spaces -D_DEBUG_\u003d1 -D_ATGAMES_HACKS_\u003d1 GenesisProjectTemplate.X68"
-		},
-		{
-			"assemblerPath":"src/",
-			"arguments":"vasmm68k_mot -o ../build/GenesisProjectTemplate_ATGAMES.bin -Fbin -spaces -D_DEBUG_\u003d0 -D_ATGAMES_HACKS_\u003d1 GenesisProjectTemplate.X68"
+			"sourceDir":"src/",
+			"assemblerExe":"vasmm68k_mot",
+			"assemblerOptions":[
+				"-o"
+			],
+			"moduleOptions":[
+				"-Fbin",
+				"-spaces",
+				"-D_DEBUG_\u003d1",
+				"-D_ATGAMES_HACKS_\u003d0"
+			],
+			"sourceFilePath":"GenesisProjectTemplate.X68",
+			"outputFilePath":"../build/GenesisProjectTemplate_DEBUG.bin"
 		}
 	],
 	"packageParameters":[
@@ -667,15 +685,6 @@
 				"README.md"
 			],
 			"packagePath":"/build/GenesisProjectTemplate_DEBUG.zip"
-		},
-		{
-			"includeFilePaths":[
-				"/build/GenesisProjectTemplate_ATGAMES.bin",
-				"CREDITS",
-				"LICENSE",
-				"README.md"
-			],
-			"packagePath":"/build/GenesisProjectTemplate_ATGAMES.zip"
 		}
 	]
 }
