@@ -1,0 +1,27 @@
+{
+ "xmFilePath":"falling_raindrops.xm",
+ "esfOutputPath":"../../src/music/falling_raindrops.esf",
+ "label":"BGM_End",
+ "description":"Ending music",
+ "type":"BGM",
+ "psgRetriggerVolumeEnvelope":"NEVER",
+ "loop":true,
+ "loopPattern":0,
+ "loopRow":0,
+ "xmSync":-1,
+ "ignoreNoteOffPSG":false,
+ "tempo":6,
+ "noiseType":"NONE",
+ "fmChannelMap":[3,4,5,6,7,-1],
+ "fmVolume":[48,48,48,48,48,48],
+ "fmPitch":[0,0,0,0,0,0],
+ "psgChannelMap":[-1,-1,-1,-1],
+ "psgVolume":[-1,-1,-1,-1],
+ "psgPitch":[-1,-1,-1,-1],
+ "pcmChannel":0,
+ "instrumentMap":{
+ 	"1":3,
+ 	"2":2,
+ 	"4":9
+ 	}
+ }

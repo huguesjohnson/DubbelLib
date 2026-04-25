@@ -1,0 +1,30 @@
+{
+ "xmFilePath":"ant512_-_something_sinister.xm",
+ "esfOutputPath":"../../src/music/something_sinister.esf",
+ "label":"BGM_Main",
+ "description":"Music for the main four rooms",
+ "type":"BGM",
+ "psgRetriggerVolumeEnvelope":"NEVER",
+ "loop":true,
+ "loopPattern":0,
+ "loopRow":0,
+ "xmSync":-1,
+ "ignoreNoteOffPSG":false,
+ "tempo":5,
+ "noiseType":"NONE",
+ "fmChannelMap":[0,2,3,5,6,-1],
+ "fmVolume":[32,48,48,48,48,48],
+ "fmPitch":[0,0,0,0,0,0],
+ "psgChannelMap":[-1,-1,-1,-1],
+ "psgVolume":[-1,-1,-1,-1],
+ "psgPitch":[-1,-1,-1,-1],
+ "pcmChannel":4,
+ "instrumentMap":{
+ 	"1":1,
+ 	"2":5,
+ 	"3":12,
+ 	"4":3,
+ 	"5":2,
+ 	"6":10
+ 	}
+ }

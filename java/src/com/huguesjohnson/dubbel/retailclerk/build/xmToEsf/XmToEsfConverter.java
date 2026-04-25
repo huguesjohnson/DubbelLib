@@ -30,6 +30,7 @@ import com.huguesjohnson.dubbel.audio.xm.XMConstants;
 import com.huguesjohnson.dubbel.audio.xm.XMFile;
 import com.huguesjohnson.dubbel.audio.xm.XMPattern;
 import com.huguesjohnson.dubbel.audio.xm.XMReader;
+import com.huguesjohnson.dubbel.file.FileUtils;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.echo.ESFEvent;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.echo.EchoConst;
 import com.huguesjohnson.dubbel.retailclerk.build.objects.echo.EchoNoise;
@@ -96,6 +97,7 @@ public abstract class XmToEsfConverter{
 
 			//create out file
 			String outputEsfPath=map.esfOutputPath;
+			FileUtils.mkdirs(outputEsfPath);
 			esfOut=new DataOutputStream(new FileOutputStream(outputEsfPath));
 
 			//0-5 => fm channels

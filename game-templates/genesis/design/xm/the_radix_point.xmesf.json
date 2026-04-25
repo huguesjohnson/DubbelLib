@@ -1,0 +1,28 @@
+{
+ "xmFilePath":"Drozerix_the_radix_point.xm",
+ "esfOutputPath":"../../src/music/the_radix_point.esf",
+ "label":"BGM_Intro",
+ "description":"Intro screen music",
+ "type":"BGM",
+ "psgRetriggerVolumeEnvelope":"NEVER",
+ "loop":false,
+ "loopPattern":0,
+ "loopRow":0,
+ "xmSync":-1,
+ "ignoreNoteOffPSG":false,
+ "tempo":7,
+ "noiseType":"NONE",
+ "fmChannelMap":[0,1,3,-1,-1,-1],
+ "fmVolume":[48,48,48,48,48,48],
+ "fmPitch":[0,0,0,0,0,0],
+ "psgChannelMap":[-1,-1,-1,-1],
+ "psgVolume":[-1,-1,-1,-1],
+ "psgPitch":[-1,-1,-1,-1],
+ "pcmChannel":-1,
+ "instrumentMap":{
+ 	"1":10,
+ 	"2":9,
+ 	"3":3,
+ 	"4":2
+ 	}
+ }

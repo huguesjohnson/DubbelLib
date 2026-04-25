@@ -192,14 +192,7 @@ TrapException:
 ;*******************************************************************************
 ; background music
 ;*******************************************************************************
-BGM_Title:
-	incbin	'music/track0.esf'
-BGM_Intro:
-	incbin	'music/track1.esf'
-BGM_Main:
-	incbin	'music/track2.esf'
-BGM_End:
-	incbin	'music/track3.esf'
+	include 'inc_Audio.X68'
 
 	align 2
 

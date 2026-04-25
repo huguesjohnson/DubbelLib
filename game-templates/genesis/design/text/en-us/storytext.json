@@ -16,7 +16,7 @@
             "text":"And this is an example of distorted text.",
             "align":2},
       "ScriptedEventExampleLine3":{
-            "dialogTitle":"OBJ_NPC_NPC03",
+            "dialogTitle":"OBJ_NPC_NPC02",
             "text":"Also your sprite will change when you exit and I will be gone.",
             "align":2},
       "DialogText2ChoiceExample":{
@@ -34,7 +34,7 @@
             "align":2},
       "DialogText4ChoiceExample":{
             "dialogTitle":"OBJ_NPC_NPC03",
-            "text":"Choose something:|{ Item 00  { Item 01|{ Item 02  { Item 03",
+            "text":"Please take one of these:|{ Item 00  { Item 01|{ Item 02  { Item 03",
             "formFeed":"FFR",
             "align":2},
       "DialogText4ChoiceResponse0":{

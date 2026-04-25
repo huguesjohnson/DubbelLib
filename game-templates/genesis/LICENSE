@@ -6,6 +6,15 @@ The license summary for this project is:
 * CC BY-SA 4.0 for original characters, story, art, & other non-code things
 * 3rd party assets (code, graphics, music) are under their respective licenses
 
+The intent behind this is:
+* The game code is under a permissive license & can be reused with no drama
+  * For example - using any portion of this code to build a different game
+* Graphics based on licensed tilesets can not be reused without buying a license
+* Anything reusing the scenario (characters, settings, story) is CC BY-SA 4.0
+  * For example - creating a sequel or spin-off
+  * Another example - porting this demo as-is to a different system
+  * I understand it's extremely unlikely anyone would ever want to do these
+
 ********************************************************************************
 License for original source code
 ********************************************************************************
@@ -14,7 +23,7 @@ The MIT License:
 
  The MIT License (MIT)
 
-Copyright (c) 2015-2022 Hugues Johnson
+Copyright (c) 2015-2026 Hugues Johnson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of 
 this software and associated documentation files (the "Software"), to deal in 
@@ -68,6 +77,43 @@ freely, subject to the following restrictions:
 Dialog & menu font is based off Deathwake font by Zee-3
  http://www.zee-3.com/pickfordbros/archive/bitmapfonts.php
  "Feel free to use any of these fonts for whatever purpose you see fit."
+
+Tilesets used:
+* Modern exteriors: https://limezu.itch.io/modernexteriors
+* Modern interiors: https://limezu.itch.io/moderninteriors
+* Modern office: https://limezu.itch.io/modernoffice
+* Modern UI: https://limezu.itch.io/modernuserinterface
+If you want to use any of these in a project please purchase a license. 
+These are all inexpensive sets so just do it.
+
+********************************************************************************
+3rd party music
+********************************************************************************
+ant512_-_something_sinister.xm
+ Artist: https://modarchive.org/index.php?request=view_profile&query=92561
+ Source: https://modarchive.org/index.php?request=view_by_moduleid&query=186833
+ License: https://creativecommons.org/licenses/by/4.0/
+
+falling_raindrops.xm
+ Artist: https://modarchive.org/index.php?request=view_profile&query=81691
+ Source: https://modarchive.org/index.php?request=view_by_moduleid&query=176502
+ License: https://creativecommons.org/publicdomain/
+ 
+Drozerix_chip_overture.xm 
+ Artist: https://modarchive.org/index.php?request=view_profile&query=84702
+ Source: https://modarchive.org/index.php?request=view_by_moduleid&query=172185
+ License: https://creativecommons.org/publicdomain/
+
+Drozerix_the_radix_point.xm 
+ Artist: https://modarchive.org/index.php?request=view_profile&query=84702
+ Source: https://modarchive.org/index.php?request=view_by_moduleid&query=173934
+ License: https://creativecommons.org/publicdomain/
+
+All are modified from their original format, changes include:
+* Reducing number of tracks
+* Instrument remapping
+* Pitch and tempo 
+The original files all sound much better than the conversions.
 
 ********************************************************************************
 Physical Redistribution

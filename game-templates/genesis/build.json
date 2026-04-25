@@ -623,6 +623,15 @@
 		],
 	"filePath":"src/actionscript/table_Actions.X68"
 	},	
+	"xmToEsf":{
+		"mapPaths":[
+			"/design/xm/chip_overture.xmesf.json",
+			"/design/xm/the_radix_point.xmesf.json",
+			"/design/xm/something_sinister.xmesf.json",
+			"/design/xm/falling_raindrops.xmesf.json"
+		],
+		"includeFilePath":"src/inc_Audio.X68"
+	},
 	"header":{
 		"filePath":"src/init_Header.X68",
 		"copyright":"\u0027(C)HUJO \u0027",

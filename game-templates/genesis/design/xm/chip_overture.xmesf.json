@@ -1,0 +1,33 @@
+{
+ "xmFilePath":"Drozerix_chip_overture.xm",
+ "esfOutputPath":"../../src/music/chip_overture.esf",
+ "label":"BGM_Title",
+ "description":"Title screen music",
+ "type":"BGM",
+ "psgRetriggerVolumeEnvelope":"NEVER",
+ "loop":false,
+ "loopPattern":0,
+ "loopRow":0,
+ "xmSync":-1,
+ "ignoreNoteOffPSG":false,
+ "tempo":7,
+ "noiseType":"NONE",
+ "fmChannelMap":[0,1,2,3,8,6],
+ "fmVolume":[48,48,48,48,48,48],
+ "fmPitch":[0,0,0,0,0,0],
+ "psgChannelMap":[-1,-1,-1,-1],
+ "psgVolume":[-1,-1,-1,-1],
+ "psgPitch":[-1,-1,-1,-1],
+ "pcmChannel":-1,
+ "instrumentMap":{
+ 	"1":9,
+ 	"2":5,
+ 	"3":1,
+ 	"4":20,
+ 	"5":18,
+ 	"6":9,
+ 	"9":18,
+ 	"11":16,
+ 	"12":9
+ 	}
+ }
