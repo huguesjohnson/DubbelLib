@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import com.huguesjohnson.dubbel.file.FileUtils;
 import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.file.filter.HtmlFileFilter;
+import com.huguesjohnson.dubbel.util.StringUtil;
 
 public class WebPublisher{
 	public static WebPublisherResults runWebPublisher(Settings settings) throws Exception{
@@ -32,11 +33,9 @@ public class WebPublisher{
 				rb.setReplacementText(staticTemplater.process(replacementText));
 			}
 			//set directory locations
-			File stagingDirectory=new File(settings.stagingDirectory);
+			File stagingDirectory=new File(settings.stagingDirectoryAbs);
 			File publishDirectory=new File(settings.publishDirectoryAbs);
 			int beginIndex=publishDirectory.getAbsolutePath().length();
-			//check if publish directory exists
-			if(!stagingDirectory.exists()){FileUtils.mkdirs(stagingDirectory);}
 			//do these first so any changes are included in the link map
 			if(settings.rebuildPagesFromOpml){BuildPagesFromOPML.writePages(settings);}
 			if(settings.rebuildPagesFromCsv){BuildPagesFromCSV.writePages(settings);};
@@ -57,6 +56,7 @@ public class WebPublisher{
 				}
 				writer=new FileWriter(stagingFile);
 				String line;
+				StringBuilder textExtract=new StringBuilder();
 				boolean inReplacementBlock=false;
 				String nextEndTag="";
 				SimpleDynamicTemplater dynamicTemplater=new SimpleDynamicTemplater();
@@ -67,7 +67,7 @@ public class WebPublisher{
 							writer.write(settings.newLine);
 							inReplacementBlock=false;
 						}//else skip the line
-					}else{
+					}else{//writing a regular line
 						/* The static and/or dynamic templates could be run against each line here.
 						 * Right now I don't need that.
 						 * However, this would allow the entire HTML document to support templates.
@@ -102,8 +102,18 @@ public class WebPublisher{
 						//now write the line
 						writer.write(line);
 						writer.write(settings.newLine);
+						//extract the text if that's a thing that's supposed to happen
+						if(settings.extractText){
+							/*
+							 * doing these in individual lines for debugging and because I don't care about performance
+							 */
+							//handle tables
+							textExtract.append(StringUtil.stripHtmlTags(line));
+							textExtract.append(settings.newLine);
+						}
+						//check if the line that was just written is the start of a replacement block
 						ReplacementBlock rb=settings.replacements.findByStartTag(line);
-						if(rb!=null){
+						if(rb!=null){//using null checks for application logic FTW
 							inReplacementBlock=true;
 							writer.write(dynamicTemplater.process(rb.getReplacementText(),file.getPath(),settings));
 							nextEndTag=rb.getEndTag();
@@ -117,6 +127,21 @@ public class WebPublisher{
 					File publishFile=new File(publishPath);
 					//copy files from staging to publish directory
 					Files.copy(stagingFile.toPath(),publishFile.toPath(),StandardCopyOption.REPLACE_EXISTING);
+
+				}
+				if(settings.extractText){
+					String relPath=PathResolver.getRelativePath(settings.publishDirectoryAbs,file.getAbsolutePath());
+					relPath=relPath.replace(PathResolver.SEPARATOR,"_");
+					relPath=relPath.replace(".","_");
+					while(relPath.startsWith("_")){
+						relPath=relPath.substring(1);
+					}
+					String extractTextDirectoryAbs=settings.extractTextDirectoryAbs;
+					if(!extractTextDirectoryAbs.endsWith(PathResolver.SEPARATOR)){
+						extractTextDirectoryAbs=extractTextDirectoryAbs+PathResolver.SEPARATOR;
+					}
+					String txtFilePath=PathResolver.getAbsolutePath(extractTextDirectoryAbs,relPath);
+					FileUtils.writeStringToFile(txtFilePath,textExtract.toString());
 				}
 			}//end for (list of files)
 			//pages to rebuild after everything else has processed

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -157,6 +158,23 @@ public abstract class FileUtils{
         br.close();
         return(lines);
 	}
+	
+	
+	//write a single string to a file and close it, creating the path if needed
+
+	public static void writeStringToFile(String filePath,String s) throws IOException{
+		writeStringToFile(new File(filePath),s);
+	}
+
+	public static void writeStringToFile(File f,String s) throws IOException{
+		mkdirs(f);
+		FileWriter fw=new FileWriter(f);
+		try{
+			fw.write(s);
+		}finally{
+			try{fw.flush();fw.close();}catch(Exception x){}
+		}
+	}
 
 	//readLines but sorting the results
 	public static ArrayList<String> readLines(URL url,Comparator<String> sortComparator) throws IOException{
@@ -176,7 +194,7 @@ public abstract class FileUtils{
 	}
 	
 	//these next two are more like "mkdirs if needed"
-	public static void mkdirs(File f) throws Exception{
+	public static void mkdirs(File f){
 		if(!f.exists()){
 			if(f.isDirectory()){
 				f.mkdirs();
@@ -189,7 +207,7 @@ public abstract class FileUtils{
 		}
 	}	
 	
-	public static void mkdirs(String path) throws Exception{
+	public static void mkdirs(String path){
 		File f=new File(path);
 		mkdirs(f);
 	}
