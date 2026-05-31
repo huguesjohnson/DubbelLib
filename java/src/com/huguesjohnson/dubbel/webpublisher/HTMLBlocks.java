@@ -63,6 +63,26 @@ public class HTMLBlocks{
 	private String siteMapXmlStart=DEFAULT_SITEMAP_XML_START;
 	public void setSitemapXmlStart(String siteMapXmlStart){this.siteMapXmlStart=siteMapXmlStart;}
 	public String getSitemapXmlStart(){return(this.siteMapXmlStart);}
+
+	public final static String DEFAULT_TOPICS_START_TAG="<!-- start topics grid -->";
+	private String topicsStartTag=DEFAULT_TOPICS_START_TAG;
+	public void setTopicsStartTag(String topicsStartTag){this.topicsStartTag=topicsStartTag;}
+	public String getTopicsStartTag(){return(this.topicsStartTag);}
+
+	public final static String DEFAULT_TOPICS_END_TAG="<!-- end topics grid -->";
+	private String topicsEndTag=DEFAULT_TOPICS_END_TAG;
+	public void setTopicsEndTag(String topicsEndTag){this.topicsEndTag=topicsEndTag;}
+	public String getTopicsEndTag(){return(this.topicsEndTag);}
+
+	public final static String DEFAULT_TOPICLINK_START_TAG="<span class=\"badge\">";
+	private String topicLinkStartTag=DEFAULT_TOPICLINK_START_TAG;
+	public void setTopicLinkStartTag(String topicStartLinkTag){this.topicLinkStartTag=topicStartLinkTag;}
+	public String getTopicLinkStartTag(){return(this.topicLinkStartTag);}
+
+	public final static String DEFAULT_TOPICLINK_END_TAG="</a></span>";
+	private String topicLinkEndTag=DEFAULT_TOPICLINK_END_TAG;
+	public void setTopicLinkEndTag(String topicEndLinkTag){this.topicLinkEndTag=topicEndLinkTag;}
+	public String getTopicLinkEndTag(){return(this.topicLinkEndTag);}
 	
 	public HTMLBlocks(){}
 }

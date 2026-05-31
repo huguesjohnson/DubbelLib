@@ -31,6 +31,7 @@ public class Settings{
 	public String siteMapPathRel;//publish location for sitemap, relative to publishDirectoryAbs
 	public String auditReportPathAbs;//absolute path to where the audit report will be written
 	public String externalLinksPagePathRel;//publish location for the external links page, relative to publishDirectoryAbs
+	public String topicsDirectoryRel;//location where topics directory is located
 	public Map<String,String> opmlPages;//source file -> destination file, relative to publish directory
 	public Map<String,String> csvPages;//source file -> destination file, relative to publish directory
 	
@@ -46,10 +47,11 @@ public class Settings{
 	public Map<String,String> staticTemplates;
 	public ReplacementBlockList replacements;
 	public HTMLBlocks htmlBlocks;
-	/* 
+
+	/* #######################################
 	 * Line separator character to use.
 	 * I can't think of why this would be substituted.
 	 * Leaving the option open though.
-	 */	
+	 ######################################## */
 	public String newLine=System.lineSeparator();
 }

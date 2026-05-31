@@ -1,6 +1,6 @@
 /* https://github.com/huguesjohnson/DubbelLib/blob/main/LICENSE */
 
-package com.huguesjohnson.dubbel.webpublisher;
+package com.huguesjohnson.dubbel.webpublisher.pagebuilders;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,8 +14,9 @@ import java.util.Map;
 import com.huguesjohnson.dubbel.file.FileUtils;
 import com.huguesjohnson.dubbel.file.PathResolver;
 import com.huguesjohnson.dubbel.util.DateUtil;
+import com.huguesjohnson.dubbel.webpublisher.Settings;
 
-public class BuildExternalLinksPage{
+public abstract class ExternalLinksPage{
 	public static void writePage(Settings settings,Map<String,ArrayList<String>> linkMap) throws Exception{
 		if(!settings.buildExternalLinksPage){return;}//in case I do something silly
 		if(settings.externalLinksPagePathRel==null){return;}
@@ -81,7 +82,7 @@ public class BuildExternalLinksPage{
 					pageWriter.write("(null)");
 				}else{
 					for(String page:linkedPages){
-						pageWriter.write("<p><a href=\"."+page+"\">"+page+"</a></p>");
+						pageWriter.write("<p><a href=\""+page+"\">"+page.replaceAll(baseSiteLower,"")+"</a></p>");
 					}
 				}
 				pageWriter.write(tdEnd);//close 2nd column
