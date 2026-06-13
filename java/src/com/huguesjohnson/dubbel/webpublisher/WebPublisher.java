@@ -165,7 +165,10 @@ public class WebPublisher{
 								line=reader.readLine();
 							}//exiting while -> line should be BreadcrumbEndTag which should fall into the next line
 						}
-						//now write the line
+						/*
+						 * now write the line
+						 * note: any other temporary text substitutions could go here
+						 */
 						writer.write(line);
 						writer.write(settings.newLine);
 						//extract the text if that's a thing that's supposed to happen

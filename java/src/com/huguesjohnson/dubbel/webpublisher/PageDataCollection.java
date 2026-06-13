@@ -4,8 +4,10 @@ package com.huguesjohnson.dubbel.webpublisher;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
+
+import com.huguesjohnson.dubbel.util.StringComparator;
 
 public class PageDataCollection extends ArrayList<PageData>{
 	private static final long serialVersionUID=666138964L;
@@ -22,7 +24,7 @@ public class PageDataCollection extends ArrayList<PageData>{
 	}
 	
 	public Map<String,ArrayList<PageData>> getTopicMap(){
-		Map<String,ArrayList<PageData>> topicMap=new HashMap<String,ArrayList<PageData>>();
+		Map<String,ArrayList<PageData>> topicMap=new TreeMap<String,ArrayList<PageData>>(new StringComparator());
 		for(PageData pd:this){
 			for(String topic:pd.getTopics()){
 				if(topicMap.containsKey(topic)){
