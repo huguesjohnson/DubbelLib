@@ -22,7 +22,7 @@ import com.huguesjohnson.dubbel.webpublisher.pagebuilders.TopicsPages;
 
 public class WebPublisher{
 	private Settings settings;
-	SimpleStaticTemplater staticTemplater;
+	private SimpleStaticTemplater staticTemplater;
 	
 	public WebPublisher(Settings settings) throws Exception{
 		this.settings=settings;
@@ -133,7 +133,7 @@ public class WebPublisher{
 							currentPage.setSitemapInclude(false);
 						}
 						//fourth check is for topics
-						if(line.contains(settings.htmlBlocks.getTopicLinkStartTag())){
+						if((line.contains(settings.htmlBlocks.getTopicLinkStartTag()))&&(currentPage.getSitemapInclude())){
 							int startIndex=line.indexOf(settings.htmlBlocks.getTopicLinkStartTag())+settings.htmlBlocks.getTopicLinkStartTag().length();
 							int endIndex=line.substring(startIndex).indexOf(settings.htmlBlocks.getTopicLinkEndTag());
 							if(endIndex>-1){endIndex+=startIndex;}

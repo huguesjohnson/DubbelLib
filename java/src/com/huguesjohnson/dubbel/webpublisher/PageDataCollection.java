@@ -39,4 +39,16 @@ public class PageDataCollection extends ArrayList<PageData>{
 		return(topicMap);
 	}
 	
+	public ArrayList<PageData> getSitemapPagesWithNoTopics(){
+		ArrayList<PageData> pages=new ArrayList<PageData>();
+		for(PageData pd:this){
+			if(pd.getSitemapInclude()){
+				if(pd.getTopics().size()<1){
+					pages.add(pd);
+				}
+			}
+		}
+		return(pages);
+	}
+	
 }
