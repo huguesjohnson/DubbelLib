@@ -213,6 +213,7 @@ public class WebPublisher{
 				}
 				allPages.add(currentPage);
 			}//end for (list of files)
+			results.pageData=allPages;
 			/*
 			 * pages to rebuild after everything else has processed
 			 */

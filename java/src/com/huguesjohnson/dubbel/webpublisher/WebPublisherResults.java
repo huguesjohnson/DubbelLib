@@ -9,4 +9,6 @@ import java.util.TreeMap;
 public class WebPublisherResults{
 	//map links to the pages they appear one
 	public TreeMap<String,ArrayList<String>> linkMap=new TreeMap<String,ArrayList<String>>();
+	//data about the pages that were processed
+	public PageDataCollection pageData=new PageDataCollection();
 }
