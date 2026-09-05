@@ -2,6 +2,7 @@
 
 package com.huguesjohnson.dubbel.webpublisher;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 //effectively a struct
@@ -48,6 +49,11 @@ public class Settings{
 	public ReplacementBlockList replacements;
 	public HTMLBlocks htmlBlocks;
 
+	/* #######################################
+	 * Things to exclude
+	 ######################################## */
+	public ArrayList<String> excludeOpmlTitles;//things to exclude based on title
+	
 	/* #######################################
 	 * Line separator character to use.
 	 * I can't think of why this would be substituted.

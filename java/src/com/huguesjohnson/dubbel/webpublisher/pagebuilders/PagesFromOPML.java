@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.huguesjohnson.dubbel.file.FileUtils;
@@ -24,6 +25,7 @@ public class PagesFromOPML{
 		if(!settings.rebuildPagesFromOpml){return;}//in case I do something silly
 		if(settings.opmlPages==null){return;}
 		if(settings.opmlPages.size()<1){return;}
+		if(settings.excludeOpmlTitles==null){settings.excludeOpmlTitles=new ArrayList<String>();}//make this empty instead of null
 		for(String opmlPath:settings.opmlPages.keySet()){
 			String pagePath=settings.opmlPages.get(opmlPath);
 			opmlPath=PathResolver.getAbsolutePath(settings.publishDirectoryAbs,opmlPath);
@@ -65,59 +67,65 @@ public class PagesFromOPML{
 		pageWriter.write(settings.newLine);
 		List<OPMLOutline> categories=opml.getBody();
 		for(OPMLOutline category:categories){
-			//start list
-			pageWriter.write(ulStart);
-			pageWriter.write(liHeaderStart);
-			pageWriter.write(category.getTitle());
-			pageWriter.write(liHeaderEnd);
-			//go through the child nodes
-			List<OPMLOutline> children=category.getChildren();
-			for(OPMLOutline child:children){
-				pageWriter.write(liStart);
-				String xmlUrl=child.getXmlUrl();
-				if(xmlUrl!=null){
-					xmlUrl=xmlUrl.replace("&","&amp;");
-				}
-				String htmlUrl=child.getHtmlUrl();
-				if(htmlUrl!=null){
-					htmlUrl=htmlUrl.replace("&","&amp;");
-				}
-				if(settings.upgradeRSSLinksToHTTPS){
-					if(xmlUrl!=null){xmlUrl=xmlUrl.replace("http:","https:");}
-					if(htmlUrl!=null){htmlUrl=htmlUrl.replace("http:","https:");}
-				}
-				//write page title
-				String title=child.getTitle();
-				if((title==null)||(title.length()<1)){
-					title=child.getText();
-				}
-				if((title==null)||(title.length()<1)){
-					title=htmlUrl;
-				}
-				pageWriter.write(title);
-				//write html link
-				if(htmlUrl!=null){
-					pageWriter.write("<br>&nbsp;&nbsp;");
-					pageWriter.write(hrefStart);
-					pageWriter.write(htmlUrl);
-					pageWriter.write("\">");
-					pageWriter.write(getShortUrl(htmlUrl,settings.upgradeRSSLinksToHTTPS));
-					pageWriter.write(hrefEnd);
-				}
-				//write rss link
-				if(xmlUrl!=null){
-					pageWriter.write("<br>&nbsp;&nbsp;");
-					pageWriter.write(hrefStart);
-					pageWriter.write(xmlUrl);
-					pageWriter.write("\">");
-					pageWriter.write(getShortUrl(xmlUrl,settings.upgradeRSSLinksToHTTPS));
-					pageWriter.write(hrefEnd);
-				}
-				pageWriter.write(liEnd);				
+			String categoryTitle=category.getTitle();
+			if(!settings.excludeOpmlTitles.contains(categoryTitle)){//check whether to skip
+				//start list
+				pageWriter.write(ulStart);
+				pageWriter.write(liHeaderStart);
+				pageWriter.write(categoryTitle);
+				pageWriter.write(liHeaderEnd);
+				//go through the child nodes
+				List<OPMLOutline> children=category.getChildren();
+				for(OPMLOutline child:children){
+					String title=child.getTitle();
+					if(!settings.excludeOpmlTitles.contains(title)){//check whether to skip
+						
+						pageWriter.write(liStart);
+						String xmlUrl=child.getXmlUrl();
+						if(xmlUrl!=null){
+							xmlUrl=xmlUrl.replace("&","&amp;");
+						}
+						String htmlUrl=child.getHtmlUrl();
+						if(htmlUrl!=null){
+							htmlUrl=htmlUrl.replace("&","&amp;");
+						}
+						if(settings.upgradeRSSLinksToHTTPS){
+							if(xmlUrl!=null){xmlUrl=xmlUrl.replace("http:","https:");}
+							if(htmlUrl!=null){htmlUrl=htmlUrl.replace("http:","https:");}
+						}
+						//write page title
+						if((title==null)||(title.length()<1)){
+							title=child.getText();
+						}
+						if((title==null)||(title.length()<1)){
+							title=htmlUrl;
+						}
+						pageWriter.write(title);
+						//write html link
+						if(htmlUrl!=null){
+							pageWriter.write("<br>&nbsp;&nbsp;");
+							pageWriter.write(hrefStart);
+							pageWriter.write(htmlUrl);
+							pageWriter.write("\">");
+							pageWriter.write(getShortUrl(htmlUrl,settings.upgradeRSSLinksToHTTPS));
+							pageWriter.write(hrefEnd);
+						}
+						//write rss link
+						if(xmlUrl!=null){
+							pageWriter.write("<br>&nbsp;&nbsp;");
+							pageWriter.write(hrefStart);
+							pageWriter.write(xmlUrl);
+							pageWriter.write("\">");
+							pageWriter.write(getShortUrl(xmlUrl,settings.upgradeRSSLinksToHTTPS));
+							pageWriter.write(hrefEnd);
+						}
+						pageWriter.write(liEnd);
+					}	
+				}//for(OPMLOutline child:children)
+				//end list
+				pageWriter.write(ulEnd);
 			}
-			//end list
-			pageWriter.write(ulEnd);
-		}
+		}//for(OPMLOutline child:children)
 		//finish the page
 		while(!line.contains(settings.htmlBlocks.getRssLinksEndTag())){
 			line=pageReader.readLine();
