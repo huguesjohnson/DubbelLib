@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
@@ -34,7 +35,9 @@ public abstract class BinToWav{
 	//this expects two arguments
 	//cuePath = path to a .cue file
 	//outputPath = path (directory) to write wav files
-	public static void binToWav(String cuePath,String outputPath){
+	//returns ArrayList with list of files that were created
+	public static ArrayList<String> binToWav(String cuePath,String outputPath) throws Exception{
+		ArrayList<String> filesCreated=new ArrayList<String>();
 		BufferedReader cueReader=null;
 		AudioInputStream audioIn=null;
 		try{
@@ -75,12 +78,12 @@ public abstract class BinToWav{
 						}
 						String outPath=outputDir+fileName+".wav";
 						AudioSystem.write(audioIn,AudioFileFormat.Type.WAVE,new File(outPath));
+						filesCreated.add(outPath);//add after complete in case of error
 						audioIn.close();
 					}
 				}
 			}
-		}catch(Exception x){
-			x.printStackTrace();
+			return(filesCreated);
 		}finally{
 			//don't care about errors closing open files
 			if(cueReader!=null){try{cueReader.close();}catch(Exception x){}};

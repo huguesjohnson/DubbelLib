@@ -65,6 +65,12 @@ public abstract class FileUtils{
 		return(files);
 	}
 	
+	public static boolean compareFiles(String originalFilePath,String compareFilePath){
+		File originalFile=new File(originalFilePath);
+		File compareFile=new File(compareFilePath);
+		return(compareFiles(originalFile,compareFile));
+	}
+	
     public static boolean compareFiles(File originalFile,File compareFile){
         /* compare file lengths first */
         long fileLength=originalFile.length();

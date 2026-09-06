@@ -65,7 +65,7 @@ public abstract class ArrayUtil{
     
     /*
      * xors all the bytes in two arrays of the same size.
-     * Throws exception if the arrarys are not the same size.
+     * Throws exception if the arrays are not the same size.
      */
     public static byte[] xorBytes(byte[] a,byte[] b) throws Exception{
     	int l=a.length;
