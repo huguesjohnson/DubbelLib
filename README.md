@@ -26,21 +26,24 @@ This also includes small single-use applications that aren't significant enough 
 * /game-templates
     * genesis: Example project that uses all the features of the retailclerk 68k library and build tools. It is also how I test for breaking changes.
 * /java
-    * audio: A couple simple classes to play audio (only midi files are playable).
-	* audio.xm: Classes to read XM (FastTracker 2) files - the eventual goal is to add functionality to convert XM files to other formats.
+    * audio: A simple midi player.
+	* audio/xm: Classes to read XM (FastTracker 2) files - build to support converting XM files to a format usable in Sega Genesis demos.
     * aws: Data structures and some helper classes for projects that integrate with AWS.
-    * converters: Various utilities to convert one file type to another.
+    * converters: Utilities to convert one file type to another.
 	* example: Reference implementations of data structures and algorithms, the kind of stuff that shows up in development interviews that we all forgot after graduating college.
 	* file: Things to make some file and path resolution tasks easier.
-	* file.filter: File filters used for open/save dialogs or listing files by type.
+	* file/filter: File filters used for open/save dialogs or listing files by type.
 	* fx: JavaFX helper classes.
+	* ips: Code to read/write IPS (International Patching System) files and apply patches.
+	* opml: Parse OPML (Outline Processor Markup Language) files.
 	* retailclerk: Tools to build games in the Retail Clerk series or other games using the same engine.
-	* util: General utility classes that don't fit anywhere else.
+	* swing: Swing helper classes.
+	* ui: A small Swing UI to run many of the things in this library.
+	* util: General utility classes, which is what I most like to work on.
 	* webpublisher: Things to manage the aforementioned little insignificant web site.
 
 There are three build scripts:
-* build-java-lib.sh: Builds a non-executable .jar with the library Java classes
-	* converters, example, file, file.filter, util
+* build-java-lib.sh: Builds a .jar with the library Java classes, running the .jar launches the default UI.
 * build-java-lib+fx.sh: Same as previous, but with JavaFX helper classes.
 * build-rctools.sh: Build an executable .jar for the Retail Clerk build tools and dependencies.
 

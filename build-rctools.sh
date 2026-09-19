@@ -41,4 +41,6 @@ mv ./java/src/com/huguesjohnson/dubbel/retailclerk/build/*.class ./build/java/bi
 
 echo 'building jar..'
 now=$(date +"%Y%m%d")
+rm ./java/MANIFEST.MF
+cp ./java/MANIFEST-RC-TOOLS.MF ./java/MANIFEST.MF
 jar cfm ./build/java/RCBuildTools"-$now".jar ./java/MANIFEST.MF  -C ./build/java/bin/ .

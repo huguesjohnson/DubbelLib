@@ -1,5 +1,5 @@
 ################################################################################
-# build java library (non-executable) with JavaFX components
+# build java library with JavaFX components
 ################################################################################
 
 echo 'building regular java code..'
