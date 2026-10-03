@@ -43,6 +43,7 @@ import javax.swing.event.DocumentListener;
 
 import com.huguesjohnson.dubbel.audio.MidiPlayer;
 import com.huguesjohnson.dubbel.converters.BinToWav;
+import com.huguesjohnson.dubbel.converters.MarkdownToHTML;
 import com.huguesjohnson.dubbel.file.FileUtils;
 import com.huguesjohnson.dubbel.file.filter.ImageFileFilter;
 import com.huguesjohnson.dubbel.file.filter.Mp3FileFilter;
@@ -98,9 +99,15 @@ public class DubbelUtilUI extends JFrame{
 	private JTextField txtByteStart2;
 	private JTextField txtByteLength;
 	private JButton btnByteCompare;
+	//controls for MarkdownToHTML tab
+	private JTextField txtMdPath;
+	private JButton btnMdConvert;
+	private JTextArea txtMdOutput;
+	private JButton btnMdCopy;
+	private JButton btnMdClear;	
 	
 	public DubbelUtilUI(){
-		super("Dubbel Utilities 2026-09-19");
+		super("Dubbel Utilities 2026-10-03");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800,600);
 		setLocationRelativeTo(null);
@@ -111,13 +118,14 @@ public class DubbelUtilUI extends JFrame{
 		//setup tabs
 		tabbedPane=new JTabbedPane();
 		//TODO - icons?
-		tabbedPane.addTab("MIDI player",this.getMidiPlayerPanel());
-		tabbedPane.addTab("BinToWav",this.getBinToWavPanel());
-		tabbedPane.addTab("Compare files",this.getCompareFilesPanel());
-		tabbedPane.addTab("UUID rename",this.getUUIDRenamePanel());
-		tabbedPane.addTab("IPS patcher",this.getIPSPatcherPanel());
 		tabbedPane.addTab("ASCII string finder",this.getASCIIStringFinderPanel());
+		tabbedPane.addTab("BinToWav",this.getBinToWavPanel());
 		tabbedPane.addTab("Byte comparer",this.getByteComparerPanel());
+		tabbedPane.addTab("Compare files",this.getCompareFilesPanel());
+		tabbedPane.addTab("IPS patcher",this.getIPSPatcherPanel());
+		tabbedPane.addTab("MarkdownToHTML",this.getMarkdownToHTMLPanel());
+		tabbedPane.addTab("MIDI player",this.getMidiPlayerPanel());
+		tabbedPane.addTab("UUID rename",this.getUUIDRenamePanel());
 		//setup logging area
 		logTextArea=new JTextArea(5,50);
 		logTextArea.setEditable(false);
@@ -167,6 +175,111 @@ public class DubbelUtilUI extends JFrame{
 		popupMenu.add(menuItemCopy);
 		popupMenu.add(menuItemSaveAs);
 		logTextArea.setComponentPopupMenu(popupMenu);
+	}
+	
+	/*
+	 * MarkdownToHTML stuff
+	 */
+
+	private JPanel getMarkdownToHTMLPanel(){
+		JPanel mainPanel=new JPanel(new GridBagLayout());
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		GridBagConstraints gbc=new GridBagConstraints();
+		gbc.insets=new Insets(4,4,4,4);
+		//row 1 - file import and convert button
+		JLabel lblMdPath=new JLabel("Markdown path:");
+		txtMdPath=new JTextField(255);
+		JButton btnBrowseMd=new JButton("Browse");
+		btnBrowseMd.addActionListener(e->{
+			JFileChooser chooser=new JFileChooser(currentDir);
+			if(chooser.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+				currentDir=chooser.getCurrentDirectory().getPath();
+				txtMdPath.setText(chooser.getSelectedFile().getAbsolutePath());
+			}
+		});
+		btnMdConvert=new JButton("Convert");
+		btnMdConvert.setEnabled(false);
+		btnMdConvert.addActionListener(e->runMarkdownToHTML());
+		//sub-panel for file path and browse button
+		JPanel pathPanel=new JPanel(new BorderLayout(4,0));
+		pathPanel.add(txtMdPath,BorderLayout.CENTER);
+		pathPanel.add(btnBrowseMd,BorderLayout.EAST);
+		//sub-panel for top row to align convert button on right side
+		JPanel row1Panel=new JPanel(new BorderLayout(8,0));
+		row1Panel.add(lblMdPath,BorderLayout.WEST);
+		row1Panel.add(pathPanel,BorderLayout.CENTER);
+		row1Panel.add(btnMdConvert,BorderLayout.EAST);
+		gbc.gridx=0;
+		gbc.gridy=0;
+		gbc.weightx=1.0;
+		gbc.weighty=0.0;
+		gbc.fill=GridBagConstraints.HORIZONTAL;
+		mainPanel.add(row1Panel,gbc);
+		//row 2 - output text area (fills available space)
+		txtMdOutput=new JTextArea();
+		JScrollPane scrollOutput=new JScrollPane(txtMdOutput);
+		gbc.gridx=0;
+		gbc.gridy=1;
+		gbc.weightx=1.0;
+		gbc.weighty=1.0;
+		gbc.fill=GridBagConstraints.BOTH;
+		mainPanel.add(scrollOutput,gbc);
+		//row 3 - action buttons
+		btnMdCopy=new JButton("Copy to clipboard");
+		btnMdCopy.addActionListener(e->{
+			String text=txtMdOutput.getText();
+			if(!text.isEmpty()){
+				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(text),null);
+			}
+		});
+		btnMdClear=new JButton("Clear");
+		btnMdClear.addActionListener(e->txtMdOutput.setText(""));
+		JPanel btnPanel=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+		btnPanel.add(btnMdCopy);
+		btnPanel.add(Box.createRigidArea(new Dimension(8,0)));
+		btnPanel.add(btnMdClear);
+		gbc.gridx=0;
+		gbc.gridy=2;
+		gbc.weightx=0.0;
+		gbc.weighty=0.0;
+		gbc.fill=GridBagConstraints.NONE;
+		gbc.anchor=GridBagConstraints.WEST;
+		mainPanel.add(btnPanel,gbc);
+		//toggle convert button based on path presence
+		txtMdPath.getDocument().addDocumentListener(new DocumentListener(){
+			public void insertUpdate(DocumentEvent e){checkMarkdownInput();}
+			public void removeUpdate(DocumentEvent e){checkMarkdownInput();}
+			public void changedUpdate(DocumentEvent e){checkMarkdownInput();}
+		});
+		return(mainPanel);
+	}
+
+	private void checkMarkdownInput(){
+		btnMdConvert.setEnabled(!txtMdPath.getText().trim().isEmpty());
+	}
+
+	private void runMarkdownToHTML(){
+		String path=txtMdPath.getText().trim();
+		btnMdConvert.setEnabled(false);
+		SwingWorker<String,Void> worker=new SwingWorker<String,Void>(){
+			@Override
+			protected String doInBackground() throws Exception{
+				appendLog("Converting Markdown to HTML from: "+path);
+				return MarkdownToHTML.convertFromPath(path);
+			}
+			@Override
+			protected void done(){
+				btnMdConvert.setEnabled(true);
+				try{
+					String htmlResult=get();
+					txtMdOutput.setText(htmlResult);
+					appendLog("MarkdownToHTML conversion successful.");
+				}catch(Exception x){
+					showErrorDialog(x);
+				}
+			}
+		};
+		worker.execute();
 	}	
 	
 	/*
