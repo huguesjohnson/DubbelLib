@@ -104,10 +104,16 @@ public class DubbelUtilUI extends JFrame{
 	private JButton btnMdConvert;
 	private JTextArea txtMdOutput;
 	private JButton btnMdCopy;
-	private JButton btnMdClear;	
+	private JButton btnMdClear;
+	//controls for Shuffle copy tab
+	private JTextField txtShuffleSourceListPath;
+	private JTextField txtShuffleDestPath;
+	private JTextField txtShuffleMaxBytes;
+	private JCheckBox chkShuffleUuidRename;
+	private JButton btnShuffleRun;
 	
 	public DubbelUtilUI(){
-		super("Dubbel Utilities 2026-10-03");
+		super("Dubbel Utilities 2026-10-17");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800,600);
 		setLocationRelativeTo(null);
@@ -125,6 +131,7 @@ public class DubbelUtilUI extends JFrame{
 		tabbedPane.addTab("IPS patcher",this.getIPSPatcherPanel());
 		tabbedPane.addTab("MarkdownToHTML",this.getMarkdownToHTMLPanel());
 		tabbedPane.addTab("MIDI player",this.getMidiPlayerPanel());
+		tabbedPane.addTab("Shuffle copy",this.getShuffleCopyPanel());		
 		tabbedPane.addTab("UUID rename",this.getUUIDRenamePanel());
 		//setup logging area
 		logTextArea=new JTextArea(5,50);
@@ -175,6 +182,158 @@ public class DubbelUtilUI extends JFrame{
 		popupMenu.add(menuItemCopy);
 		popupMenu.add(menuItemSaveAs);
 		logTextArea.setComponentPopupMenu(popupMenu);
+	}
+	
+	/*
+	 * ShuffleCopy stuff
+	 */
+
+	private JPanel getShuffleCopyPanel(){
+		JPanel mainPanel=new JPanel(new GridBagLayout());
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		GridBagConstraints gbc=new GridBagConstraints();
+		gbc.insets=new Insets(4,4,4,4);
+		//row 1 - source file list
+		JLabel lblSourceList=new JLabel("Source file list:");
+		txtShuffleSourceListPath=new JTextField(255);
+		JButton btnBrowseSourceList=new JButton("Browse");
+		btnBrowseSourceList.addActionListener(e->{
+			JFileChooser chooser=new JFileChooser(currentDir);
+			if(chooser.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+				currentDir=chooser.getCurrentDirectory().getPath();
+				txtShuffleSourceListPath.setText(chooser.getSelectedFile().getAbsolutePath());
+			}
+		});
+		gbc.gridx=0;
+		gbc.gridy=0;
+		gbc.weightx=0.0;
+		gbc.fill=GridBagConstraints.HORIZONTAL;
+		mainPanel.add(lblSourceList,gbc);
+		gbc.gridx=1;
+		gbc.weightx=1.0;
+		mainPanel.add(txtShuffleSourceListPath,gbc);
+		gbc.gridx=2;
+		gbc.weightx=0.0;
+		mainPanel.add(btnBrowseSourceList,gbc);
+		//row 2 - destination directory
+		JLabel lblDest=new JLabel("Destination:");
+		txtShuffleDestPath=new JTextField(255);
+		JButton btnBrowseDest=new JButton("Browse");
+		btnBrowseDest.addActionListener(e->{
+			JFileChooser chooser=new JFileChooser(currentDir);
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			if(chooser.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+				currentDir=chooser.getCurrentDirectory().getPath();
+				txtShuffleDestPath.setText(chooser.getSelectedFile().getAbsolutePath());
+			}
+		});
+		gbc.gridx=0;
+		gbc.gridy=1;
+		gbc.weightx=0.0;
+		mainPanel.add(lblDest,gbc);
+		gbc.gridx=1;
+		gbc.weightx=1.0;
+		mainPanel.add(txtShuffleDestPath,gbc);
+		gbc.gridx=2;
+		gbc.weightx=0.0;
+		mainPanel.add(btnBrowseDest,gbc);
+		//row 3 - max bytes killswitch
+		JLabel lblMaxBytes=new JLabel("Max bytes:");
+		txtShuffleMaxBytes=new JTextField(String.valueOf(32 * 1024 * 1024),10);
+		gbc.gridx=0;
+		gbc.gridy=2;
+		gbc.weightx=0.0;
+		mainPanel.add(lblMaxBytes,gbc);
+		gbc.gridx=1;
+		gbc.gridwidth=2;
+		gbc.weightx=1.0;
+		mainPanel.add(txtShuffleMaxBytes,gbc);
+		//row 4 - UUID rename checkbox
+		chkShuffleUuidRename=new JCheckBox("UUID rename",false);
+		gbc.gridx=0;
+		gbc.gridy=3;
+		gbc.gridwidth=3;
+		gbc.weightx=0.0;
+		mainPanel.add(chkShuffleUuidRename,gbc);
+		//row 5 - Run button
+		btnShuffleRun=new JButton("Run shuffle copy");
+		btnShuffleRun.setEnabled(false);
+		btnShuffleRun.addActionListener(e->runShuffleCopy());
+		gbc.gridx=0;
+		gbc.gridy=4;
+		gbc.gridwidth=3;
+		gbc.fill=GridBagConstraints.NONE;
+		gbc.anchor=GridBagConstraints.WEST;
+		mainPanel.add(btnShuffleRun,gbc);
+		//input validation listener
+		DocumentListener inputListener=new DocumentListener(){
+			public void insertUpdate(DocumentEvent e){checkShuffleCopyInputs();}
+			public void removeUpdate(DocumentEvent e){checkShuffleCopyInputs();}
+			public void changedUpdate(DocumentEvent e){checkShuffleCopyInputs();}
+		};
+		txtShuffleSourceListPath.getDocument().addDocumentListener(inputListener);
+		txtShuffleDestPath.getDocument().addDocumentListener(inputListener);
+		txtShuffleMaxBytes.getDocument().addDocumentListener(inputListener);
+		checkShuffleCopyInputs();
+		//wrap in container panel
+		JPanel containerPanel=new JPanel(new BorderLayout());
+		containerPanel.add(mainPanel,BorderLayout.NORTH);
+		return(containerPanel);
+	}
+
+	private void checkShuffleCopyInputs(){
+		boolean sourceValid=!txtShuffleSourceListPath.getText().trim().isEmpty();
+		boolean destValid=!txtShuffleDestPath.getText().trim().isEmpty();
+		boolean maxBytesValid=isPositiveLong(txtShuffleMaxBytes.getText().trim());
+		btnShuffleRun.setEnabled(sourceValid&&destValid&&maxBytesValid);
+	}
+
+	private boolean isPositiveLong(String text){
+		if(text.isEmpty()){return(false);}
+		try{
+			long value=Long.parseLong(text);
+			return(value>0);
+		}catch(NumberFormatException e){
+			return(false);
+		}
+	}
+
+	private void runShuffleCopy(){
+		String sourceListPath=txtShuffleSourceListPath.getText().trim();
+		String destPath=txtShuffleDestPath.getText().trim();
+		long maxBytes=Long.parseLong(txtShuffleMaxBytes.getText().trim());
+		boolean uuidRename=chkShuffleUuidRename.isSelected();
+		//disable button while running
+		btnShuffleRun.setEnabled(false);
+		SwingWorker<Map<String,String>,Void> worker=new SwingWorker<Map<String,String>,Void>(){
+			@Override
+			protected Map<String,String> doInBackground() throws Exception{
+				appendLog("Starting Shuffle copy...");
+				appendLog("Source List: "+sourceListPath);
+				appendLog("Destination: "+destPath);
+				appendLog("Max Bytes: "+maxBytes);
+				appendLog("UUID Rename: "+uuidRename);
+				ArrayList<String> sourceFileList=FileUtils.readLines(sourceListPath);
+				return(FileUtils.shuffleCopy(sourceFileList,destPath,uuidRename,maxBytes));
+			}
+
+			@Override
+			protected void done(){
+				btnShuffleRun.setEnabled(true);
+				try{
+					Map<String,String> resultMap=get();
+					if(resultMap!=null){
+						for(Map.Entry<String,String> entry:resultMap.entrySet()){
+							appendLog(entry.getKey()+": "+entry.getValue());
+						}
+					}
+					appendLog("Shuffle copy completed.");
+				}catch(Exception x){
+					showErrorDialog(x);
+				}
+			}
+		};
+		worker.execute();
 	}
 	
 	/*
